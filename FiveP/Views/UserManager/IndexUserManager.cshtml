@@ -63,7 +63,7 @@
                         </div>
                         <div class="text-center">
                             <h5 class="h3">
-                                Jessica Jones<span class="font-weight-light">, 27 <i class="fas fa-marker"></i></span>
+                                Jessica Jones<span class="font-weight-light">, 27 <a href="#" data-toggle="modal" data-target="#exampleModalLg"><i class="fas fa-user-edit"></i></a> </span>
                             </h5>
                             <div class="h5 font-weight-300">
                                 <i class="ni location_pin mr-2"></i>Công nghệ Bucharest, Romania
@@ -71,17 +71,144 @@
                             <div class="h5 mt-4">
                                 <i class="ni business_briefcase-24 mr-2"></i><i class="fas fa-envelope-open-text"></i>&nbsp; cuongembaubang@gmail.com
                             </div>
+
+                            <!--Đổi tông tin-->
+                            
+                            <div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title h4" id="exampleModalLgLabel"><i class="fas fa-user-edit"></i> Đổi thông tin cá nhân</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Single date</small>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                            </div>
+                                                            <input class="flatpickr flatpickr-input form-control" type="text" placeholder="Select Date..">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3">Date range</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                                </div>
+                                                                <input class="flatpickr range form-control" type="text" placeholder="Range">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3">Date range</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                                </div>
+                                                                <input class="flatpickr range form-control" type="text" placeholder="Range">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Single date</small>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                            </div>
+                                                            <input class="flatpickr flatpickr-input form-control" type="text" placeholder="Select Date..">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3">Date range</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                                </div>
+                                                                <input class="flatpickr range form-control" type="text" placeholder="Range">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button type="button" class="btn btn-primary w-100"><i class="far fa-paper-plane"></i> Hoàn thành</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--đổi mật khẩu-->
+                            <div class="h5 font-weight-300">
+
+
+                                <i class="fas fa-lock"></i><i class="ni business_briefcase-24 mr-2"></i>&nbsp; ***********<a href="#" data-toggle="modal" data-target="#modal-form">&nbsp;&nbsp;<i class="fas fa-marker"></i></a>
+
+                                <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-0">
+                                                <div class="card bg-secondary shadow border-0 mb-0">
+                                                    <div class="card-body px-lg-5 py-lg-5">
+                                                        <form role="form">
+                                                            <div class="form-group">
+                                                                <div class="input-group input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" placeholder="Mật khẩu cũ" type="password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="input-group input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" placeholder="Mật khẩu mới" type="password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="input-group input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" placeholder="Nhập lại mật khẩu" type="password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <button type="button" class="btn btn-primary my-4"><i class="far fa-paper-plane"></i> Đổi mật khẩu</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
                             <div class="text-left">
                                 <i class="ni education_hat mr-2"></i><i class="far fa-calendar-alt"></i>&nbsp; Ngày sinh: 12/03/1234 12:00:00 AM
-                            </div>
-                            <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-child"></i>&nbsp;Tổng bạn bè: 1
-                            </div>
-                            <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-chess-king"></i>&nbsp; Độ nổi tiếng : 138
-                            </div>
-                            <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-award"></i>&nbsp; Huy hiệu : 0
                             </div>
                             <div class="text-left">
                                 <i class="ni education_hat mr-2"></i><i class="fas fa-mobile-alt"></i>&nbsp; Số điện thoại : 21

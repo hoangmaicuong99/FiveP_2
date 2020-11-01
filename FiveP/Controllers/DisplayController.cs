@@ -21,5 +21,21 @@ namespace FiveP.Controllers
         {
             return View();
         }
+        public ActionResult History()
+        {
+            return View();
+        }
+        public ActionResult Tick()
+        {
+            return View();
+        }
+        public ActionResult Notification()
+        {
+            return View();
+        }
+        public ActionResult Friend()
+        {
+            return View();
+        }
     }
 }
