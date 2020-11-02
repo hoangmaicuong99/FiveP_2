@@ -1,0 +1,75 @@
+﻿
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Working Signin form Responsive Widget Template :: W3layouts</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords"
+          content="Working Signin form Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <!-- //Meta tag Keywords -->
+
+    <link href="//fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+    <!--/Style-CSS -->
+    <link rel="stylesheet" href="~/Content/Login/css/style.css" type="text/css" media="all" />
+
+    <!--//Style-CSS -->
+</head>
+
+<body>
+
+    <style>
+        #load {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 9999;
+            background: url(/Content/LayoutCenter/img/load.gif) no-repeat center center rgba(255,255,255,255)
+        }
+    </style>
+    <script>
+        document.onreadystatechange = function () {
+            var state = document.readyState
+            if (state == 'interactive') {
+                document.getElementById('contents').style.visibility = 'hidden';
+
+            } else if (state == 'complete') {
+                setTimeout(function () {
+                    document.getElementById('interactive');
+                    document.getElementById('load').style.visibility = 'hidden';
+                    document.getElementById('contents').style.visibility = 'visible';
+                }, 1500);
+            }
+        }
+    </script>
+    <div id="load">
+
+    </div>
+    <div id="contents">
+        <!-- form section start -->
+        <section class="w3l-workinghny-form">
+            <!-- /form -->
+            @RenderBody()
+            <!-- //form -->
+            <!-- copyright-->
+            <div class="copyright text-center">
+                <div class="wrapper">
+                    <p class="copy-footer-29">
+                        © 2020 Working Sign In. All rights reserved | Design by <a href="https://w3layouts.com">W3layouts</a>
+                    </p>
+                </div>
+            </div>
+            <!-- //copyright-->
+        </section>
+        <!-- //form section start -->
+    </div>
+        
+</body>
+
+</html>

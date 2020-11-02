@@ -3,7 +3,14 @@
     ViewBag.Title = "IndexUserPage";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
 }
-
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<style>
+    .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+        background-image: url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'-4 -4 8 8\'%3e%3ccircle r=\'3\' fill=\'%23fff\'/%3e%3c/svg%3e');
+    }
+</style>
 <div class="main-content" id="panel">
     <!-- Topnav -->
     <!-- Header -->
@@ -73,7 +80,7 @@
                             </div>
 
                             <!--Đổi tông tin-->
-                            
+
                             <div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -85,65 +92,175 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="row">
+                                            <div class="row mt--4">
                                                 <div class="col-md-6">
-                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Single date</small>
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Tên</small>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                                                            </div>
+                                                            <input class="flatpickr flatpickr-input form-control" type="text" placeholder="Tên..">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Giới tính</small>
+                                                    <div class="custom-control custom-radio mb-3 float-left">
+                                                        <input name="custom-radio-1" class="custom-control-input" id="customRadio1" type="radio">
+                                                        <label class="custom-control-label" for="customRadio1">
+                                                            <span>Nam &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio mb-3 float-left">
+                                                        <input name="custom-radio-1" class="custom-control-input" id="customRadio2" checked type="radio">
+                                                        <label class="custom-control-label" for="customRadio2">
+                                                            <span>Nữ</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left"><i class="fas fa-code-branch"></i> Công nghệ</small>
+                                                    <div class="">
+                                                        <div class="form-group">
+                                                            <div class="input-group ">
+                                                                <select style="width:100%" name="PostTags" id="selectTechnology" multiple="multiple">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 border mb-3"></div>
+                                                <div class="col-md-6">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left text-left">Ngày sinh</small>
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                                             </div>
-                                                            <input class="flatpickr flatpickr-input form-control" type="text" placeholder="Select Date..">
+                                                            <input class="flatpickr flatpickr-input form-control" type="date" placeholder="Select Date..">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <small class="d-block text-uppercase font-weight-bold mb-3">Date range</small>
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Số điện thoại</small>
                                                     <div class="input-daterange">
                                                         <div class="form-group">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                                 </div>
-                                                                <input class="flatpickr range form-control" type="text" placeholder="Range">
+                                                                <input class="flatpickr range form-control" type="text" placeholder="Số điện thoại">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Tỉnh</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select style="width:100%" id="provincial">
+                                                                    <option selected="selected">Tỉnh</option>
+                                                                    <option>white</option>
+                                                                    <option>purple</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Huyện</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select style="width:100%;" id="district">
+                                                                    <option selected="selected">Huyện</option>
+                                                                    <option>white</option>
+                                                                    <option>purple</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Xã</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select style="width:100%" id="commune">
+                                                                    <option selected="selected">orange</option>
+                                                                    <option>white</option>
+                                                                    <option>purple</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Địa chỉ cụ thể</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                                                </div>
+                                                                <input class="flatpickr range form-control" type="text" placeholder="Địa chỉ..">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
+
+                                                <div class="col-md-12 border mb-3"></div>
                                                 <div class="col-md-12">
-                                                    <small class="d-block text-uppercase font-weight-bold mb-3">Date range</small>
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Facebook</small>
                                                     <div class="input-daterange">
                                                         <div class="form-group">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                                    <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                                 </div>
-                                                                <input class="flatpickr range form-control" type="text" placeholder="Range">
+                                                                <input class="flatpickr range form-control" type="text" placeholder="Facebook..">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Single date</small>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                                            </div>
-                                                            <input class="flatpickr flatpickr-input form-control" type="text" placeholder="Select Date..">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <small class="d-block text-uppercase font-weight-bold mb-3">Date range</small>
+                                                <div class="col-md-12">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Github</small>
                                                     <div class="input-daterange">
                                                         <div class="form-group">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                                    <span class="input-group-text"><i class="fab fa-github"></i></span>
                                                                 </div>
-                                                                <input class="flatpickr range form-control" type="text" placeholder="Range">
+                                                                <input class="flatpickr range form-control" type="text" placeholder="Github..">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left"><i class="fas fa-briefcase"></i> Sở thích công việc</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <textarea class="flatpickr range form-control" style="height:120px" placeholder="Sở thích công việc.."></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <small class="d-block text-uppercase font-weight-bold mb-3 text-left"><i class="fas fa-grin-hearts"></i> Sở thích cá nhân</small>
+                                                    <div class="input-daterange">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+
+                                                                <textarea class="flatpickr range form-control" style="height:120px" placeholder="Sở thích cá nhân.."></textarea>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -156,7 +273,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!--đổi mật khẩu-->
                             <div class="h5 font-weight-300">
 
@@ -414,6 +531,26 @@
         </div>
     </div>
 </div>
-
+<script>
+    $("#selectTechnology").select2({
+        placeholder: 'Chọn công nghệ (tối đa 3 công nghệ)..',
+        maximumSelectionLength: 3,
+        allowClear: true
+    });
+</script>
+<script>
+    $("#provincial").select2({
+        maximumSelectionLength: 3,
+        allowClear: true
+    });
+    $("#district").select2({
+        maximumSelectionLength: 3,
+        allowClear: true
+    });
+    $("#commune").select2({
+        maximumSelectionLength: 3,
+        allowClear: true
+    });
+</script>
 <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
 <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
