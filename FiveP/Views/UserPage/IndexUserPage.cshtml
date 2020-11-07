@@ -1,7 +1,12 @@
-﻿
+﻿@using FiveP.Models;
+@model User
 @{
+    User user = (User)Session["user"];
+
     ViewBag.Title = "IndexUserPage";
     Layout = "~/Views/Shared/_LayoutUserPage.cshtml";
+
+    FivePEntities db = new FivePEntities();
 }
 <div class="wrapper">
     <section class="section-profile-cover section-shaped my-0">
@@ -29,31 +34,40 @@
                         <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
                             <div class="card-profile-actions py-4 mt-lg-0">
                                 <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+                                <a href="#" class="btn btn-sm btn-default float-right">nhắn tin</a>
                             </div>
                         </div>
                         <div class="col-lg-4 order-lg-1">
                             <div class="card-profile-stats d-flex justify-content-center">
                                 <div>
-                                    <span class="heading">22</span>
+                                    @{
+                                        List<Friend> listFriend = db.Friends.Where(n => n.user_id == Model.user_id).ToList();
+                                        int intCoutFriend = listFriend.Count();
+
+                                    }
+                                    <span class="heading">@intCoutFriend</span>
                                     <span class="description">Bạn bè</span>
                                 </div>
                                 <div>
-                                    <span class="heading">10</span>
+                                    <span class="heading">@Model.user_popular</span>
                                     <span class="description">Nổi tiếng</span>
                                 </div>
                                 <div>
-                                    <span class="heading">89</span>
+                                    @{var varSumMedal = Model.user_gold_medal + Model.user_bronze_medal + Model.user_silver_medal + Model.user_vip_medal;}
+                                    <span class="heading">@varSumMedal</span>
                                     <span class="description">Huy hiệu</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <h3>Jessica Jones<span class="font-weight-light">, 27</span></h3>
-                        <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Công nghệ Bucharest, Romania</div>
-                        <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i><i class="fab fa-facebook-square"></i> https://www.facebook.com/hoangmaicuong.99</div>
-                        <div><i class="ni education_hat mr-2"></i><i class="fab fa-github-square"></i> https://www.facebook.com/hoangmaicuong.99</div>
+                        <h3>@Model.user_nicename<span class="font-weight-light">, 27</span></h3>
+                        @{
+                            List<Technology_Care> TechnologyCare = db.Technology_Care.Where(n => n.user_id == Model.user_id).ToList();
+                        }
+                        <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>@foreach(var item2 in TechnologyCare) { <span style="padding:1%">@item2.Technology.technology_name</span>}</div>
+                        <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i><i class="fab fa-facebook-square"></i> @Model.user_link_facebok </div>
+                        <div><i class="ni education_hat mr-2"></i><i class="fab fa-github-square"></i> @Model.user_link_github </div>
                     </div>
                     <div>
 
@@ -73,28 +87,28 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="h5"> Thông tin</div>
-                                            <div class="text-left"><i class="fas fa-envelope"></i> Email : cuongembaubang@gmail.com</div>
+                                            <div class="text-left"><i class="fas fa-envelope"></i> Email : @Model.user_email</div>
                                             <div class="h7">
-                                                <i class="far fa-calendar-alt"></i>&nbsp;Ngày sinh: 12/03/1234 12:00:00 AM
+                                                <i class="far fa-calendar-alt"></i>&nbsp;Ngày sinh: @Model.user_date_born
                                             </div>
                                             <div class="h7">
-                                                <i class="fas fa-mobile-alt"></i>&nbsp;Số điện thoại : 21
+                                                <i class="fas fa-mobile-alt"></i>&nbsp;Số điện thoại : @Model.user_phone
                                             </div>
                                             <div class="h7">
-                                                <i class="fas fa-venus-mars"></i>&nbsp;gới tính : Nam
+                                                <i class="fas fa-venus-mars"></i>&nbsp;gới tính : @Model.user_sex
                                             </div>
                                         </div>
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item">
                                                 <div class="h6 text-muted"><i class="fas fa-map-marker-alt"></i>&nbsp; Địa chỉ</div>
-                                                <div class="h5">Địa chỉ: thị Trấn Lại Uyên, huyện Bàu Bàng, tỉnh Bình Dương</div>
+                                                <div class="h5">@Model.user_address</div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="h6 text-muted"><i class="fas fa-briefcase"></i>&nbsp; Sở thích công việc</div>
+                                                <div class="h6 text-muted"><i class="fas fa-briefcase"></i>&nbsp; @Model.user_hobby_work</div>
                                                 <div class="h5"> 12</div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="h6 text-muted"><i class="far fa-heart"></i>&nbsp;Sở thích cá nhân</div>
+                                                <div class="h6 text-muted"><i class="far fa-heart"></i>&nbsp; @Model.user_hobby</div>
                                                 <div class="h5">  12</div>
                                             </li>
                                         </ul>

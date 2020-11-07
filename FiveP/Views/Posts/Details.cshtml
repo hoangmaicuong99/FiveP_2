@@ -1,0 +1,115 @@
+﻿@model FiveP.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.post_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_datecreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_datecreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_dateedit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_dateedit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_activate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_activate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_activate_admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_activate_admin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_sum_reply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_sum_reply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_sum_comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_sum_comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_view)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_view)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_popular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_popular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_calculate_medal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_calculate_medal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_pass)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.post_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

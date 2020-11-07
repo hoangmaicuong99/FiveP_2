@@ -1,14 +1,24 @@
-﻿
+﻿@using FiveP.Models;
+@model User
 @{
+    User user = (User)Session["user"];
+    if (user == null)
+    {
+        Response.Redirect("/Center/IndexCenter");
+    }
     ViewBag.Title = "RegisterPersonalInformation";
     Layout = "~/Views/Shared/_RegisterPersonalInformation.cshtml";
+    FivePEntities db = new FivePEntities();
+    var checkedSex = "checked";
+    var selected = "selected";
+    var dateBorn = String.Format("{0:yyyy-MM-dd}", Model.user_date_born);
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <div class="image-container set-full-height" style="background-image: url('/Content/RegisterPersonalInformation/img/wizard-profile.jpg')">
     <!--   Creative Tim Branding   -->
-    <a href="@Url.Action("IndexCenter","Center")">
+    <a href="@Url.Action("IndexCenter", "Center")">
         <div class="logo-container">
             <div class="logo">
                 <img src="~/Content/RegisterPersonalInformation/img/new_logo.png">
@@ -32,7 +42,7 @@
                 <!--      Wizard container        -->
                 <div class="wizard-container">
                     <div class="card wizard-card" data-color="green" id="wizardProfile">
-                        <form action="" method="">
+                        <form onsubmit="return CheckForm()" action="@Url.Action("RegisterPersonalInformation", "Account")" method="post" enctype="multipart/form-data">
                             <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
 
                             <div class="wizard-header">
@@ -57,7 +67,7 @@
                                             <div class="picture-container">
                                                 <div class="picture">
                                                     <img src="~/Content/RegisterPersonalInformation/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
-                                                    <input type="file" id="wizard-picture">
+                                                    <input type="file" name="fileImg" id="wizard-picture">
                                                 </div>
                                                 <h6>Ảnh đại điện</h6>
                                             </div>
@@ -68,20 +78,21 @@
                                                     <i class="material-icons">face</i>
                                                 </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">First Name <small>(required)</small></label>
-                                                    <input name="firstname" type="text" class="form-control" value="hoang">
+                                                    <label class="control-label">Tên <small>(không để trống)</small></label>
+                                                    <input name="user_nicename" id="user_nicename" type="text" class="form-control" value="@Model.user_nicename" required="">
                                                 </div>
                                             </div>
 
                                             <div class="input-group">
                                                 <div class="form-group label-floating">
-                                                    Nam &nbsp;<input name="asd" type="radio">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;Nữ&nbsp;<input name="asd" type="radio">
+                                                    Nam &nbsp;<input name="user_sex" type="radio" value="0" @if(Model.user_sex == 0){@checkedSex}>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;Nữ&nbsp;<input name="user_sex" type="radio" value="1" @if(Model.user_sex == 1){@checkedSex}>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;LGPT&nbsp;<input name="user_sex" type="radio" value="2" @if(Model.user_sex == 2){@checkedSex}>
                                                 </div>
                                             </div>
                                             <div class="input-group">
                                                 <div class="">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -91,12 +102,17 @@
                                                     <i class="fa fa-laptop" style="font-size:28px"></i>
                                                 </span>
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Công nghệ</label>
-                                                    <select style="width:100%" name="PostTags" id="selectTechnology" multiple="multiple">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                    </select>
+                                                    <label class="control-label">Công nghệ <small>(không để trống)</small></label>
+                                                    @{
+                                                        List<Technology> technologies = db.Technologies.ToList();
+                                                        List<Technology_Care> technology_Cares = db.Technology_Care.Where(n => n.user_id == user.user_id).ToList();
+                                                    }
+                                                <select style="width:100%" name="tagsTechnology" id="selectTechnology" required="" multiple="multiple">
+                                                    @foreach (var item in technologies)
+                                                    {
+                                                    <option value="@item.technology_id" @foreach (var item2 in technology_Cares) { if (item.technology_id == item2.technology_id) { @selected} }>@item.technology_name</option>
+                                                    }
+                                                </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,70 +125,67 @@
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Ngày sinh</label>
-                                                <input type="text" class="form-control">
+                                                <input type="date" name="user_date_born" class="form-control" value="@dateBorn">
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Số điện thoại</label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="user_phone" id="user_phone" class="form-control" value="@Model.user_phone">
                                             </div>
                                         </div>
-                                        <div class="col-sm-10 col-sm-offset-1">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Giới tính</label>
-                                                <select class="form-control">
-                                                    <option>Chọn giới tính..</option>
-                                                    <option>Nam</option>
-                                                    <option>Nữ</option>
-                                                    <option>LGPT</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
 
                                         <div class="col-sm-4 col-sm-offset-1">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">TP or (Tỉnh..)</label>
-                                                <select style="width:100%" id="provincial">
-                                                    <option selected="selected">Tỉnh</option>
-                                                    <option>white</option>
-                                                    <option>purple</option>
+                                                @{
+                                                    List<Provincial> provincials = db.Provincials.Where(n => n.provincial_activate == true).ToList();
+                                                }
+                                                <select class="form-control" name="provincial_id" style="width:100%" id="provincial">
+                                                    @foreach (var item in provincials)
+                                                    {
+                                                        <option value="@item.provincial_id" @if (Model.provincial_id == item.provincial_id) { @selected}>@item.provincial_name</option>
+                                                    }
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Quận or (Huyện..)</label>
-                                                <select style="width:100%" id="district">
-                                                    <option selected="selected">Huyện</option>
-                                                    <option>white</option>
-                                                    <option>purple</option>
+                                                <select class="form-control" name="district_id" style="width:100%" id="district">
+                                                    @if (Model.district_id != null)
+                                                    {
+                                                        <option value="@Model.district_id">
+                                                            @Model.District.district_name
+                                                        </option>
+                                                    }
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Xã</label>
-                                                <select style="width:100%" id="commune">
-                                                    <option selected="selected">Xã</option>
-                                                    <option>white</option>
-                                                    <option>purple</option>
+                                                <select class="form-control" name="commune_id" style="width:100%" id="commune">
+                                                    @if (Model.commune_id != null)
+                                                    {
+                                                        <option value="@Model.commune_id">
+                                                            @Model.Commune.commune_name
+                                                        </option>
+                                                    }
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-10 col-sm-offset-1">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Cụ thể</label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="user_address" value="@Model.user_address" class="form-control">
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-sm-10 col-sm-offset-1">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Github</label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="user_link_github" id="user_link_github" value="@Model.user_link_github" class="form-control">
                                             </div>
                                         </div>
 
@@ -186,19 +199,19 @@
                                         <div class="col-sm-10 col-sm-offset-1">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Sở thích công việc</label>
-                                                <textarea class="form-control"></textarea>
+                                                <textarea class="form-control" name="user_hobby_work" >@Model.user_hobby_work</textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-10 col-sm-offset-1">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Sở thích cá nhân</label>
-                                                <textarea class="form-control"></textarea>
+                                                <textarea class="form-control" name="user_hobby">@Model.user_hobby</textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-10 col-sm-offset-1">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Facebook</label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="user_link_facebok" value="@Model.user_link_facebok" name="user_link_facebok">
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +220,7 @@
                             <div class="wizard-footer">
                                 <div class="pull-right">
                                     <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Next' />
-                                    <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Finish' />
+                                    <input type='submit' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Finish' />
                                 </div>
 
                                 <div class="pull-left">
@@ -228,24 +241,6 @@
         </div>
     </div>
 </div>
-<script>
-    $("#selectTechnology").select2({
-        placeholder: 'Chọn công nghệ (tối đa 3 công nghệ)..',
-        maximumSelectionLength: 3,
-        allowClear: true
-    });
-</script>
-<script>
-    $("#provincial").select2({
-        maximumSelectionLength: 3,
-        allowClear: true
-    });
-    $("#district").select2({
-        maximumSelectionLength: 3,
-        allowClear: true
-    });
-    $("#commune").select2({
-        maximumSelectionLength: 3,
-        allowClear: true
-    });
-</script>
+
+<script src="~/Content/CheckForm/CheckRegisterPersonallnformation.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>

@@ -1,23 +1,35 @@
-﻿
+﻿@using FiveP.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<User>
 @{
     ViewBag.Title = "Member";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+
+    string active = "active";
+    int i;
 }
+<link href="~/Content/Semantic/semantic.css" rel="stylesheet" />
+<script src="~/Content/Semantic/semantic.min.js"></script>
 <link href="~/Content/DisplayMember/StyleSheet1.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="~/Content/DisplayMember/dispalymember.css" rel="stylesheet" />
 <script src="~/Content/DisplayMember/displaymember.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+
+
 <div class="header bg-primary pb-6">
     <div class="container-fluid">
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">15000thành viên</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">@ViewBag.demUser thành viên</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Default</li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">thành viên</li>
                         </ol>
                     </nav>
                 </div>
@@ -40,10 +52,10 @@
             <div class="row">
                 <div class="col-xl-7">
                     <div class="btn-group float-left mb-3 mt--4" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-default">Hot<i class="far fa-snowflake text-success"></i></button>
-                        <button type="button" class="btn btn-secondary">Tuần</button>
-                        <button type="button" class="btn btn-secondary">Lượt xem</button>
-                        <button type="button" class="btn btn-secondary">Thưởng</button>
+                        <button type="button" class="btn btn-outline-default">Pro<i class="far fa-snowflake text-danger"></i></button>
+                        <button type="button" class="btn btn-secondary">Mới</button>
+                        <button type="button" class="btn btn-secondary">Chung công nghệ</button>
+                        <button type="button" class="btn btn-secondary">Nổi tiếng</button>
                     </div>
                 </div>
                 <div class="col-xl-5 text-right">
@@ -59,122 +71,106 @@
 
             <div class="row">
 
-                <div class="col-xl-3 p-3 cardlist">
-                    <div class="row">
-                        <div class="col-5">
-                            <a href="cateview.php" class="w-100">
-                                <img src="~/Content/LayoutCenter/ImgUser/user1.jpg" class="mx-auto d-block mb-1 addcartimg" style="width:104px;height:104px"  />
-                            </a>
-                        </div>
-                        <div class="col-7">
-                            <div class="d-block text-truncate mb-1">
-                                <a href="cateview.php" class="cartproname">Pure Refined Sugar</a>
-                            </div>
-                            <div class="seller d-block">
-                                <span>Seller: </span>
-                                <span>SELL010</span>
-                            </div>
-                            <div class="cartviewprice d-block">
-                                <span class="amt">Rs.6,258</span>
-                                <span class="oldamt">Rs.7,365</span>
-                                <span class="disamt">28% off</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 p-3 cardlist">
-                    <div class="row">
-                        <div class="col-5">
-                            <a href="cateview.php" class="w-100">
-                                <img src="~/Content/LayoutCenter/ImgUser/user2.jpg" class="mx-auto d-block mb-1 addcartimg" style="width:104px;height:104px" />
-                            </a>
-                        </div>
-                        <div class="col-7">
-                            <div class="d-block text-truncate mb-1">
-                                <a href="cateview.php" class="cartproname">Pure Refined Sugar</a>
-                            </div>
-                            <div class="seller d-block">
-                                <span>Seller: </span>
-                                <span>SELL010</span>
-                            </div>
-                            <div class="cartviewprice d-block">
-                                <span class="amt">Rs.6,258</span>
-                                <span class="oldamt">Rs.7,365</span>
-                                <span class="disamt">28% off</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 p-3 cardlist">
-                    <div class="row">
-                        <div class="col-5">
-                            <a href="cateview.php" class="w-100">
-                                <img src="~/Content/LayoutCenter/ImgUser/user1.jpg" class="mx-auto d-block mb-1 addcartimg" />
-                            </a>
-                        </div>
-                        <div class="col-7">
-                            <div class="d-block text-truncate mb-1">
-                                <a href="cateview.php" class="cartproname">Pure Refined Sugar</a>
-                            </div>
-                            <div class="seller d-block">
-                                <span>Seller: </span>
-                                <span>SELL010</span>
-                            </div>
-                            <div class="cartviewprice d-block">
-                                <span class="amt">Rs.6,258</span>
-                                <span class="oldamt">Rs.7,365</span>
-                                <span class="disamt">28% off</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 p-3 cardlist">
-                    <div class="row">
-                        <div class="col-5">
-                            <a href="cateview.php" class="w-100">
-                                <img src="~/Content/LayoutCenter/ImgUser/user1.jpg" class="mx-auto d-block mb-1 addcartimg" />
-                            </a>
-                        </div>
-                        <div class="col-7">
-                            <div class="d-block text-truncate mb-1">
-                                <a href="cateview.php" class="cartproname">Pure Refined Sugar</a>
-                            </div>
-                            <div class="seller d-block">
-                                <span>Seller: </span>
-                                <span>SELL010</span>
-                            </div>
-                            <div class="cartviewprice d-block">
-                                <span class="amt">Rs.6,258</span>
-                                <span class="oldamt">Rs.7,365</span>
-                                <span class="disamt">28% off</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 p-3 cardlist">
-                    <div class="row">
-                        <div class="col-5">
-                            <a href="cateview.php" class="w-100">
-                                <img src="~/Content/LayoutCenter/ImgUser/user2.jpg" class="mx-auto d-block mb-1 addcartimg" style="width:110px;height:110px" />
-                            </a>
-                        </div>
-                        <div class="col-7">
-                            <div class="d-block text-truncate mb-1">
-                                <a href="cateview.php" class="cartproname">Pure Refined Sugar</a>
-                            </div>
-                            <div class="seller d-block">
-                                <span>Seller: </span>
-                                <span>SELL010</span>
-                            </div>
-                            <div class="cartviewprice d-block">
-                                <span class="amt">Rs.6,258</span>
-                                <span class="oldamt">Rs.7,365</span>
-                                <span class="disamt">28% off</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-xl-12">
+                    <div class="row" id="AllQuestionPage">
+                        <div class="col-xl-12">
+                            <div class="row" id="divLoading" style="display:none">
+                                @for (int j = 0; j < 4; j++)
+                                {
+                                <div class="col-xl-3 p-3 cardlist">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="ui placeholder">
+                                                <div class="image"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="ui placeholder">
+                                                <div class="paragraph">
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
 
+
+                            </div>
+                        </div>
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-xl-3 p-3 cardlist">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <a href="cateview.php" class="w-100">
+                                            <img src="~/Content/LayoutCenter/ImgUser/user1.jpg" class="mx-auto d-block mb-1 addcartimg" style="width:104px;height:104px" />
+                                        </a>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="d-block text-truncate mb-1">
+                                            <a href="cateview.php" class="cartproname">@item.user_nicename</a>
+                                        </div>
+                                        <div class="seller d-block">
+                                            <span>Seller: </span>
+                                            <span>SELL010</span>
+                                        </div>
+                                        <div class="cartviewprice d-block">
+                                            <span class="amt">Rs.6,258</span>
+                                            <span class="oldamt">Rs.7,365</span>
+                                            <span class="disamt">28% off</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                        <div class="col-xl-12">
+                            <!--phân trang-->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage", "Display", new { page = ViewBag.page - 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Quay lại trang trước" data-container="body" data-animation="true"><i class="fa fa-angle-left"></i></a>
+                                    </li>
+                                    @if (ViewBag.demUser % ViewBag.size == 0)
+                                    {
+                                        for (i = ViewBag.page; i <= ViewBag.page + 2; i++)
+                                        {
+                                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage", "Display", new { page = i })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                                            </li>
+                                        }
+                                        <li style="font-size:25px">...</li>
+
+                                    }
+                                    else
+                                    {
+                                        for (i = ViewBag.page; i <= ViewBag.page + 2; i++)
+                                        {
+                                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage", "Display", new { page = i })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                                            </li>
+                                        }
+                                        <li style="font-size:25px">...</li>
+
+                                    }
+
+                                    <li class="page-item">
+                                        <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage", "Display", new { page = ViewBag.page + 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang tiếp theo" data-container="body" data-animation="true"><i class="fa fa-angle-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
 
             </div>
@@ -183,3 +179,22 @@
     </div>
 
 </div>
+<script>
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>

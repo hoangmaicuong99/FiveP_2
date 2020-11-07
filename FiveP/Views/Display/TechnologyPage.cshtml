@@ -1,0 +1,146 @@
+﻿@using FiveP.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Technology>
+@{
+    string active = "active";
+    int i;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+
+<div class="col-xl-12">
+
+    <div class="row" id="divLoading" style="display:none">
+        @for (int j = 0; j < 4; j++)
+        {
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
+
+                <div class="text-left border" style="background-color:#f8f9fe;padding:10px">
+
+                    <div class="title" style="width:30%;height:6px">
+                        <div class="ui placeholder">
+                            <div class="image"></div>
+                        </div>
+                    </div>
+
+                    <div class="text">
+                        <div class="ui placeholder">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-5">
+                            <div class="ui placeholder">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div class="col-xl-7">
+
+                            <div class="ui placeholder">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+
+</div>
+@foreach (var item in Model)
+{
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
+
+        <div class="text-left border" style="background-color:#f8f9fe;padding:10px">
+
+            <div class="title">
+                <a href="#" class="badge badge-pill badge-info text-uppercase"><i class="fas fa-tag"></i> @item.technology_name</a>
+            </div>
+
+            <div class="text">
+                <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+            </div>
+            <div class="row">
+                <div class="col-xl-5">
+                    <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
+                </div>
+                <div class="col-xl-7">
+
+                    <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="col-xl-12">
+    <!--phân trang-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage", "Display", new { page = ViewBag.page - 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Quay lại trang trước" data-container="body" data-animation="true"><i class="fa fa-angle-left"></i></a>
+            </li>
+            @if (ViewBag.demTechnology % ViewBag.size == 0)
+            {
+                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                {
+                    if (i < (ViewBag.demTechnology / ViewBag.size))
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                        </li>
+                    }
+                    else if (i == (ViewBag.demTechnology / ViewBag.size))
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                        </li>
+                    }
+
+                }
+                if (ViewBag.page < (ViewBag.demTechnology / ViewBag.size) - 1)
+                {
+                    <li style="font-size:25px">...</li>
+                }
+            }
+            else
+            {
+                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                {
+                    if (i < (ViewBag.demTechnology / ViewBag.size) + 1)
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                        </li>
+                    }
+                    else if (i == (ViewBag.demTechnology / ViewBag.size) + 1)
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                        </li>
+                    }
+                }
+                if (ViewBag.page < (ViewBag.demTechnology / ViewBag.size))
+                {
+                    <li style="font-size:25px">...</li>
+                }
+            }
+
+            <li class="page-item">
+                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage", "Display", new { page = ViewBag.page + 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang tiếp theo" data-container="body" data-animation="true"><i class="fa fa-angle-right"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>

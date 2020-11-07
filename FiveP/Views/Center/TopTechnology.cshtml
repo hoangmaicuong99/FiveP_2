@@ -1,0 +1,21 @@
+﻿@using FiveP.Models;
+@model List<Technology>
+<div class="card gedf-card">
+    <div class="card-body">
+        <h4 class="card-title">Top công nghệ</h4>
+        @foreach (var item in Model)
+        {
+            <p class="card-text">
+                @if (item.technology_name.Length > 60)
+                {
+                    <span><i class="fas fa-tag"></i> @item.technology_name.Substring(0, 60) ...</span>
+                }
+                else
+                {
+                    <span><i class="fas fa-tag"></i> @item.technology_name ..</span>
+                }
+            </p>
+        }
+        <span style="font-size:28px">...</span>
+    </div>
+</div>

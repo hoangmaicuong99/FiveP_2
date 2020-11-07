@@ -1,0 +1,125 @@
+﻿@using FiveP.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<User>
+@{
+    string active = "active";
+    int i;
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+<div class="col-xl-12">
+    <div class="row" id="divLoading" style="display:none">
+        @for (int j = 0; j < 4; j++)
+        {
+            <div class="col-xl-3 p-3 cardlist">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="ui placeholder">
+                            <div class="image"></div>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="ui placeholder">
+                            <div class="paragraph">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
+@foreach (var item in Model)
+{
+    <div class="col-xl-3 p-3 cardlist">
+        <div class="row">
+            <div class="col-5">
+                <a href="cateview.php" class="w-100">
+                    <img src="~/Content/LayoutCenter/ImgUser/user1.jpg" class="mx-auto d-block mb-1 addcartimg" style="width:104px;height:104px" />
+                </a>
+            </div>
+            <div class="col-7">
+                <div class="d-block text-truncate mb-1">
+                    <a href="cateview.php" class="cartproname">@item.user_nicename</a>
+                </div>
+                <div class="seller d-block">
+                    <span>Seller: </span>
+                    <span>SELL010</span>
+                </div>
+                <div class="cartviewprice d-block">
+                    <span class="amt">Rs.6,258</span>
+                    <span class="oldamt">Rs.7,365</span>
+                    <span class="disamt">28% off</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="col-xl-12">
+    <!--phân trang-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage", "Display", new { page = ViewBag.page - 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Quay lại trang trước" data-container="body" data-animation="true"><i class="fa fa-angle-left"></i></a>
+            </li>
+            @if (ViewBag.demCauHoi % ViewBag.size == 0)
+            {
+                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                {
+                    if (i < (ViewBag.demCauHoi / ViewBag.size))
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                        </li>
+                    }
+                    else if (i == (ViewBag.demCauHoi / ViewBag.size))
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                        </li>
+                    }
+
+                }
+                if (ViewBag.page < (ViewBag.demCauHoi / ViewBag.size) - 1)
+                {
+                    <li style="font-size:25px">...</li>
+                }
+            }
+            else
+            {
+                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                {
+                    if (i < (ViewBag.demCauHoi / ViewBag.size) + 1)
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                        </li>
+                    }
+                    else if (i == (ViewBag.demCauHoi / ViewBag.size) + 1)
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                        </li>
+                    }
+                }
+                if (ViewBag.page < (ViewBag.demCauHoi / ViewBag.size))
+                {
+                    <li style="font-size:25px">...</li>
+                }
+            }
+
+            <li class="page-item">
+                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("MemberPage", "Display", new { page = ViewBag.page + 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang tiếp theo" data-container="body" data-animation="true"><i class="fa fa-angle-right"></i></a>
+            </li>
+        </ul>
+    </nav>
+
+</div>

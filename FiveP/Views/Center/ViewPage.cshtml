@@ -1,0 +1,224 @@
+﻿
+@using FiveP.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Post>
+@{
+    FivePEntities db = new FivePEntities();
+    int i;
+    string active = "active";
+}
+<div id="divLoading" style="display:none">
+
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ui placeholder w-100">
+                    <div class="image header">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="paragraph">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ui placeholder w-100">
+                    <div class="image header">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="paragraph">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ui placeholder w-100">
+                    <div class="image header">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="paragraph">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@foreach (var item in Model)
+{
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="~/Content/LayoutCenter/ImgUser/user1.jpg" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <a href="#" class="h5 m-0">@item.User.user_nicename</a>
+                        <div class="h7 text-muted">@item.User.user_vip_medal<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> @item.User.user_gold_medal<i class="fas fa-medal" style="color:yellow"></i>  @item.User.user_silver_medal<i class="fas fa-medal" style="color:silver"></i>  @item.User.user_bronze_medal<i class="fas fa-medal" style="color:#e88d15"></i> </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                            <div class="h6 dropdown-header">Configuration</div>
+                            <a class="dropdown-item" href="#">Save</a>
+                            <a class="dropdown-item" href="#">Hide</a>
+                            <a class="dropdown-item" href="#">Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> @item.post_datecreated</div>
+            <a class="card-link" href="#">
+                <h5 class="card-title RutNganTieuDe">
+                    @if (item.post_title.Length > 150)
+                    {
+                        <span>@item.post_title.Substring(0, 150) ...</span>
+                    }
+                    else
+                    {
+                        <span>@item.post_title ...</span>
+                    }
+                </h5>
+            </a>
+
+            <p class="card-text RutNganNoiDung">
+                @if (Html.Raw(item.post_content).ToString().Length > 500)
+                {
+                    <span>@Html.Raw(item.post_content.Substring(0, 500)) ...</span>
+                }
+                else
+                {
+                    <span>@Html.Raw(item.post_content) ...</span>
+                }
+            </p>
+            <div>
+                @{
+                    List<Technology_Post> technology_Posts = db.Technology_Post.Where(n => n.post_id == item.post_id).ToList();
+                }
+                @foreach (var itemTechonology in technology_Posts)
+                {
+                    <span class="badge badge-primary">@itemTechonology.Technology.technology_name</span>
+                }
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="card-link"><i class="fa fa-gittip"></i>Nổi tiếng  @item.post_popular</a>
+            <a href="#" class="card-link"><i class="fa fa-comment"></i> Trả lời @item.post_sum_reply</a>
+            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Lượt xem @item.post_view</a>
+        </div>
+    </div>
+
+}
+<div id="divLoading" style="display:none">
+    <div class="ui placeholder">
+        <div class="image header">
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="paragraph">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row float-right">
+    <!--Phân trang-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ViewPage","Center",new { page = ViewBag.page-1})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fa fa-angle-left"></i></a>
+            </li>
+            @if (ViewBag.demCauHoi % ViewBag.size == 0)
+            {
+                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                {
+                    if (i < (ViewBag.demCauHoi / ViewBag.size))
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ViewPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                        </li>
+                    }
+                    else if (i == (ViewBag.demCauHoi / ViewBag.size))
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ViewPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                        </li>
+                    }
+
+                }
+                if (ViewBag.page < (ViewBag.demCauHoi / ViewBag.size) - 1)
+                {
+                    <li style="font-size:25px">...</li>
+                }
+            }
+            else
+            {
+                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                {
+                    if (i < (ViewBag.demCauHoi / ViewBag.size) + 1)
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ViewPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                        </li>
+                    }
+                    else if (i == (ViewBag.demCauHoi / ViewBag.size) + 1)
+                    {
+                        <li class="page-item @if (ViewBag.page == i) {@active }">
+                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ViewPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                        </li>
+                    }
+                }
+                if (ViewBag.page < (ViewBag.demCauHoi / ViewBag.size))
+                {
+                    <li style="font-size:25px">...</li>
+                }
+            }
+
+            <li class="page-item">
+                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ViewPage","Center",new { page = ViewBag.page+1})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fa fa-angle-right"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script>
+    function ClearResult() {
+        $("#divLoading").empty();
+    }
+</script>

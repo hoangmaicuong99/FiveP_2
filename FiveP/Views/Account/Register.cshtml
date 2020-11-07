@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Login.cshtml";
+    var a = "@([da-z.-]+)";
+    var b = "@";
 }
 <div class="workinghny-form-grid">
     <div class="wrapper">
@@ -20,22 +22,25 @@
 
                 <div class="login-form-content">
                     <h2>Where to?</h2>
-                    <form action="#" class="signin-form" method="post">
+                    <form onsubmit="return CheckformRegistration()" action="@Url.Action("Register","Account")" class="signin-form" method="post">
                         <div class="one-frm">
 
                             <label>Email</label>
-                            <input type="text" name="Name" placeholder="" required="">
+                            <input type="text" id="user_email" name="user_email" placeholder="" required="">
                         </div>
                         <div class="one-frm">
                             <label>Mật khẩu</label>
-                            <input type="password" name="Password" placeholder="" required="">
+                            <input type="password" id="user_pass" name="user_pass" placeholder="" required="">
                         </div>
                         <div class="one-frm">
                             <label>Mật khẩu nhập lại</label>
-                            <input type="password" name="Password" placeholder="" required="">
+                            <input type="password" id="retype_user_pass" name="retype_user_pass" placeholder="" required="">
                         </div>
-
-                        <button class="btn btn-style mt-3"><i class="far fa-paper-plane"></i> Thành viên Five-P</button>
+                        <div class="one-frm" id="notifyRS">
+                            @Html.Raw(Session["NotRegistration"])
+                        </div>
+                        <br />
+                        <button type="submit" class="btn btn-style mt-3"><i class="far fa-paper-plane"></i> Thành viên Five-P</button>
 
                     </form>
                 </div>
@@ -43,3 +48,25 @@
         </div>
     </div>
 </div>
+<script>
+    // kiểm tra form đăng ký
+        function CheckformRegistration() {
+            let user_email = document.getElementById('user_email').value;
+
+            let user_pass = document.getElementById('user_pass').value;
+            let retype_user_pass = document.getElementById('retype_user_pass').value;
+            let regex_email = /^([a-z0-9_\.-]+)@a\.([a-z\.]{2,6})$/;
+            let regex_pass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@b$!%*?&])[A-Za-z\d@(b)$!%*?&]{8,}$/;
+            if (user_pass != retype_user_pass) {
+                document.getElementById('notifyRS').innerHTML = '<p class="remember"  style="color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;"> Nhập sai mật khẩu nhập lại!</p>';
+            }  else if (regex_email.test(user_email) == false) {
+                document.getElementById('notifyRS').innerHTML = '<p class="remember"  style="color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;"> Email không hợp lệ!</p>';
+            } else if (regex_pass.test(user_pass) == false) {
+                document.getElementById('notifyRS').innerHTML = '<p class="remember"  style="color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;">  Tối thiểu 8 ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt!</p>';
+            }
+            else {
+                return true;
+            }
+            return false;
+        }
+</script>

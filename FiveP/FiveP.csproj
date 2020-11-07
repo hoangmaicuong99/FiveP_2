@@ -45,10 +45,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -122,6 +136,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CenterController.cs" />
+    <Compile Include="Controllers\controller3\PostsController.cs" />
     <Compile Include="Controllers\DetailQuestionController.cs" />
     <Compile Include="Controllers\DisplayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -130,6 +145,102 @@
     <Compile Include="Controllers\UserPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Admin_Notification.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Advertisement.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Commune.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FiveP.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FiveP.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FiveP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FiveP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FiveP.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Friend.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\History_User.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Image_Advertisement.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Like.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Like_Reply_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Provincial.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rate_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rate_Reply_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reply_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reviews_User.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Search.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Show_Activate_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Show_Activate_Reply_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Technology.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Technology_Care.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Technology_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tick_Post.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -299,6 +410,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CheckForm\CheckRegisterPersonallnformation.js" />
     <Content Include="Content\ckeditor5\build\ckeditor.js" />
     <Content Include="Content\ckeditor5\build\translations\af.js" />
     <Content Include="Content\ckeditor5\build\translations\ar.js" />
@@ -2937,6 +3049,7 @@
     <Content Include="Content\Login\css\style.css" />
     <Content Include="Content\Login\images\1.png" />
     <Content Include="Content\Login\images\2.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\RegisterPersonalInformation\css\bootstrap.min.css" />
     <Content Include="Content\RegisterPersonalInformation\css\demo.css" />
     <Content Include="Content\RegisterPersonalInformation\css\material-bootstrap-wizard.css" />
@@ -2959,10 +3072,173 @@
     <Content Include="Content\PostQuestion\css\font-awesome.min.css" />
     <Content Include="Content\PostQuestion\css\style.css" />
     <Content Include="Content\PostQuestion\images\4.jpg" />
+    <Content Include="Content\Semantic\components\accordion.css" />
+    <Content Include="Content\Semantic\components\accordion.js" />
+    <Content Include="Content\Semantic\components\accordion.min.css" />
+    <Content Include="Content\Semantic\components\accordion.min.js" />
+    <Content Include="Content\Semantic\components\ad.css" />
+    <Content Include="Content\Semantic\components\ad.min.css" />
+    <Content Include="Content\Semantic\components\api.js" />
+    <Content Include="Content\Semantic\components\api.min.js" />
+    <Content Include="Content\Semantic\components\breadcrumb.css" />
+    <Content Include="Content\Semantic\components\breadcrumb.min.css" />
+    <Content Include="Content\Semantic\components\button.css" />
+    <Content Include="Content\Semantic\components\button.min.css" />
+    <Content Include="Content\Semantic\components\card.css" />
+    <Content Include="Content\Semantic\components\card.min.css" />
+    <Content Include="Content\Semantic\components\checkbox.css" />
+    <Content Include="Content\Semantic\components\checkbox.js" />
+    <Content Include="Content\Semantic\components\checkbox.min.css" />
+    <Content Include="Content\Semantic\components\checkbox.min.js" />
+    <Content Include="Content\Semantic\components\colorize.js" />
+    <Content Include="Content\Semantic\components\colorize.min.js" />
+    <Content Include="Content\Semantic\components\comment.css" />
+    <Content Include="Content\Semantic\components\comment.min.css" />
+    <Content Include="Content\Semantic\components\container.css" />
+    <Content Include="Content\Semantic\components\container.min.css" />
+    <Content Include="Content\Semantic\components\dimmer.css" />
+    <Content Include="Content\Semantic\components\dimmer.js" />
+    <Content Include="Content\Semantic\components\dimmer.min.css" />
+    <Content Include="Content\Semantic\components\dimmer.min.js" />
+    <Content Include="Content\Semantic\components\divider.css" />
+    <Content Include="Content\Semantic\components\divider.min.css" />
+    <Content Include="Content\Semantic\components\dropdown.css" />
+    <Content Include="Content\Semantic\components\dropdown.js" />
+    <Content Include="Content\Semantic\components\dropdown.min.css" />
+    <Content Include="Content\Semantic\components\dropdown.min.js" />
+    <Content Include="Content\Semantic\components\embed.css" />
+    <Content Include="Content\Semantic\components\embed.js" />
+    <Content Include="Content\Semantic\components\embed.min.css" />
+    <Content Include="Content\Semantic\components\embed.min.js" />
+    <Content Include="Content\Semantic\components\feed.css" />
+    <Content Include="Content\Semantic\components\feed.min.css" />
+    <Content Include="Content\Semantic\components\flag.css" />
+    <Content Include="Content\Semantic\components\flag.min.css" />
+    <Content Include="Content\Semantic\components\form.css" />
+    <Content Include="Content\Semantic\components\form.js" />
+    <Content Include="Content\Semantic\components\form.min.css" />
+    <Content Include="Content\Semantic\components\form.min.js" />
+    <Content Include="Content\Semantic\components\grid.css" />
+    <Content Include="Content\Semantic\components\grid.min.css" />
+    <Content Include="Content\Semantic\components\header.css" />
+    <Content Include="Content\Semantic\components\header.min.css" />
+    <Content Include="Content\Semantic\components\icon.css" />
+    <Content Include="Content\Semantic\components\icon.min.css" />
+    <Content Include="Content\Semantic\components\image.css" />
+    <Content Include="Content\Semantic\components\image.min.css" />
+    <Content Include="Content\Semantic\components\input.css" />
+    <Content Include="Content\Semantic\components\input.min.css" />
+    <Content Include="Content\Semantic\components\item.css" />
+    <Content Include="Content\Semantic\components\item.min.css" />
+    <Content Include="Content\Semantic\components\label.css" />
+    <Content Include="Content\Semantic\components\label.min.css" />
+    <Content Include="Content\Semantic\components\list.css" />
+    <Content Include="Content\Semantic\components\list.min.css" />
+    <Content Include="Content\Semantic\components\loader.css" />
+    <Content Include="Content\Semantic\components\loader.min.css" />
+    <Content Include="Content\Semantic\components\menu.css" />
+    <Content Include="Content\Semantic\components\menu.min.css" />
+    <Content Include="Content\Semantic\components\message.css" />
+    <Content Include="Content\Semantic\components\message.min.css" />
+    <Content Include="Content\Semantic\components\modal.css" />
+    <Content Include="Content\Semantic\components\modal.js" />
+    <Content Include="Content\Semantic\components\modal.min.css" />
+    <Content Include="Content\Semantic\components\modal.min.js" />
+    <Content Include="Content\Semantic\components\nag.css" />
+    <Content Include="Content\Semantic\components\nag.js" />
+    <Content Include="Content\Semantic\components\nag.min.css" />
+    <Content Include="Content\Semantic\components\nag.min.js" />
+    <Content Include="Content\Semantic\components\placeholder.css" />
+    <Content Include="Content\Semantic\components\placeholder.min.css" />
+    <Content Include="Content\Semantic\components\popup.css" />
+    <Content Include="Content\Semantic\components\popup.js" />
+    <Content Include="Content\Semantic\components\popup.min.css" />
+    <Content Include="Content\Semantic\components\popup.min.js" />
+    <Content Include="Content\Semantic\components\progress.css" />
+    <Content Include="Content\Semantic\components\progress.js" />
+    <Content Include="Content\Semantic\components\progress.min.css" />
+    <Content Include="Content\Semantic\components\progress.min.js" />
+    <Content Include="Content\Semantic\components\rail.css" />
+    <Content Include="Content\Semantic\components\rail.min.css" />
+    <Content Include="Content\Semantic\components\rating.css" />
+    <Content Include="Content\Semantic\components\rating.js" />
+    <Content Include="Content\Semantic\components\rating.min.css" />
+    <Content Include="Content\Semantic\components\rating.min.js" />
+    <Content Include="Content\Semantic\components\reset.css" />
+    <Content Include="Content\Semantic\components\reset.min.css" />
+    <Content Include="Content\Semantic\components\reveal.css" />
+    <Content Include="Content\Semantic\components\reveal.min.css" />
+    <Content Include="Content\Semantic\components\search.css" />
+    <Content Include="Content\Semantic\components\search.js" />
+    <Content Include="Content\Semantic\components\search.min.css" />
+    <Content Include="Content\Semantic\components\search.min.js" />
+    <Content Include="Content\Semantic\components\segment.css" />
+    <Content Include="Content\Semantic\components\segment.min.css" />
+    <Content Include="Content\Semantic\components\shape.css" />
+    <Content Include="Content\Semantic\components\shape.js" />
+    <Content Include="Content\Semantic\components\shape.min.css" />
+    <Content Include="Content\Semantic\components\shape.min.js" />
+    <Content Include="Content\Semantic\components\sidebar.css" />
+    <Content Include="Content\Semantic\components\sidebar.js" />
+    <Content Include="Content\Semantic\components\sidebar.min.css" />
+    <Content Include="Content\Semantic\components\sidebar.min.js" />
+    <Content Include="Content\Semantic\components\site.css" />
+    <Content Include="Content\Semantic\components\site.js" />
+    <Content Include="Content\Semantic\components\site.min.css" />
+    <Content Include="Content\Semantic\components\site.min.js" />
+    <Content Include="Content\Semantic\components\state.js" />
+    <Content Include="Content\Semantic\components\state.min.js" />
+    <Content Include="Content\Semantic\components\statistic.css" />
+    <Content Include="Content\Semantic\components\statistic.min.css" />
+    <Content Include="Content\Semantic\components\step.css" />
+    <Content Include="Content\Semantic\components\step.min.css" />
+    <Content Include="Content\Semantic\components\sticky.css" />
+    <Content Include="Content\Semantic\components\sticky.js" />
+    <Content Include="Content\Semantic\components\sticky.min.css" />
+    <Content Include="Content\Semantic\components\sticky.min.js" />
+    <Content Include="Content\Semantic\components\tab.css" />
+    <Content Include="Content\Semantic\components\tab.js" />
+    <Content Include="Content\Semantic\components\tab.min.css" />
+    <Content Include="Content\Semantic\components\tab.min.js" />
+    <Content Include="Content\Semantic\components\table.css" />
+    <Content Include="Content\Semantic\components\table.min.css" />
+    <Content Include="Content\Semantic\components\transition.css" />
+    <Content Include="Content\Semantic\components\transition.js" />
+    <Content Include="Content\Semantic\components\transition.min.css" />
+    <Content Include="Content\Semantic\components\transition.min.js" />
+    <Content Include="Content\Semantic\components\video.css" />
+    <Content Include="Content\Semantic\components\video.js" />
+    <Content Include="Content\Semantic\components\video.min.css" />
+    <Content Include="Content\Semantic\components\video.min.js" />
+    <Content Include="Content\Semantic\components\visibility.js" />
+    <Content Include="Content\Semantic\components\visibility.min.js" />
+    <Content Include="Content\Semantic\components\visit.js" />
+    <Content Include="Content\Semantic\components\visit.min.js" />
+    <Content Include="Content\Semantic\package.js" />
+    <Content Include="Content\Semantic\semantic.css" />
+    <Content Include="Content\Semantic\semantic.js" />
+    <Content Include="Content\Semantic\semantic.min.css" />
+    <Content Include="Content\Semantic\semantic.min.js" />
+    <Content Include="Content\Semantic\sematiccss.css" />
+    <Content Include="Content\Semantic\sematiccss.js" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\brand-icons.svg" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\icons.svg" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.svg" />
+    <Content Include="Content\Semantic\themes\default\assets\images\flags.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\FiveP.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FiveP.edmx</DependentUpon>
+      <LastGenOutput>FiveP.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\FiveP.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FiveP.edmx</DependentUpon>
+      <LastGenOutput>FiveP.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\LayoutHome\fonts\fontawesome-webfont.eot" />
@@ -3575,6 +3851,30 @@
     <Content Include="Content\RegisterPersonalInformation\scss\material-bootstrap-wizard\_variables.scss" />
     <Content Include="Content\RegisterPersonalInformation\scss\material-bootstrap-wizard\_variables_bootstrap.scss" />
     <Content Include="Content\RegisterPersonalInformation\scss\material-bootstrap-wizard\_wizard-card.scss" />
+    <Content Include="Content\Semantic\.versions" />
+    <Content Include="Content\Semantic\LICENSE" />
+    <Content Include="Content\Semantic\package.json" />
+    <Content Include="Content\Semantic\README.md" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\brand-icons.eot" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\brand-icons.ttf" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\brand-icons.woff" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\brand-icons.woff2" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\icons.eot" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\icons.otf" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\icons.ttf" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\icons.woff" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\icons.woff2" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.eot" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.ttf" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.woff" />
+    <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.woff2" />
+    <EntityDeploy Include="Models\FiveP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FiveP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\FiveP.edmx.diagram">
+      <DependentUpon>FiveP.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3600,7 +3900,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCenter.cshtml" />
-    <Content Include="Views\Center\Index.cshtml" />
     <Content Include="Views\Center\IndexCenter.cshtml" />
     <Content Include="Views\DetailQuestion\IndexDetailQuestion.cshtml" />
     <Content Include="Views\UserPage\IndexUserPage.cshtml" />
@@ -3620,10 +3919,38 @@
     <Content Include="Views\Shared\_RegisterPersonalInformation.cshtml" />
     <Content Include="Views\Account\RegisterPersonalInformation.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Shared\Center_AllQuestion.cshtml" />
+    <Content Include="Views\Center\IndexCenterPage.cshtml" />
+    <Content Include="Views\Center\Hot.cshtml" />
+    <Content Include="Views\Center\HotPage.cshtml" />
+    <Content Include="Views\Center\View.cshtml" />
+    <Content Include="Views\Center\ViewPage.cshtml" />
+    <Content Include="Views\Center\Reply.cshtml" />
+    <Content Include="Views\Center\ReplyPage.cshtml" />
+    <Content Include="Views\Center\Week.cshtml" />
+    <Content Include="Views\Center\WeekPage.cshtml" />
+    <Content Include="Views\Center\TopQuestion.cshtml" />
+    <Content Include="Views\Center\TopTechnology.cshtml" />
+    <Content Include="Views\Center\TopUser.cshtml" />
+    <Content Include="Views\Center\MayBeInterested.cshtml" />
+    <Content Include="Views\Display\MemberPage.cshtml" />
+    <Content Include="Views\Display\TechnologyPage.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Display\HeadCenter.cshtml" />
+    <Content Include="Views\Account\District.cshtml" />
+    <Content Include="Views\Account\Commune.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -3637,6 +3964,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

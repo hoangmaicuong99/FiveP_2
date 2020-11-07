@@ -1,7 +1,16 @@
-﻿
+﻿@using FiveP.Models;
+@model Post
 @{
+    if (Model != null && Session["user"] != null)
+    {
+        FivePEntities db = new FivePEntities();
+        ViewBag.Selected = "selected";
+        List<Technology_Post> technology_Posts = db.Technology_Post.Where(n => n.post_id == Model.post_id).ToList();
+        ViewBag.technology_Posts = technology_Posts;
+    }
     ViewBag.Title = "IndexPostQuestion";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+
 }
 <script src="~/Content/ckeditor5/build/ckeditor.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -11,6 +20,7 @@
     .ck.ck-editor__editable_inline > :last-child {
         margin-bottom: 120px;
     }
+
     body {
         font-family: Arial
     }
@@ -90,7 +100,7 @@
                         <div class="text-left">
                             <i class="ni education_hat mr-2"></i><i class="far fa-calendar-alt"></i>&nbsp; Ngày sinh: 12/03/1234 12:00:00 AM
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -108,14 +118,27 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form onsubmit="return CheckPost()" action="@Url.Action("IndexPostQuestion","PostQuestion")" method="post">
+                        @if (Model != null)
+                        {
+                            <input type="hidden" name="post_id" value="@Model.post_id" />
+                            <input type="hidden" name="post_datecreated" value="@Model.post_datecreated" />
+                            <input type="hidden" name="post_img" value="" />
+                            <input type="hidden" name="post_activate" value="@Model.post_activate.Value.ToString()" />
+                            <input type="hidden" name="post_activate_admin" value="@Model.post_activate_admin.Value.ToString()" />
+                            <input type="hidden" name="post_sum_reply" value="@Model.post_sum_reply" />
+                            <input type="hidden" name="post_sum_comment" value="@Model.post_sum_comment" />
+                            <input type="hidden" name="post_view" value="@Model.post_view" />
+                            <input type="hidden" name="post_popular" value="@Model.post_popular" />
+                            <input type="hidden" name="post_calculate_medal" value="@Model.post_calculate_medal" />
+                        }
                         <h6 class="heading-small text-muted mb-4">Đặt câu hỏi?</h6>
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-address"><i class="fas fa-pen-alt"></i> Câu hỏi?</label>
-                                        <input id="input-address" class="form-control" placeholder="................................" type="text">
+                                        <input id="titlePost" value="@if (Model != null) { @Model.post_title}" required="" name="post_title" class="form-control" placeholder="................................" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +146,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-address"><i class="far fa-edit"></i> Chi tiết</label>
-                                        <textarea class="form-control" id="editor" placeholder="................................"></textarea>
+                                        <textarea class="form-control" id="editor" name="post_content" placeholder="................................">@if (Model != null) { @Model.post_content}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -131,10 +154,19 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-address"><i class="fas fa-laptop-code"></i> Công nghệ</label>
-                                        <select class="form-control" name="PostTags" id="selectTechnology" multiple="multiple">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
+
+                                        <select class="form-control" required="" name="postTechnology" id="selectTechnology" multiple="multiple">
+                                            @foreach (var item in ViewBag.dataTechnologys)
+                                            {
+                                                if (Model != null)
+                                                {
+                                                    <option value="@item.technology_id" @foreach (var item2 in ViewBag.technology_Posts) { if (item2.technology_id == item.technology_id) { @ViewBag.Selected } }>@item.technology_name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.technology_id">@item.technology_name</option>
+                                                }
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -143,8 +175,15 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-address"><i class="fas fa-tags"></i> Seo</label>
-                                        <select class="form-control" name="PostTags" id="selectTags" multiple="multiple">
+                                        <select class="form-control" required="" name="postTags" id="selectTags" multiple="multiple">
+                                            @if (Model != null)
+                                            {
+                                                foreach (var item in ViewBag.dataTags)
+                                                {
 
+                                                    <option selected>@item.tags_name</option>
+                                                }
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -152,55 +191,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-success w-100" ><i class="far fa-paper-plane"></i> Đăng câu hỏi</button>
+                                        <button type="submit" class="btn btn-success w-100"><i class="far fa-paper-plane"></i> Đăng câu hỏi</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <hr class="my-4" />
 
-                        <h6 class="heading-small text-muted mb-4">User information</h6>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">Username</label>
-                                        <input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-email">Email address</label>
-                                        <select class="form-control" id="them_ca_sy" multiple="multiple" name="MaCaSy" style="width: 99%" required>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-first-name">First name</label>
-                                        <input type="text" id="input-first-name" class="form-control" placeholder="First name" value="Lucky">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-last-name">Last name</label>
-                                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-4" />
-                        <!-- Address -->
-                        <!-- Description -->
-                        <h6 class="heading-small text-muted mb-4">About me</h6>
-                        <div class="pl-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">About Me</label>
-                                <textarea rows="4" class="form-control" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>

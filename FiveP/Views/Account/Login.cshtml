@@ -1,12 +1,15 @@
-﻿
+﻿@using FiveP.Models;
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Login.cshtml";
+    FivePEntities db = new FivePEntities();
+    string email;
+    string mk;
 }
 <div class="workinghny-form-grid">
     <div class="wrapper">
         <div class="logo">
-            <h1><a class="brand-logo" href="@Url.Action("IndexCenter","Center")"><span>Five-P</span> Đăng nhập</a></h1>
+            <h1><a class="brand-logo" href="@Url.Action("IndexCenter", "Center")"><span>Five-P</span> Đăng nhập</a></h1>
             <!-- if logo is image enable this
                 <a class="brand-logo" href="#index.html">
                     <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
@@ -20,15 +23,18 @@
 
                 <div class="login-form-content">
                     <h2>Where to?</h2>
-                    <form action="#" class="signin-form" method="post">
+                    <form onsubmit="return Checkformlogin()" action="@Url.Action("Login", "Account")" class="signin-form" method="post">
                         <div class="one-frm">
 
                             <label>Email</label>
-                            <input type="text" name="Name" placeholder="" required="">
+                            <input type="text" name="user_email" id="user_email" placeholder="">
                         </div>
                         <div class="one-frm">
                             <label>Mật khẩu</label>
-                            <input type="password" name="Password" placeholder="" required="">
+                            <input type="password" name="user_pass" id="user_pass" placeholder="">
+                        </div>
+                        <div class="one-frm" id="notify" style="border:1px !important">
+                            @Html.Raw(Session["notLogin"])
                         </div>
                         <label class="check-remaind">
                             <input type="checkbox">
@@ -36,7 +42,7 @@
                             <p class="remember">Lưu tài khoản</p>
 
                         </label>
-                        <button class="btn btn-style mt-3">Sign In </button>
+                        <button class="btn btn-style mt-3" type="submit">Vào thôi </button>
                         <p class="already"><a href="#signin">Quên mật khẩu?</a></p>
                     </form>
                 </div>
@@ -44,3 +50,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    //kiểm tra form đăng nhập
+    function Checkformlogin() {
+        var user_email = document.getElementById('user_email').value;
+        var user_pass = document.getElementById('user_pass').value;
+        if (user_email == '' && user_pass == '') {
+            document.getElementById('notify').innerHTML = '<p class="remember"  style="color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;">Vui lòng nhập tài khoản mật khẩu!</p>';
+        } else if (user_email == '') {
+            document.getElementById('notify').innerHTML = '<p class="remember"  style="color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;"> Vui lòng nhập email!</p>';
+        } else if (user_pass == '') {
+            document.getElementById('notify').innerHTML = '<p class="remember"  style="color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;">  Vui lòng nhập mật khẩu!</p>';
+        } else {
+            return true;
+        }
+        return false;
+    }
+</script>

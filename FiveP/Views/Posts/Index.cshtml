@@ -1,0 +1,100 @@
+﻿@model IEnumerable<FiveP.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.post_content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_datecreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_dateedit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_activate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_activate_admin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_sum_reply)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_sum_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_view)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_popular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_calculate_medal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_datecreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_dateedit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_activate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_activate_admin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_sum_reply)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_sum_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_view)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_popular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_calculate_medal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_pass)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.post_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.post_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.post_id })
+        </td>
+    </tr>
+}
+
+</table>

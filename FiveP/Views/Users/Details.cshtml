@@ -1,0 +1,227 @@
+﻿@model FiveP.Models.User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.user_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_nicename)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_nicename)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_datecreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_datecreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_token)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_token)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_role)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_datelogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_datelogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_activate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_activate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_link_facebok)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_link_facebok)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_link_github)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_link_github)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_hobby_work)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_hobby_work)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_hobby)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_hobby)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_activate_admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_activate_admin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_date_born)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_date_born)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_popular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_popular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_gold_medal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_gold_medal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_silver_medal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_silver_medal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_bronze_medal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_bronze_medal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_vip_medal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_vip_medal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commune.commune_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commune.commune_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.District.district_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.District.district_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provincial.provincial_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provincial.provincial_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.user_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

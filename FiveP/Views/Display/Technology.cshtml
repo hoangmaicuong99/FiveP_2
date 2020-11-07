@@ -1,8 +1,18 @@
-﻿
+﻿@using FiveP.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Technology>
 @{
     ViewBag.Title = "Technology";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+
+    string active = "active";
+    int i;
 }
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+<link href="~/Content/Semantic/semantic.css" rel="stylesheet" />
+<script src="~/Content/Semantic/semantic.min.js"></script>
 <style>
 
     .text {
@@ -12,8 +22,9 @@
     .fa {
         color: #4183D7;
     }
-    .same{
-        padding:12px;
+
+    .same {
+        padding: 12px;
     }
 </style>
 <div class="header bg-primary pb-6">
@@ -21,12 +32,12 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">15000 công nghệ</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">@ViewBag.demTechnology công nghệ</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Default</li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Công nghệ</li>
                         </ol>
                     </nav>
                 </div>
@@ -50,9 +61,9 @@
                 <div class="col-xl-7">
                     <div class="btn-group float-left mb-3 mt--4" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-outline-default">Hot<i class="far fa-snowflake text-success"></i></button>
-                        <button type="button" class="btn btn-secondary">Tuần</button>
-                        <button type="button" class="btn btn-secondary">Lượt xem</button>
-                        <button type="button" class="btn btn-secondary">Thưởng</button>
+                        <button type="button" class="btn btn-secondary">Nhiều thành viên</button>
+                        <button type="button" class="btn btn-secondary">Hỏi nhiều</button>
+                        <button type="button" class="btn btn-secondary">Trả lời đúng</button>
                     </div>
                 </div>
                 <div class="col-xl-5 text-right">
@@ -64,188 +75,145 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
+        <div class="col-xl-12">
+            <div class="row" id="AllQuestionPage">
+                <div class="col-xl-12">
 
-            <div class="text-left border" style="background-color:#f8f9fe;padding:10px">
+                    <div class="row" id="divLoading" style="display:none">
+                        @for (int j = 0; j < 4; j++)
+                        {
 
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-info text-uppercase"><i class="fas fa-tag"></i> Primary</a>
-                </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
 
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
+                                <div class="text-left border" style="background-color:#f8f9fe;padding:10px">
+
+                                    <div class="title" style="width:30%;height:6px">
+                                        <div class="ui placeholder">
+                                            <div class="image"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text">
+                                        <div class="ui placeholder">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-5">
+                                            <div class="ui placeholder">
+                                                <div class="line"></div>
+                                                <div class="line"></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-7">
+
+                                            <div class="ui placeholder">
+                                                <div class="line"></div>
+                                                <div class="line"></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
                     </div>
-                    <div class="col-xl-7">
 
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
                 </div>
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
+
+                        <div class="text-left border" style="background-color:#f8f9fe;padding:10px">
+
+                            <div class="title">
+                                <a href="#" class="badge badge-pill badge-info text-uppercase"><i class="fas fa-tag"></i> @item.technology_name</a>
+                            </div>
+
+                            <div class="text">
+                                <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-5">
+                                    <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
+                                </div>
+                                <div class="col-xl-7">
+
+                                    <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-xl-12">
+                    <!--phân trang-->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage", "Display", new { page = ViewBag.page - 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Quay lại trang trước" data-container="body" data-animation="true"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                            @if (ViewBag.demTechnology % ViewBag.size == 0)
+                            {
+                                for (i = ViewBag.page; i <= ViewBag.page + 2; i++)
+                                {
+                                    <li class="page-item @if (ViewBag.page == i) {@active }">
+                                        <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage", "Display", new { page = i })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                                    </li>
+                                }
+                                <li style="font-size:25px">...</li>
+
+                            }
+                            else
+                            {
+                                for (i = ViewBag.page; i <= ViewBag.page + 2; i++)
+                                {
+                                    <li class="page-item @if (ViewBag.page == i) {@active }">
+                                        <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage", "Display", new { page = i })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                                    </li>
+                                }
+                                <li style="font-size:25px">...</li>
+
+                            }
+
+                            <li class="page-item">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage", "Display", new { page = ViewBag.page + 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang tiếp theo" data-container="body" data-animation="true"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
-
-            <div class="text-left border" style="background-color:white;padding:10px">
-
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-info text-uppercase">Primary</a>
-                </div>
-
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
-                    </div>
-                    <div class="col-xl-7">
-
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
-
-            <div class="text-left border" style="background-color:white;padding:10px">
-
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-info text-uppercase">Primary</a>
-                </div>
-
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
-                    </div>
-                    <div class="col-xl-7">
-
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
-
-            <div class="text-left border" style="background-color:white;padding:10px">
-
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-primary text-uppercase">Primary</a>
-                </div>
-
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
-                    </div>
-                    <div class="col-xl-7">
-
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
-
-            <div class="text-left border" style="background-color:white;padding:10px">
-
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-primary text-uppercase">Primary</a>
-                </div>
-
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
-                    </div>
-                    <div class="col-xl-7">
-
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
-
-            <div class="text-left border" style="background-color:white;padding:10px">
-
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-primary text-uppercase">Primary</a>
-                </div>
-
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
-                    </div>
-                    <div class="col-xl-7">
-
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
-
-            <div class="text-left border" style="background-color:white;padding:10px">
-
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-primary text-uppercase">Primary</a>
-                </div>
-
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
-                    </div>
-                    <div class="col-xl-7">
-
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same">
-
-            <div class="text-left border" style="background-color:#f8f9fe;padding:10px">
-
-                <div class="title">
-                    <a href="#" class="badge badge-pill badge-info text-uppercase">Primary</a>
-                </div>
-
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                </div>
-                <div class="row">
-                    <div class="col-xl-5">
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">2112610 questions</p>
-                    </div>
-                    <div class="col-xl-7">
-
-                        <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">834 asked today, 5355 this week</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
 
 
     </div>
 </div>
 
+<script>
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
