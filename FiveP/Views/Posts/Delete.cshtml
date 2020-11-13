@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Delete</h2>
@@ -98,6 +98,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.post_calculate_medal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_RecycleBin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_RecycleBin)
         </dd>
 
         <dt>

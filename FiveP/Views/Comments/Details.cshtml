@@ -1,0 +1,67 @@
+﻿@model FiveP.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.comment_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comment_datecreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment_datecreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comment_dateedit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment_dateedit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comment_option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment_option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reply_Post.reply_post_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reply_Post.reply_post_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_pass)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.comment_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

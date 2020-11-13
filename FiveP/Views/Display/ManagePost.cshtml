@@ -1,7 +1,13 @@
-﻿
+﻿@using FiveP.Models;
+@using System.Text
+@model List<Post>
 @{
     ViewBag.Title = "ManagePost";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+
+    User user = (User)Session["user"];
+    FivePEntities db = new FivePEntities();
+    String checkeds = "checked";
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -29,12 +35,12 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">Quản lý câu hỏi</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Default</li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Quản lý câu hỏi</li>
                         </ol>
                     </nav>
                 </div>
@@ -52,11 +58,11 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">Câu hỏi</h5>
-                                    <span class="h2 font-weight-bold mb-0">350,897</span>
+                                    <span class="h2 font-weight-bold mb-0">@Model.Count()</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                        <i class="ni ni-active-40"></i>
+                                        <i class="fas fa-question"></i>
                                     </div>
                                 </div>
                             </div>
@@ -74,11 +80,11 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">Trả lời</h5>
-                                    <span class="h2 font-weight-bold mb-0">2,356</span>
+                                    <span class="h2 font-weight-bold mb-0">@Model.Sum(n=>n.post_sum_reply)</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                                        <i class="ni ni-chart-pie-35"></i>
+                                        <i class="ni ni-curved-next"></i>
                                     </div>
                                 </div>
                             </div>
@@ -95,12 +101,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Đánh giá</h5>
-                                    <span class="h2 font-weight-bold mb-0">924</span>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Comment</h5>
+                                    <span class="h2 font-weight-bold mb-0">@Model.Sum(n=>n.post_sum_comment)</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                                        <i class="ni ni-money-coins"></i>
+                                        <i class="far fa-comments"></i>
                                     </div>
                                 </div>
                             </div>
@@ -180,314 +186,126 @@
                             <tr>
                                 <th scope="col" class="sort" data-sort="name">Tiêu đề</th>
                                 <th scope="col" class="sort border-left" data-sort="budget">Trả lời</th>
-                                <th scope="col" class="sort" data-sort="status">Comment</th>
+                                <th scope="col" class="sort" data-sort="status">Đánh giá</th>
                                 <th scope="col"> Lượt xem</th>
                                 <th scope="col" class="sort" data-sort="completion"> Trạng thái</th>
                                 <th scope="col"> Tùy chọn</th>
                             </tr>
                         </thead>
                         <tbody class="list">
-                            <tr>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <a class="mr-2">
 
-                                            <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
-                                            <center>
-                                                <p>123</p>
-                                            </center>
-                                            <center><i class="fa fa-chevron-down" style="font-size:200%"></i></center>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td scope="row">
+                                        <div class="media align-items-center">
+                                            <a class="mr-2">
+
+                                                <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
+                                                <center>
+                                                    @{
+                                                        List<Rate_Post> listRatePostT = db.Rate_Post.Where(n => n.post_id == item.post_id && n.rate_post1 == true).ToList();
+                                                        List<Rate_Post> listRatePostF = db.Rate_Post.Where(n => n.post_id == item.post_id && n.rate_post1 == false).ToList();
+                                                        int intCoutT = listRatePostT.Count();
+                                                        int intCoutF = listRatePostF.Count();
+                                                        int intDivided = intCoutT - intCoutF;
+                                                    }
+                                                    <p>@intDivided</p>
+                                                </center>
+                                                <center><i class="fa fa-chevron-down" style="font-size:200%"></i></center>
 
 
-                                        </a>
-                                        <div class="media-body">
-                                            <div><p>Argon System Argon </p></div>
-                                            <span class="name mb-0 text-sm">Argon Design System Design SystemArgon Design...</span>
-
-                                            <div class="d-flex align-items-center">
-                                                <span class="completion mr-2">Tỉ lệ vow : 60%</span>
+                                            </a>
+                                            <div class="media-body">
                                                 <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                                    @if (item.post_title != null)
+                                                    {
+                                                        if (item.post_title.Length > 40)
+                                                        {
+                                                            <span>@item.post_title.Substring(0, 40) ...</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@item.post_title ..</span>
+                                                        }
+                                                    }
+                                                </div>
+                                                <span class="name mb-0 text-sm">
+                                                    @if (item.post_content != null)
+                                                    {
+                                                        if (Html.Raw(item.post_content).ToString().Length > 50)
+                                                        {
+                                                            <span>@Html.Raw(item.post_content.Substring(0, 50)) ..</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@Html.Raw(item.post_content) ..</span>
+                                                        }
+                                                    }
+                                                </span>
+
+                                                <div class="d-flex align-items-center">
+                                                    @{ 
+                                                        List<Rate_Post> rate_Posts = db.Rate_Post.Where(n => n.post_id == item.post_id).ToList();
+                                                        List<Rate_Post> rate_Posts1 = db.Rate_Post.Where(n => n.post_id == item.post_id && n.rate_post1 == true).ToList();
+                                                        float coutRate_Posts = rate_Posts.Count();
+                                                        float countrate_Posts1 = rate_Posts1.Count();
+                                                        float medium;
+                                                        if (coutRate_Posts != 0)
+                                                        {
+                                                            medium = (countrate_Posts1 / coutRate_Posts) * 100;
+                                                        }
+                                                        else
+                                                        {
+                                                            medium = 0;
+                                                        }
+
+                                                    }
+                                                    <span class="completion mr-2">Tỉ lệ vow tốt : @medium%</span>
+                                                    <div>
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @medium%;"></div>
+
+                                                        </div>
 
                                                     </div>
-
                                                 </div>
                                             </div>
+
                                         </div>
-
-                                    </div>
-                                </td>
-                                <td class="budget border-left">
-                                    <i class="fas fa-reply"></i> 230
-                                </td>
-                                <td class="budget">
-                                    <i class="far fa-comment-dots"></i> 102
-                                </td>
-                                <td class="budget">
-                                    <i class="far fa-eye"></i> 102
-                                </td>
+                                    </td>
+                                    <td class="budget border-left">
+                                        <i class="fas fa-reply"></i> @item.post_sum_reply
+                                    </td>
+                                    <td class="budget">
+                                        <i class="far fa-star"></i> @rate_Posts.Count()
+                                    </td>
+                                    <td class="budget">
+                                        <i class="far fa-eye"></i> @item.post_view
+                                    </td>
 
 
-                                <td>
-                                    <label class="custom-toggle">
-                                        <input type="checkbox">
-                                        <span class="custom-toggle-slider rounded-circle"></span>
-                                    </label>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#"><i class="fas fa-info-circle"></i> Chi tiết</a>
-                                            <a class="dropdown-item" href="#"><i class="far fa-trash-alt"></i> Xóa</a>
-                                            <a class="dropdown-item" href="#"><i class="fas fa-edit"></i>Sữa</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <a class="mr-2">
-
-                                            <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
-                                            <center>
-                                                <p>123</p>
-                                            </center>
-                                            <center><i class="fa fa-chevron-down" style="font-size:200%"></i></center>
-
-
-                                        </a>
-                                        <div class="media-body">
-                                            <div><p>Argon System Argon </p></div>
-                                            <span class="name mb-0 text-sm">Argon Design System Design SystemArgon Design...</span>
-
-                                            <div class="d-flex align-items-center">
-                                                <span class="completion mr-2">Tỉ lệ vow : 60%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-
-                                                    </div>
-
-                                                </div>
+                                    <td>
+                                        <label class="custom-toggle">
+                                            <input type="checkbox" @if(item.post_activate == true){ @checkeds}>
+                                            <span class="custom-toggle-slider rounded-circle"></span>
+                                        </label>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.post_id.ToString()))})"><i class="fas fa-info-circle"></i> Chi tiết</a>
+                                                <a class="dropdown-item" href="@Url.Action("RecycleBinPost","Display", new { id = item.post_id})"><i class="far fa-trash-alt"></i> Xóa</a>
+                                                <a class="dropdown-item" href="@Url.Action("IndexPostQuestion","PostQuestion", new { id = item.post_id})"><i class="fas fa-edit"></i>Sữa</a>
                                             </div>
                                         </div>
+                                    </td>
+                                </tr>
+                            }
 
-                                    </div>
-                                </td>
-                                <td class="budget border-left">
-                                    <i class="fas fa-reply"></i> 230
-                                </td>
-                                <td class="budget">
-                                    <i class="far fa-comment-dots"></i> 102
-                                </td>
-                                <td class="budget">
-                                    <i class="far fa-eye"></i> 102
-                                </td>
-
-
-                                <td>
-                                    <label class="custom-toggle">
-                                        <input type="checkbox">
-                                        <span class="custom-toggle-slider rounded-circle"></span>
-                                    </label>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#"><i class="fas fa-info-circle"></i> Chi tiết</a>
-                                            <a class="dropdown-item" href="#"><i class="far fa-trash-alt"></i> Xóa</a>
-                                            <a class="dropdown-item" href="#"><i class="fas fa-edit"></i>Sữa</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <a class="mr-2">
-
-                                            <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
-                                            <center>
-                                                <p>123</p>
-                                            </center>
-                                            <center><i class="fa fa-chevron-down" style="font-size:200%"></i></center>
-
-
-                                        </a>
-                                        <div class="media-body">
-                                            <div><p>Argon System Argon </p></div>
-                                            <span class="name mb-0 text-sm">Argon Design System Design SystemArgon Design...</span>
-
-                                            <div class="d-flex align-items-center">
-                                                <span class="completion mr-2">Tỉ lệ vow : 60%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="budget border-left">
-                                    <i class="fas fa-reply"></i> 230
-                                </td>
-                                <td class="budget">
-                                    <i class="far fa-comment-dots"></i> 102
-                                </td>
-                                <td class="budget">
-                                    <i class="far fa-eye"></i> 102
-                                </td>
-
-
-                                <td>
-                                    <label class="custom-toggle">
-                                        <input type="checkbox">
-                                        <span class="custom-toggle-slider rounded-circle"></span>
-                                    </label>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#"><i class="fas fa-info-circle"></i> Chi tiết</a>
-                                            <a class="dropdown-item" href="#"><i class="far fa-trash-alt"></i> Xóa</a>
-                                            <a class="dropdown-item" href="#"><i class="fas fa-edit"></i>Sữa</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="media align-items-center">
-                                        <a href="#" class="avatar rounded-circle mr-3">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/react.jpg">
-                                        </a>
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">React Material Dashboard</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <td class="budget">
-                                    $4400 USD
-                                </td>
-                                <td>
-                                    <span class="badge badge-dot mr-4">
-                                        <i class="bg-info"></i>
-                                        <span class="status">on schedule</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="avatar-group">
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-1.jpg">
-                                        </a>
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-2.jpg">
-                                        </a>
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-3.jpg">
-                                        </a>
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-4.jpg">
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="completion mr-2">90%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="media align-items-center">
-                                        <a href="#" class="avatar rounded-circle mr-3">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/vue.jpg">
-                                        </a>
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">Vue Paper UI Kit PRO</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <td class="budget">
-                                    $2200 USD
-                                </td>
-                                <td>
-                                    <span class="badge badge-dot mr-4">
-                                        <i class="bg-success"></i>
-                                        <span class="status">completed</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="avatar-group">
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-1.jpg">
-                                        </a>
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-2.jpg">
-                                        </a>
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-3.jpg">
-                                        </a>
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                            <img alt="Image placeholder" src="~/Content/LayoutCenter/img/theme/team-4.jpg">
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="completion mr-2">100%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

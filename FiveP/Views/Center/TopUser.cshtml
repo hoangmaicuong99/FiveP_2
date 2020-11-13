@@ -1,4 +1,5 @@
 ﻿@using FiveP.Models;
+@using System.Text
 @model List<User>
 <div class="card gedf-card">
     <div class="card-body">
@@ -11,7 +12,7 @@
                         <img class="rounded-circle" width="45" src="~/Content/LayoutCenter/ImgUser/user1.jpg" alt="">
                     </div>
                     <div class="col-10">
-                        <a href="#" class="h5 m-0">@item.user_nicename</a>
+                        <a href="@Url.Action("IndexUserPage","UserPage", new { id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.user_id.ToString()))})" class="h5 m-0">@item.user_nicename</a>
                         <div class="h7 text-muted">@item.user_vip_medal<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> @item.user_gold_medal<i class="fas fa-medal" style="color:yellow"></i>  @item.user_silver_medal<i class="fas fa-medal" style="color:silver"></i>  @item.user_bronze_medal<i class="fas fa-medal" style="color:#e88d15"></i> </div>
                     </div>
                 </div>

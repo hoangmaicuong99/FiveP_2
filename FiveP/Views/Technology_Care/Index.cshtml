@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FiveP.Models.Technology_Care>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Technology.technology_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Technology.technology_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_pass)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.technology_care_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.technology_care_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.technology_care_id })
+        </td>
+    </tr>
+}
+
+</table>

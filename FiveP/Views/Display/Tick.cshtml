@@ -1,7 +1,9 @@
-﻿
+﻿@using FiveP.Models;
+@model List<Tick_Post>
 @{
     ViewBag.Title = "Tick";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    FivePEntities db = new FivePEntities();
 }
 <style>
     .table td, .table th {
@@ -29,12 +31,12 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">Bài viết đã đánh dấu</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Default</li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("IndexCenter","Center")">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Đánh dấu</li>
                         </ol>
                     </nav>
                 </div>
@@ -56,7 +58,7 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0">
-                    <h3 class="mb-0">30 Bài viết đã đánh dấu...</h3>
+                    <h3 class="mb-0">@Model.Count() Bài viết đã đánh dấu...</h3>
                 </div>
 
                 <div class="float-right" style="padding: 10px;">
@@ -94,99 +96,99 @@
                             </tr>
                         </thead>
                         <tbody class="list">
-                            <tr>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <a class="mr-2">
 
-                                            <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
-                                            <center>
-                                                <p>123</p>
-                                            </center>
-                                            <center><i class="fa fa-chevron-down mt--3" style="font-size:200%"></i></center>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td scope="row">
+                                        <div class="media align-items-center">
+                                            <a class="mr-2">
+
+                                                <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
+                                                <center>
+                                                    @{
+                                                        List<Rate_Post> listRatePostT = db.Rate_Post.Where(n => n.post_id == item.post_id && n.rate_post1 == true).ToList();
+                                                        List<Rate_Post> listRatePostF = db.Rate_Post.Where(n => n.post_id == item.post_id && n.rate_post1 == false).ToList();
+                                                        int intCoutT = listRatePostT.Count();
+                                                        int intCoutF = listRatePostF.Count();
+                                                        int intDivided = intCoutT - intCoutF;
+                                                    }
+                                                    <p>@intDivided</p>
+                                                </center>
+                                                <center><i class="fa fa-chevron-down mt--3" style="font-size:200%"></i></center>
 
 
-                                        </a>
-                                        <div class="media-body">
-                                            <div><p class="mb--2">Argon System Argon </p></div>
-                                            <span class="name mb-0 text-sm">Argon Design System Design SystemArgon Design...</span>
+                                            </a>
+                                            <div class="media-body">
+                                                <div><p class="mb--2">
+                                                    @if (item.Post.post_title != null)
+                                                    {
+                                                        if (item.Post.post_title.Length > 40)
+                                                        {
+                                                            <span>@item.Post.post_title.Substring(0, 40) ...</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@item.Post.post_title ..</span>
+                                                        }
+                                                    }
+                                                    </p>
+                                                </div>
+                                                <span class="name mb-0 text-sm">
+                                                    @if (item.Post.post_content != null)
+                                                    {
+                                                        if (Html.Raw(item.Post.post_content).ToString().Length > 50)
+                                                        {
+                                                            <span>@Html.Raw(item.Post.post_content.Substring(0, 50)) ..</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@Html.Raw(item.Post.post_content) ..</span>
+                                                        }
+                                                    }
+                                                </span>
 
-                                            <div class="d-flex align-items-center">
-                                                <span class="completion mr-2">Vow : 60%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                                <div class="d-flex align-items-center">
+                                                    @{
+                                                        List<Rate_Post> rate_Posts = db.Rate_Post.Where(n => n.post_id == item.post_id).ToList();
+                                                        List<Rate_Post> rate_Posts1 = db.Rate_Post.Where(n => n.post_id == item.post_id && n.rate_post1 == true).ToList();
+                                                        float coutRate_Posts = rate_Posts.Count();
+                                                        float countrate_Posts1 = rate_Posts1.Count();
+                                                        float medium;
+                                                        if (coutRate_Posts != 0)
+                                                        {
+                                                            medium = (countrate_Posts1 / coutRate_Posts) * 100;
+                                                        }
+                                                        else
+                                                        {
+                                                            medium = 0;
+                                                        }
+
+                                                    }
+                                                    <span class="completion mr-2">Vow : @medium%</span>
+                                                    <div>
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @medium%;"></div>
+
+                                                        </div>
 
                                                     </div>
-
-                                                </div>
-                                                <div>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply"></i> 150 &nbsp;&nbsp; <i class="far fa-comment-dots"></i> 120 &nbsp;&nbsp; <i class="far fa-eye"></i> 12
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="budget ">
-                                    <a href="#"><i class="far fa-check-circle" style="font-size:23px"></i></a>
-                                </td>
-
-
-
-
-                                <td class="text-right">
-                                    1
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="row">
-                                    <div class="media align-items-center">
-                                        <a class="mr-2">
-
-                                            <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
-                                            <center>
-                                                <p>123</p>
-                                            </center>
-                                            <center><i class="fa fa-chevron-down mt--3" style="font-size:200%"></i></center>
-
-
-                                        </a>
-                                        <div class="media-body">
-                                            <div><p class="mb--2">Argon System Argon </p></div>
-                                            <span class="name mb-0 text-sm">Argon Design System Design SystemArgon Design...</span>
-
-                                            <div class="d-flex align-items-center">
-                                                <span class="completion mr-2">Vow : 60%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-
+                                                    <div>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply"></i> @item.Post.post_sum_reply &nbsp;&nbsp; <i class="far fa-comment-dots"></i> @item.Post.post_sum_comment &nbsp;&nbsp; <i class="far fa-eye"></i> @item.Post.post_view
                                                     </div>
-
-                                                </div>
-                                                <div>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply"></i> 150 &nbsp;&nbsp; <i class="far fa-comment-dots"></i> 120 &nbsp;&nbsp; <i class="far fa-eye"></i> 12
                                                 </div>
                                             </div>
+
                                         </div>
-
-                                    </div>
-                                </td>
-                                <td class="budget ">
-                                    <a href="#"><i class="far fa-check-circle" style="font-size:23px"></i></a>
-                                </td>
-
-
-
-
-                                <td class="text-right">
-                                    1
-                                </td>
-                            </tr>
-
-
-
+                                    </td>
+                                    <td class="budget ">
+                                        <a href="@Url.Action("RecycleBinTick","Display", new { id =item.tick_post_id})" data-toggle="tooltip" data-placement="top" title="Bỏ đánh dấu"><i class="far fa-check-circle" style="font-size:23px"></i></a>
+                                    </td>
+                                    <td class="text-right">
+                                        1
+                                    </td>
+                                </tr>
+                            }
 
                         </tbody>
                     </table>

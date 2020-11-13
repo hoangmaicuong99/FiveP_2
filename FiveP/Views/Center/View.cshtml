@@ -2,6 +2,7 @@
 @using FiveP.Models;
 @using PagedList;
 @using PagedList.Mvc;
+@using System.Text.RegularExpressions;
 @model PagedList.PagedList<Post>
 @{
     ViewBag.Title = "View";
@@ -290,29 +291,25 @@
                             </div>
                             <div class="card-body">
                                 <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> @item.post_datecreated</div>
-                                <a class="card-link" href="#">
+                                <a class="card-link" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = item.post_id})">
                                     <h5 class="card-title RutNganTieuDe">
-                                        @if (item.post_title.Length > 150)
-                                        {
-                                            <span>@item.post_title.Substring(0, 150) ...</span>
-                                        }
-                                        else
-                                        {
-                                            <span>@item.post_title ..</span>
-                                        }
+                                        @item.post_title
                                     </h5>
-                                </a>
 
-                                <p class="card-text RutNganNoiDung">
-                                    @if (Html.Raw(item.post_content).ToString().Length > 500)
+                                </a>
+                                <p class="text-body">
+                                    @if (item.post_content.Length > 300)
                                     {
-                                        <span>@Html.Raw(item.post_content.Substring(0, 500)) ..</span>
+                                        @WebUtility.HtmlDecode(Regex.Replace(item.post_content.Substring(0, 300), "<[^>]*(>|$)", string.Empty)) <span>...</span>
+
                                     }
                                     else
                                     {
-                                        <span>@Html.Raw(item.post_content) ..</span>
+                                        @Html.Raw(item.post_content)
                                     }
                                 </p>
+
+
                                 <div>
                                     @{
                                         List<Technology_Post> technology_Posts = db.Technology_Post.Where(n => n.post_id == item.post_id).ToList();
@@ -380,54 +377,10 @@
 
         </div>
         <div class="col-xl-4">
-            <div class="card gedf-card">
-                <div class="card-body">
-                    <h5 class="card-title">Top câu hỏi?</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Ở công nghệ user đó</h6>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-            <div class="card gedf-card">
-                <div class="card-body">
-                    <h5 class="card-title">Top công nghệ</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Ở công nghệ user đó</h6>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-            <div class="card gedf-card">
-                <div class="card-body">
-                    <h5 class="card-title">Top người dùng</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">ở công nghệ user đó</h6>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-            <div class="card gedf-card">
-                <div class="card-body">
-                    <h5 class="card-title">Có thể quan tâm</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Đăng nhập vào</h6>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
+            @Html.Action("TopQuestion", "Center")
+            @Html.Action("TopTechnology", "Center")
+            @Html.Action("TopUser", "Center")
+            @Html.Action("MayBeInterested", "Center")
             <div class="card gedf-card">
                 <div class="card-body">
                     <h5 class="card-title">Gợi ý kết bạn</h5>

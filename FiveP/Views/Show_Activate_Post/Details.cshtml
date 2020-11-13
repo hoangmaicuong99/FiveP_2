@@ -1,0 +1,51 @@
+﻿@model FiveP.Models.Show_Activate_Post
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Show_Activate_Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.show_activate_post_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.show_activate_post_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.show_activate_post_Readed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.show_activate_post_Readed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post.post_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.post_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_pass)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.show_activate_post_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<FiveP.Models.Show_Activate_Post>
+
+@{
+    ViewBag.Title = "ShowActivatePost";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 1;
+}
+
+<div class="container-fluid content-top-gap">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> hiển thị hoạt động câu hỏi</li>
+        </ol>
+    </nav>
+    <div class="welcome-msg pt-3 pb-4">
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() câu hỏi người dùng muốn biết sự thay đổi</h1>
+        <p>Very detailed & featured admin.</p>
+    </div>
+
+    <!-- statistics data -->
+    <div class="statistics">
+        <div class="row">
+            <div class="col-xl-12">
+                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+            </div>
+
+            <div class="col-xl-12 table-responsive">
+
+                <table class="table">
+                    <tr class="bg-light">
+                        <th>
+                            Stt
+                        </th>
+                        <th>
+                            Người dùng
+                        </th>
+                        <th>
+                            Câu hỏi
+                        </th>
+                        <th>
+                            Đã đọc
+                        </th>
+                        <th>
+                            Ngày
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.user_nicename)
+                            </td>
+                            <td style="width:40%">
+                                @Html.DisplayFor(modelItem => item.Post.post_title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.show_activate_post_Readed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.show_activate_post_datetime)
+                            </td>
+                            <td>
+                                <a href="#"><i class="far fa-edit"></i></a>|
+                                <a href="#"><i class="far fa-eye"></i></a> |
+                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+

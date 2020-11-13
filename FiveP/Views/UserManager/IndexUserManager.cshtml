@@ -1,7 +1,11 @@
-﻿
+﻿@using FiveP.Models;
+@model User
 @{
     ViewBag.Title = "IndexUserPage";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+
+    FivePEntities db = new FivePEntities();
+    User user = (User)Session["user"];
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -38,15 +42,22 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    <img src="~/Content/LayoutCenter/img/theme/team-4.jpg" class="rounded-circle">
+                                    @if (Model.user_img == null)
+                                    {
+                                        <img src="~/Content/argon-design-system-master/assets/img/faces/team-4.jpg" class="rounded-circle">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/LayoutCenter/ImgUser/@Model.user_img" class="rounded-circle">
+                                    }
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                         <div class="d-flex justify-content-between">
-                            <a href="#" class="btn btn-sm btn-info  mr-4 ">Connect</a>
-                            <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+                            <a href="#" class="btn btn-sm btn-info  mr-4 ">Mật khẩu</a>
+                            <a href="#" class="btn btn-sm btn-default float-right">Thông tin</a>
                         </div>
                     </div>
                     <div class="card-body pt-0">
@@ -54,15 +65,19 @@
                             <div class="col">
                                 <div class="card-profile-stats d-flex justify-content-center">
                                     <div>
-                                        <span class="heading">22</span>
+                                        @{ 
+                                            List<Friend> friends = db.Friends.Where(n => n.user_friend_id == user.user_id || n.user_id == user.user_id).ToList();
+                                        }
+                                        <span class="heading">@friends.Count()</span>
                                         <span class="description">Bạn bè</span>
                                     </div>
                                     <div>
-                                        <span class="heading">10</span>
+                                        <span class="heading">@Model.user_popular</span>
                                         <span class="description">Nổi tiếng</span>
                                     </div>
                                     <div>
-                                        <span class="heading">89</span>
+                                        @{var varSumMedal = Model.user_gold_medal + Model.user_bronze_medal + Model.user_silver_medal + Model.user_vip_medal;}
+                                        <span class="heading">@varSumMedal</span>
                                         <span class="description">Huy hiệu</span>
                                     </div>
                                 </div>
@@ -70,13 +85,17 @@
                         </div>
                         <div class="text-center">
                             <h5 class="h3">
-                                Jessica Jones<span class="font-weight-light">, 27 <a href="#" data-toggle="modal" data-target="#exampleModalLg"><i class="fas fa-user-edit"></i></a> </span>
+                                @Model.user_nicename<span class="font-weight-light">, 27 <a href="#" data-toggle="modal" data-target="#exampleModalLg"><i class="fas fa-user-edit"></i></a> </span>
                             </h5>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>Công nghệ Bucharest, Romania
+                                @{
+                                    List<Technology_Care> TechnologyCare = db.Technology_Care.Where(n => n.user_id == Model.user_id).ToList();
+                                }
+                                <i class="ni location_pin mr-2"></i>@foreach (var item2 in TechnologyCare)
+                                {<span style="padding:1%">@item2.Technology.technology_name</span>}
                             </div>
                             <div class="h5 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i><i class="fas fa-envelope-open-text"></i>&nbsp; cuongembaubang@gmail.com
+                                <i class="ni business_briefcase-24 mr-2"></i><i class="fas fa-envelope-open-text"></i>&nbsp; @Model.user_email
                             </div>
 
                             <!--Đổi tông tin-->
@@ -325,32 +344,34 @@
 
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="far fa-calendar-alt"></i>&nbsp; Ngày sinh: 12/03/1234 12:00:00 AM
+                                <i class="ni education_hat mr-2"></i><i class="far fa-calendar-alt"></i>&nbsp; Ngày sinh: @Model.user_date_born
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-mobile-alt"></i>&nbsp; Số điện thoại : 21
+                                <i class="ni education_hat mr-2"></i><i class="fas fa-mobile-alt"></i>&nbsp; Số điện thoại : @Model.user_phone
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-map-marked-alt"></i>&nbsp; Địa chỉ: thị Trấn Lại Uyên, huyện Bàu Bàng, tỉnh Bình Dương
+                                <i class="ni education_hat mr-2"></i><i class="fas fa-map-marked-alt"></i>&nbsp; Địa chỉ: @if (Model.commune_id != null) { @Model.Commune.commune_name} , @if (Model.district_id != null) { @Model.District.district_name} , @if (Model.provincial_id != null) { @Model.Provincial.provincial_name} 
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-venus-mars"></i>&nbsp; gới tính : Nam
+                                <i class="ni education_hat mr-2"></i><i class="fas fa-venus-mars"></i>&nbsp; gới tính : @if(Model.user_sex == 0) { <span>Nam</span>} else if(Model.user_sex == 1) { <span>Nữ</span>}else {<span>EGPT</span> }
+                                
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fab fa-facebook-f"></i>&nbsp; Link facebook: https://www.facebook.com/hoangmaicuong.99
+                                <i class="ni education_hat mr-2"></i><i class="fab fa-facebook-f"></i>&nbsp; Facebook: @Model.user_link_facebok
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fab fa-github"></i>&nbsp; link github: https://www.facebook.com/hoangmaicuong.99
+                                <i class="ni education_hat mr-2"></i><i class="fab fa-github"></i>&nbsp; Github: @Model.user_link_github
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-briefcase"></i>&nbsp; Sở thích công việc: 12
+                                <i class="ni education_hat mr-2"></i><i class="fas fa-briefcase"></i>&nbsp; Sở thích công việc: @Model.user_hobby_work
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="far fa-grin-hearts"></i>&nbsp; Sở thích cá nhân: 12
+                                <i class="ni education_hat mr-2"></i><i class="far fa-grin-hearts"></i>&nbsp; Sở thích cá nhân: @Model.user_hobby
                             </div>
                         </div>
                     </div>
                 </div>
+                @Html.Action("SuggestionToMakeFriends", "Center")
             </div>
             <div class="col-xl-8 order-xl-1">
                 <div class="card">
@@ -373,10 +394,18 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address"><i class="far fa-credit-card"></i> [ Bài viết bạn đã quan tâm ]</label>
                                             <div>
-                                                Tổng đã trả lời của bạn : 7
+                                                @{ 
+                                                    List<Reply_Post> replyPost = db.Reply_Post.Where(n => n.user_id == user.user_id).ToList();
+
+                                                }
+                                                Tổng đã trả lời của bạn : @replyPost.Count()
                                             </div>
                                             <div>
-                                                Tổng comment của bạn : 9
+                                                @{ 
+                                                    List<Comment> comment = db.Comments.Where(n => n.user_id == user.user_id).ToList();
+
+                                                }
+                                                Tổng comment của bạn : @comment.Count()
                                             </div>
                                         </div>
                                     </div>
@@ -386,7 +415,11 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address"><i class="fas fa-map-pin"></i> [ Bài viết đã đánh dấu ]</label>
                                             <div>
-                                                Tổng bài viết đã đánh dấu : 1
+                                                @{ 
+                                                    List<Tick_Post> tickMyPost = db.Tick_Post.Where(n => n.user_id == user.user_id).ToList();
+
+                                                }
+                                                Tổng bài viết đã đánh dấu : @tickMyPost.Count()
                                             </div>
                                         </div>
                                     </div>
@@ -396,10 +429,18 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address"><i class="fab fa-accessible-icon"></i> &nbsp;  [ Hoạt động bài viết đã đánh giấu ]</label>
                                             <div>
-                                                Bài viết đã đánh dấu hoạt động : 1
+                                                @{ 
+                                                    List<Show_Activate_Post> showActivatePost = db.Show_Activate_Post.Where(n => n.user_id == user.user_id).ToList();
+
+                                                }
+                                                Bài viết đã đánh dấu hoạt động : @showActivatePost.Count()
                                             </div>
                                             <div>
-                                                Trả lời các bài viết đã đánh dấu hoạt động : 3
+                                                @{ 
+                                                    List<Show_Activate_Reply_Post> showActivateReplyPost = db.Show_Activate_Reply_Post.Where(n => n.user_id == user.user_id).ToList();
+
+                                                }
+                                                Trả lời các bài viết đã đánh dấu hoạt động : @showActivateReplyPost.Count()
                                             </div>
                                         </div>
                                     </div>
@@ -414,34 +455,65 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address"><i class="far fa-credit-card"></i> &nbsp;  [ Bài viết của bạn ]</label>
                                             <div>
-                                                Tổng lượt xem bài viết : 83
+                                                @{ 
+                                                    int coutViewPost = 0;
+                                                    List<Post> ViewPost = db.Posts.Where(n => n.user_id == user.user_id).ToList();
+                                                    foreach (var item in ViewPost)
+                                                    {
+                                                        coutViewPost += (int)item.post_view;
+                                                    }
+                                                }
+                                                Tổng lượt xem bài viết : @coutViewPost
                                             </div>
                                             <div>
-                                                Tổng bài viết của bạn : 7
+                                                @{ 
+                                                    List<Post> coutMyPost = db.Posts.Where(n => n.user_id == user.user_id).ToList();
+
+                                                }
+                                                Tổng bài viết của bạn : @coutMyPost.Count()
                                             </div>
                                             <div>
-                                                Tổng trả lời tất cả bài viết : 16
+                                                @{ 
+                                                    List<Reply_Post> replyMyPost = db.Reply_Post.Where(n => n.Post.user_id == user.user_id).ToList();
+
+                                                }
+                                                Tổng trả lời tất cả bài viết : @replyMyPost.Count()
                                             </div>
                                             <div>
-                                                Bài viết được đánh giá : 3
+                                                @{ 
+                                                    List<Rate_Post> ratePost = db.Rate_Post.Where(n => n.Post.user_id == user.user_id).ToList();
+
+
+                                                }
+                                                Bài viết được đánh giá : @ratePost.Count()
                                             </div>
                                             <div>
-                                                Bài viết có độ nổi tiếng < 10 : 5
+                                                @{ 
+                                                    List<Post> postUnder10 = db.Posts.Where(n => n.user_id == user.user_id && n.post_popular < 10).ToList();
+
+                                                }
+                                                Bài viết có độ nổi tiếng < 10 : @postUnder10.Count()
                                             </div>
                                             <div>
-                                                Bài viết có độ nổi tiếng < 20 : 0
+                                                @{ 
+                                                    List<Post> postUnder20 = db.Posts.Where(n => n.user_id == user.user_id && n.post_popular < 20 && n.post_popular > 10).ToList();
+
+                                                }
+                                                Bài viết có độ nổi tiếng < 20 : @postUnder20.Count()
                                             </div>
                                             <div>
-                                                Bài viết có độ nổi tiếng > 40 : 1
+                                                @{ 
+                                                    List<Post> postAbove40 = db.Posts.Where(n => n.user_id == user.user_id && n.post_popular > 40).ToList();
+
+                                                }
+                                                Bài viết có độ nổi tiếng > 40 : @postAbove40.Count()
                                             </div>
                                             <div>
-                                                Bài viết để xuất âm : 1
-                                            </div>
-                                            <div>
-                                                Bài viết trả lời nhiều nhất
-                                            </div>
-                                            <div>
-                                                Bài viết comment nhiều nhất
+                                                @{ 
+                                                    List<Post> postUnder1 = db.Posts.Where(n => n.user_id == user.user_id && n.post_popular < 1).ToList();
+
+                                                }
+                                                Bài viết để xuất âm : @postUnder1.Count()
                                             </div>
                                         </div>
                                     </div>
@@ -449,9 +521,18 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-address"><i class="far fa-comment-dots"></i> &nbsp; [ Bình luận ]</label>
+                                            <label class="form-control-label" for="input-address"><i class="far fa-comment-dots"></i> &nbsp; [ Hồi đáp ]</label>
                                             <div>
-                                                Tổng bình luận: 11
+                                                @{ 
+                                                    List<Comment> comments = db.Comments.Where(n => n.Reply_Post.Post.user_id == user.user_id).ToList();
+                                                }
+                                                Tổng bình luận: @comments.Count()
+                                            </div>
+                                            <div>
+                                                @{ 
+                                                    List<Reply_Post> reply_Posts = db.Reply_Post.Where(n => n.Post.user_id == user.user_id).ToList();
+                                                }
+                                                Tổng trả lời: @reply_Posts.Count()
                                             </div>
                                         </div>
                                     </div>
@@ -461,26 +542,32 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address"><i class="far fa-caret-square-up"></i>&nbsp; [ Trả lời bài viết của bạn được đề xuất cao ]</label>
                                             <div>
-                                                được đề xuất < 10 : 0
+                                                @{ 
+                                                    List<Reply_Post> replyMyPostUnder10 = db.Reply_Post.Where(n => n.Post.user_id == user.user_id && n.reply_post_popular < 10).ToList();
+
+                                                }
+                                                được đề xuất < 10 : @replyMyPostUnder10.Count()
                                             </div>
                                             <div>
-                                                Được đề xuất < 20 : 0
+                                                @{ 
+                                                    List<Reply_Post> replyMyPostUnder20 = db.Reply_Post.Where(n => n.Post.user_id == user.user_id && n.reply_post_popular < 20 && n.reply_post_popular > 10).ToList();
+
+                                                }
+                                                Được đề xuất < 20 : @replyMyPostUnder20.Count()
                                             </div>
                                             <div>
-                                                Được đề xuất < 40 : 0
+                                                @{ 
+                                                    List<Reply_Post> replyMyPostUnder40 = db.Reply_Post.Where(n => n.Post.user_id == user.user_id && n.reply_post_popular < 40 && n.reply_post_popular > 20).ToList();
+
+                                                }
+                                                Được đề xuất < 40 : @replyMyPostUnder40.Count()
                                             </div>
                                             <div>
-                                                Được đề xuất > 70 : 0
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="input-address"><i class="far fa-caret-square-down"></i>&nbsp; [ Trả lời được đề xuất thấp ]</label>
-                                            <div>
-                                                Tổng : 0
+                                                @{ 
+                                                    List<Reply_Post> replyMyPostAbove70 = db.Reply_Post.Where(n => n.Post.user_id == user.user_id && n.reply_post_popular > 70).ToList();
+
+                                                }
+                                                Được đề xuất > 70 : @replyMyPostAbove70.Count()
                                             </div>
                                         </div>
                                     </div>

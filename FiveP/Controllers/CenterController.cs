@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using FiveP.Models;
@@ -15,119 +16,81 @@ namespace FiveP.Controllers
         FivePEntities db = new FivePEntities();
         public ActionResult IndexCenter(int? page)
         {
+            
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_datecreated).ToList();
+            int number = (page ?? 1);
 
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_datecreated).ToList();
             int countPost = post.Count();
+
             ViewBag.demCauHoi = countPost;
-            if (page < 1)
-            {
-                page = 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return View(post.ToPagedList(number, size));
-            }
-            else if (page > (countPost / size) + 1)
-            {
-                page = (countPost / size) + 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
-            else
-            {
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
+            ViewBag.size = size;
+            ViewBag.page = number;
+            return View(db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_datecreated).ToPagedList(number, size));
         }
         //phân trang center (tất cả câu hỏi)
         public PartialViewResult IndexCenterPage(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_datecreated).ToList();
+            
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_datecreated).ToList();
+            
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
+
             System.Threading.Thread.Sleep(2000);
-            if (page < 1)
+
+            ViewBag.size = size;
+            
+            if(page <1)
             {
                 page = 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return PartialView(post.ToPagedList(number, size));
-            }
-            else if (countPost % size !=0 && page > (countPost / size) + 1)
-            {
-                page = (countPost / size) + 1;
-
-                ViewBag.size = size;
                 int number = (page ?? 1);
                 ViewBag.page = number;
                 return PartialView(post.ToPagedList(number, size));
             }
-            else if(countPost % size == 0 && page > (countPost / size))
+            else if( page > (countPost / size) && (countPost % size) == 0)
             {
+                // nếu lớn hơn sô trang thì cho trả về trang lớn nhất (page chẵng)
                 page = (countPost / size);
+                int number = (page ?? 1);
+                ViewBag.page = number;
+                return PartialView(post.ToPagedList(number, size));
+            }
+            else if(page > (countPost / size) + 1 && (countPost % size) != 0)
+            {
+                // nếu lớn hơn sô trang thì cho trả về trang lớn nhất (page lẽ)
 
-                ViewBag.size = size;
+                page = (countPost / size)+1;
                 int number = (page ?? 1);
                 ViewBag.page = number;
                 return PartialView(post.ToPagedList(number, size));
             }
             else
             {
-                ViewBag.size = size;
                 int number = (page ?? 1);
                 ViewBag.page = number;
                 return PartialView(post.ToPagedList(number, size));
             }
+            
         }
         public ActionResult Hot(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_popular).ToList();
+            int number = (page ?? 1);
+
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_popular).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
-            if (page < 1)
-            {
-                page = 1;
+            ViewBag.size = size;
+            ViewBag.page = number;
 
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return View(post.ToPagedList(number, size));
-            }
-            else if (page > (countPost / size) + 1)
-            {
-                page = (countPost / size) + 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
-            else
-            {
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
+            return View(post.ToPagedList(number, size));
         }
         public PartialViewResult HotPage(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_popular).ToList();
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_popular).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
             System.Threading.Thread.Sleep(2000);
@@ -170,40 +133,20 @@ namespace FiveP.Controllers
         public ActionResult View(int?page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_view).ToList();
+            int number = (page ?? 1);
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_view).ToList();
             int countPost = post.Count();
+
             ViewBag.demCauHoi = countPost;
-            if (page < 1)
-            {
-                page = 1;
+            ViewBag.size = size;
+            ViewBag.page = number;
 
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return View(post.ToPagedList(number, size));
-            }
-            else if (page > (countPost / size) + 1)
-            {
-                page = (countPost / size) + 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
-            else
-            {
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
+            return View(post.ToPagedList(number, size));
         }
         public PartialViewResult ViewPage(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_view).ToList();
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_view).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
             System.Threading.Thread.Sleep(2000);
@@ -246,40 +189,19 @@ namespace FiveP.Controllers
         public ActionResult Reply(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_sum_reply).ToList();
+            int number = (page ?? 1);
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
-            if (page < 1)
-            {
-                page = 1;
+            ViewBag.size = size;
+            ViewBag.page = number;
 
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return View(post.ToPagedList(number, size));
-            }
-            else if (page > (countPost / size) + 1)
-            {
-                page = (countPost / size) + 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
-            else
-            {
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
+            return View(post.ToPagedList(number, size));
         }
         public PartialViewResult ReplyPage(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true).OrderByDescending(n => n.post_sum_reply).ToList();
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
             System.Threading.Thread.Sleep(2000);
@@ -322,30 +244,11 @@ namespace FiveP.Controllers
         public ActionResult Week(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_datecreated.Value.Year == DateTime.Now.Year && n.post_datecreated.Value.Month == DateTime.Now.Month).OrderByDescending(n => n.post_sum_reply).ToList();
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_datecreated.Value.Year == DateTime.Now.Year && n.post_datecreated.Value.Month == DateTime.Now.Month && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
             if(countPost ==0)
             {
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(post.ToPagedList(number, size));
-            }
-            if (page < 1)
-            {
-                page = 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return View(post.ToPagedList(number, size));
-            }
-            else if (page > (countPost / size) + 1)
-            {
-                page = (countPost / size) + 1;
-
                 ViewBag.size = size;
                 int number = (page ?? 1);
                 ViewBag.page = number;
@@ -356,13 +259,14 @@ namespace FiveP.Controllers
                 ViewBag.size = size;
                 int number = (page ?? 1);
                 ViewBag.page = number;
+
                 return View(post.ToPagedList(number, size));
             }
         }
         public PartialViewResult WeekPage(int? page)
         {
             int size = 2;
-            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_datecreated.Value.Year == DateTime.Now.Year && n.post_datecreated.Value.Month == DateTime.Now.Month).OrderByDescending(n => n.post_sum_reply).ToList();
+            List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_datecreated.Value.Year == DateTime.Now.Year && n.post_datecreated.Value.Month == DateTime.Now.Month && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
             System.Threading.Thread.Sleep(2000);
@@ -428,7 +332,19 @@ namespace FiveP.Controllers
         public PartialViewResult SuggestionToMakeFriends()
         {
             //Gợi ý kết bạn có chung công nghệ, nhưng chưa kết bạn
-            return PartialView();
+            User user = (User)Session["user"];
+            Technology_Care technology_Care = db.Technology_Care.FirstOrDefault(n => n.user_id == user.user_id);
+            if(technology_Care != null)
+            {
+                List<Technology_Care> technology_Cares = db.Technology_Care.Where(n => n.technology_id == technology_Care.technology_id).GroupBy(x => x.user_id).Select(y => y.FirstOrDefault()).Take(7).ToList();
+                return PartialView(technology_Cares);
+            }
+            else
+            {
+                List<Technology_Care> technology_Cares = db.Technology_Care.GroupBy(x => x.user_id).Select(y => y.FirstOrDefault()).Take(7).ToList();
+                return PartialView(technology_Cares);
+            }
+            
         }
     }
 }

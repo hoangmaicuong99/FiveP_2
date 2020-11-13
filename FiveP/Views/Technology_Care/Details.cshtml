@@ -1,0 +1,35 @@
+﻿@model FiveP.Models.Technology_Care
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Technology_Care</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Technology.technology_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Technology.technology_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_pass)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.technology_care_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

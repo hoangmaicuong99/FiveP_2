@@ -1,0 +1,93 @@
+﻿@model IEnumerable<FiveP.Models.Technology>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 1;
+}
+
+<div class="container-fluid content-top-gap">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Công nghệ</li>
+        </ol>
+    </nav>
+    <div class="welcome-msg pt-3 pb-4">
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() Công nghệ</h1>
+        <p>Very detailed & featured admin.</p>
+    </div>
+
+    <!-- statistics data -->
+    <div class="statistics">
+        <div class="row">
+            <div class="col-xl-12">
+                <a href="#" class="btn btn-primary mb-1"><i class="fas fa-rocket"></i> Thêm công nghệ</a>
+                
+            </div>
+            
+            <div class="col-xl-12">
+                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+            </div>
+
+            <div class="col-xl-12 table-responsive">
+
+                <table class="table">
+                    <tr class="bg-light">
+                        <th>
+                            Stt
+                        </th>
+                        <th>
+                            Tên
+                        </th>
+
+                        <th>
+                            Danh tiếng <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            Nội dung
+                        </th>
+                        <th>
+                            Ngày tạo <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.technology_name)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.technology_popular)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.technology_content)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.technology_datetime)
+                            </td>
+                            <td>
+                                <a href="#"><i class="far fa-edit"></i></a>|
+                                <a href="#"><i class="far fa-eye"></i></a> |
+                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

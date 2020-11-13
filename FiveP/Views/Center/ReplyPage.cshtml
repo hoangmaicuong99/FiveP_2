@@ -2,6 +2,8 @@
 @using FiveP.Models;
 @using PagedList;
 @using PagedList.Mvc;
+
+@using System.Text.RegularExpressions;
 @model PagedList.PagedList<Post>
 @{
     FivePEntities db = new FivePEntities();
@@ -100,27 +102,20 @@
         </div>
         <div class="card-body">
             <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> @item.post_datecreated</div>
-            <a class="card-link" href="#">
+            <a class="card-link" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = item.post_id})">
                 <h5 class="card-title RutNganTieuDe">
-                    @if (item.post_title.Length > 150)
-                    {
-                        <span>@item.post_title.Substring(0, 150) ...</span>
-                    }
-                    else
-                    {
-                        <span>@item.post_title ...</span>
-                    }
+                    @item.post_title
                 </h5>
             </a>
-
-            <p class="card-text RutNganNoiDung">
-                @if (Html.Raw(item.post_content).ToString().Length > 500)
+            <p class="text-body">
+                @if (item.post_content.Length > 300)
                 {
-                    <span>@Html.Raw(item.post_content.Substring(0, 500)) ...</span>
+                    @WebUtility.HtmlDecode(Regex.Replace(item.post_content.Substring(0, 300), "<[^>]*(>|$)", string.Empty)) <span>...</span>
+
                 }
                 else
                 {
-                    <span>@Html.Raw(item.post_content) ...</span>
+                    @Html.Raw(item.post_content)
                 }
             </p>
             <div>
@@ -167,22 +162,35 @@
             </li>
             @if (ViewBag.demCauHoi % ViewBag.size == 0)
             {
-                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                if (ViewBag.page == 1)
                 {
-                    if (i < (ViewBag.demCauHoi / ViewBag.size))
+                    for (i = 1; i <= ViewBag.page + 2; i++)
                     {
                         <li class="page-item @if (ViewBag.page == i) {@active }">
                             <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
                         </li>
                     }
-                    else if (i == (ViewBag.demCauHoi / ViewBag.size))
-                    {
-                        <li class="page-item @if (ViewBag.page == i) {@active }">
-                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
-                        </li>
-                    }
-
                 }
+                else
+                {
+                    for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                    {
+                        if (i < (ViewBag.demCauHoi / ViewBag.size))
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                            </li>
+                        }
+                        else if (i == (ViewBag.demCauHoi / ViewBag.size))
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                            </li>
+                        }
+
+                    }
+                }
+
                 if (ViewBag.page < (ViewBag.demCauHoi / ViewBag.size) - 1)
                 {
                     <li style="font-size:25px">...</li>
@@ -190,21 +198,34 @@
             }
             else
             {
-                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                if (ViewBag.page == 1)
                 {
-                    if (i < (ViewBag.demCauHoi / ViewBag.size) + 1)
+                    for (i = 1; i <= ViewBag.page + 2; i++)
                     {
                         <li class="page-item @if (ViewBag.page == i) {@active }">
                             <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
                         </li>
                     }
-                    else if (i == (ViewBag.demCauHoi / ViewBag.size) + 1)
+                }
+                else
+                {
+                    for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
                     {
-                        <li class="page-item @if (ViewBag.page == i) {@active }">
-                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
-                        </li>
+                        if (i < (ViewBag.demCauHoi / ViewBag.size) + 1)
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                            </li>
+                        }
+                        else if (i == (ViewBag.demCauHoi / ViewBag.size) + 1)
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("ReplyPage","Center",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                            </li>
+                        }
                     }
                 }
+
                 if (ViewBag.page < (ViewBag.demCauHoi / ViewBag.size))
                 {
                     <li style="font-size:25px">...</li>

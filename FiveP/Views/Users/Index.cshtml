@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Index</h2>
@@ -35,9 +35,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.user_activate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_phone)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.user_address)
@@ -82,6 +79,9 @@
             @Html.DisplayNameFor(model => model.user_vip_medal)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.user_phone)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Commune.commune_name)
         </th>
         <th>
@@ -118,9 +118,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.user_activate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_phone)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.user_address)
@@ -163,6 +160,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.user_vip_medal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_phone)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Commune.commune_name)

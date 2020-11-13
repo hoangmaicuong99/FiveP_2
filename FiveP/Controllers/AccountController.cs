@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using FiveP.Models;
@@ -23,7 +25,20 @@ namespace FiveP.Controllers
         {
             String sEmail = f["user_email"].ToString();
             String sPass = f["user_pass"].ToString();
-            User user = db.Users.Where(n => n.user_activate == true && n.user_role == 0 && n.user_activate_admin == true).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == sPass);
+
+            MD5 md5 = new MD5CryptoServiceProvider();
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(sPass));
+
+            byte[] result = md5.Hash;
+
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+            {
+                strBuilder.Append(result[i].ToString("x2"));
+            }
+            String pass_encode = strBuilder.ToString();
+
+            User user = db.Users.Where(n => n.user_activate == true && n.user_role == 0 && n.user_activate_admin == true).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == pass_encode);
             if (user != null)
             {
                 Session["user"] = user;
@@ -357,6 +372,20 @@ namespace FiveP.Controllers
 
             if(ruser == null)
             {
+                MD5 md5 = new MD5CryptoServiceProvider();
+                md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(user.user_pass));
+
+                byte[] result = md5.Hash;
+
+                StringBuilder strBuilder = new StringBuilder();
+                for (int i = 0; i < result.Length; i++)
+                {
+                    strBuilder.Append(result[i].ToString("x2"));
+                }
+
+                user.user_pass = strBuilder.ToString();
+
+
                 user.user_nicename = null;
                 user.user_datecreated = DateTime.Now;
                 user.user_token = Guid.NewGuid().ToString();

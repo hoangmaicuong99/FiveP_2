@@ -25,32 +25,11 @@ namespace FiveP.Controllers
 
             int countUser = users.Count();
             ViewBag.demUser = countUser;
-            if (page < 1)
-            {
-                page = 1;
+            ViewBag.size = size;
+            int number = (page ?? 1);
+            ViewBag.page = number;
 
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return View(users.ToPagedList(number, size));
-            }
-            else if (page > (countUser / size) + 1)
-            {
-                page = (countUser / size) + 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(users.ToPagedList(number, size));
-            }
-            else
-            {
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(users.ToPagedList(number, size));
-            }
+            return View(users.ToPagedList(number, size));
         }
         public PartialViewResult MemberPage(int? page)
         {
@@ -102,32 +81,11 @@ namespace FiveP.Controllers
 
             int countTechnology = technologies.Count();
             ViewBag.demTechnology = countTechnology;
-            if (page < 1)
-            {
-                page = 1;
+            ViewBag.size = size;
+            int number = (page ?? 1);
+            ViewBag.page = number;
 
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-
-                return View(technologies.ToPagedList(number, size));
-            }
-            else if (page > (countTechnology / size) + 1)
-            {
-                page = (countTechnology / size) + 1;
-
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(technologies.ToPagedList(number, size));
-            }
-            else
-            {
-                ViewBag.size = size;
-                int number = (page ?? 1);
-                ViewBag.page = number;
-                return View(technologies.ToPagedList(number, size));
-            }
+            return View(technologies.ToPagedList(number, size));
         }
         public PartialViewResult TechnologyPage(int? page)
         {
@@ -175,23 +133,74 @@ namespace FiveP.Controllers
         }
         public ActionResult ManagePost()
         {
-            return View();
+            User user = (User)Session["user"];
+            if (user == null)
+            {
+                return Redirect("/Center/IndexCenter");
+            }
+            List<Post> post = db.Posts.Where(n => n.user_id == user.user_id && n.post_activate_admin == true && n.post_RecycleBin == false).ToList();
+            
+            return View(post);
         }
+        public ActionResult RecycleBinPost(int? id)
+        {
+            db.Posts.Find(id).post_RecycleBin = true;
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+
         public ActionResult History()
         {
             return View();
         }
         public ActionResult Tick()
         {
-            return View();
+            User user = (User)Session["user"];
+            List<Tick_Post> tick_Posts = db.Tick_Post.Where(n=>n.tick_recyclebin == false && n.user_id == user.user_id).OrderByDescending(n => n.tick_post_datetime).ToList();
+            return View(tick_Posts);
+        }
+        public ActionResult RecycleBinTick(int? id)
+        {
+            db.Tick_Post.Find(id).tick_recyclebin = true;
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
         }
         public ActionResult Notification()
         {
-            return View();
+            User user = (User)Session["user"];
+            List<Notification> notifications = db.Notifications.Where(n => n.user_id == user.user_id && n.notification_status == true).ToList();
+            return View(notifications);
+        }
+        public ActionResult RecycleBinNotification(int? id)
+        {
+            db.Notifications.Find(id).notification_status = false;
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
         }
         public ActionResult Friend()
         {
-            return View();
+            User user = (User)Session["user"];
+            List<Friend> friends = db.Friends.Where(n => n.user_id == user.user_id && n.friend_status == true || n.user_friend_id == user.user_id && n.friend_status == true).ToList();
+            return View(friends);
+        }
+        public ActionResult FriendRecently()
+        {
+            User user = (User)Session["user"];
+            List<Friend> friends = db.Friends.Where(n => n.user_id == user.user_id && n.friend_status == true || n.user_friend_id == user.user_id && n.friend_status == true).OrderByDescending(n=>n.friend_datecreate).Take(30).ToList();
+            return View(friends);
+        }
+        public ActionResult FriendInvitation()
+        {
+            User user = (User)Session["user"];
+            List<Friend> friends = db.Friends.Where(n => n.user_friend_id == user.user_id && n.friend_status == false).ToList();
+            return View(friends);
+        }
+        public ActionResult FriendSend()
+        {
+            User user = (User)Session["user"];
+            List<Friend> friends = db.Friends.Where(n => n.user_id == user.user_id && n.friend_status == false).ToList();
+            return View(friends);
         }
     }
 }

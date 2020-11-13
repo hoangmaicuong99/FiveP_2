@@ -1,0 +1,92 @@
+﻿@using FiveP.Models;
+@model IEnumerable<FiveP.Models.User>
+
+@{
+    ViewBag.Title = "TechnologyCare";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 1;
+    FivePEntities db = new FivePEntities();
+
+}
+
+<div class="container-fluid content-top-gap">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Người dùng</li>
+        </ol>
+    </nav>
+    <div class="welcome-msg pt-3 pb-4">
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() Người dùng</h1>
+        <p>Very detailed & featured admin.</p>
+    </div>
+
+    <!-- statistics data -->
+    <div class="statistics">
+        <div class="row">
+            <div class="col-xl-12">
+                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+            </div>
+
+            <div class="col-xl-12 table-responsive">
+
+                <table class="table">
+                    <tr class="bg-light">
+                        <th>
+                            Stt
+                        </th>
+
+                        <th>
+                            Tên
+                        </th>
+
+                        <th>
+                            Công nghệ
+                        </th>
+                        
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_nicename)
+                                Ảnh
+                            </td>
+
+                            <td>
+                                @{ 
+                                    List<Technology_Care> technology_Cares = db.Technology_Care.Where(n => n.user_id == item.user_id).ToList();
+                                }
+                                @foreach(var item2 in technology_Cares)
+                                {
+                                    <span>@item2.Technology.technology_name ,</span>
+                                }
+                            </td>
+                            
+
+                            <td>
+                                <a href="#"><i class="far fa-edit"></i></a>|
+                                <a href="#"><i class="far fa-eye"></i></a> |
+                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

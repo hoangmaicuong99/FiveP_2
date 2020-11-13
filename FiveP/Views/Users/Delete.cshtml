@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Delete</h2>
@@ -74,14 +74,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.user_activate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_phone)
         </dd>
 
         <dt>
@@ -194,6 +186,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.user_vip_medal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_phone)
         </dd>
 
         <dt>

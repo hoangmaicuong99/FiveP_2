@@ -113,46 +113,49 @@
                                     <span class="nav-link-text">Hỏi?</span>
                                 </a>
                             </li>
-                            
+
                         </ul>
                         <!-- Divider -->
                         <hr class="my-3">
                         <!-- Heading -->
-                        <h6 class="navbar-heading p-0 text-muted">
-                            <span class="docs-normal"><i class="fas fa-user"></i> Quản lý cá nhân</span>
-                        </h6>
-                        <!-- Navigation -->
-                        <ul class="navbar-nav mb-md-3">
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("ManagePost","Display")" target="_blank">
-                                    
-                                    <span class="nav-link-text">Câu hỏi</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("History","Display")" target="_blank">
-                                    
-                                    <span class="nav-link-text">Lịch sử</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Tick","Display")" target="_blank">
-                                    
-                                    <span class="nav-link-text">Đánh dấu</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Friend","Display")" target="_blank">
-                                    
-                                    <span class="nav-link-text">Bạn bè</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Notification","Display")">
-                                    <span class="nav-link-text">Thông báo</span>
-                                </a>
-                            </li>
-                        </ul>
+                        @if (Session["user"] != null)
+                        {
+                            <h6 class="navbar-heading p-0 text-muted">
+                                <span class="docs-normal"><i class="fas fa-user"></i> Quản lý cá nhân</span>
+                            </h6>
+                            <!-- Navigation -->
+                            <ul class="navbar-nav mb-md-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("ManagePost","Display")" target="_blank">
+
+                                        <span class="nav-link-text">Câu hỏi</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("History","Display")" target="_blank">
+
+                                        <span class="nav-link-text">Lịch sử</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Tick","Display")" target="_blank">
+
+                                        <span class="nav-link-text">Đánh dấu</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Friend","Display")" target="_blank">
+
+                                        <span class="nav-link-text">Bạn bè</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Notification","Display")">
+                                        <span class="nav-link-text">Thông báo</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        }
                     </div>
                 </div>
             </div>

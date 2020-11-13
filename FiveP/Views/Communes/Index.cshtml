@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FiveP.Models.Commune>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.commune_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.commune_activate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.commune_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.District.district_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.commune_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.commune_activate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.commune_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.District.district_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.commune_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.commune_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.commune_id })
+        </td>
+    </tr>
+}
+
+</table>

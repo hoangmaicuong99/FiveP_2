@@ -1,7 +1,9 @@
-﻿
+﻿@using FiveP.Models;
+@model List<Notification>
 @{
     ViewBag.Title = "Notification";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    int count = 1;
 }
 
 <style>
@@ -30,12 +32,12 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">Thông báo</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Default</li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Thông báo</li>
                         </ol>
                     </nav>
                 </div>
@@ -57,7 +59,7 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0">
-                    <h3 class="mb-0">30 Thông báo...</h3>
+                    <h3 class="mb-0">@Model.Count() Thông báo...</h3>
                 </div>
 
                 <div class="float-right" style="padding: 10px;">
@@ -97,82 +99,47 @@
                         </thead>
                         <tbody class="list">
 
-                            <tr>
-                                <td class="text-center">
-                                    1
-                                </td>
-                                <td scope="row" class="w-75">
-                                    <div class="media align-items-center">
-                                        <a href="#" class="mr-2">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        @count
+                                    </td>
+                                    <td scope="row" class="w-75">
+                                        <div class="media align-items-center">
+                                            <a href="@Url.Action("IndexDetailQuestion","DetailQuestion",new { id = item.post_id})" class="mr-2">
 
-                                            <i class="fas fa-info-circle"></i>
-
-
-                                        </a>
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">Argon Design System Design Argon Design System DesignArgon Design System Design SystemArgon Design...</span>
-
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="budget text-center">
-                                    <a href="#"><i class="fas fa-times" style="font-size:23px"></i></a>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    1
-                                </td>
-                                <td scope="row" class="w-75">
-                                    <div class="media align-items-center">
-                                        <a href="#" class="mr-2">
-
-                                            <i class="fas fa-info-circle"></i>
+                                                <i class="fas fa-info-circle"></i>
 
 
-                                        </a>
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">Argon Design SystemArgon Design SystemArgon Design SystemArgon Design SystemArgon Design System Design Argon Design System DesignArgon Design System Design SystemArgon Design...</span>
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">
+                                                    @if (item.notification_content != null)
+                                                    {
+                                                        if (item.notification_content.Length > 100)
+                                                        {
+                                                            <span>@item.notification_content.Substring(0, 100) ...</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@item.notification_content ..</span>
+                                                        }
+                                                    }
+                                                </span>
+
+                                            </div>
 
                                         </div>
+                                    </td>
+                                    <td class="budget text-center">
+                                        <a href="@Url.Action("RecycleBinNotification","Display", new { id = item.notification_id})"><i class="fas fa-times" style="font-size:23px"></i></a>
+                                    </td>
 
-                                    </div>
-                                </td>
-                                <td class="budget text-center">
-                                    <a href="#"><i class="fas fa-times" style="font-size:23px"></i></a>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    1
-                                </td>
-                                <td scope="row" class="w-75">
-                                    <div class="media align-items-center">
-                                        <a href="#" class="mr-2">
-
-                                            <i class="fas fa-info-circle"></i>
-
-
-                                        </a>
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">Argon Design SystemArgon Design SystemArgon Design SystemArgon Design SystemArgon Design System Design Argon Design System DesignArgon Design System Design SystemArgon Design...</span>
-
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="budget text-center">
-                                    <a href="#"><i class="fas fa-times" style="font-size:23px"></i></a>
-                                </td>
-
-                            </tr>
-
-
-
-
+                                </tr>
+                                count++;
+                            }
+                            
                         </tbody>
                     </table>
                 </div>

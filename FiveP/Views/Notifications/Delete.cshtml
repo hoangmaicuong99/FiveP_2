@@ -1,0 +1,65 @@
+﻿@model FiveP.Models.Notification
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Notification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.notification_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notification_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notification_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notification_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notification_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notification_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post.post_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.post_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_pass)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -40,6 +40,7 @@ namespace FiveP.Models
         public Nullable<int> post_view { get; set; }
         public Nullable<int> post_popular { get; set; }
         public Nullable<int> post_calculate_medal { get; set; }
+        public Nullable<bool> post_RecycleBin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes { get; set; }

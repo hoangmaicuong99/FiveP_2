@@ -1,0 +1,121 @@
+﻿
+@using FiveP.Models;
+@model List<Friend>
+@{
+    ViewBag.Title = "FriendSend";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+<link href="~/Content/DisplayMember/StyleSheet1.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/DisplayMember/dispalymember.css" rel="stylesheet" />
+<script src="~/Content/DisplayMember/displaymember.js"></script>
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">@Model.Count() bạn</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Bạn bè</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <a href="#" class="btn btn-sm btn-neutral">New</a>
+                    <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+                </div>
+                <div class="col-xl-12">
+                    <div class="col-xl-7">
+                        <p style="color:white">A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer yo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class=col-xl-12>
+            <div class="row">
+                <div class="col-xl-7">
+                    <div class="btn-group float-left mb-3 mt--4" role="group" aria-label="Basic example">
+                        <a href="@Url.Action("Friend","Display")" class="btn btn-secondary">Tất cả</a>
+                        <a href="@Url.Action("FriendRecently","Display")" class="btn btn-secondary">Gần đây</a>
+                        <a href="@Url.Action("FriendInvitation","Display")" class="btn btn-secondary">Lời mời</a>
+                        <a href="@Url.Action("FriendSend","Display")" class="btn btn-secondary">Gửi đi</a>
+                    </div>
+                </div>
+                <div class="col-xl-5 text-right">
+                    <div class="mb-3 mt--4">
+                        <div class="form-group mb-0">
+                            <div class="input-group input-group-alternative input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Tìm ..." type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 card">
+
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-xl-3 p-3 cardlist">
+                        <div class="row">
+                            <div class="col-5">
+                                <a href="cateview.php" class="w-100">
+                                    @if (item.User.user_img != null)
+                                    {
+                                        <img src="~/Content/LayoutCenter/ImgUser/@item.User.user_img" class="mx-auto d-block mb-1 addcartimg" style="width:104px;height:104px" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/LayoutCenter/ImgUser/user1.jpg" class="mx-auto d-block mb-1 addcartimg" style="width:104px;height:104px" />
+                                    }
+
+                                </a>
+                            </div>
+                            <div class="col-7">
+                                <div class="d-block text-truncate mb-1">
+                                    <a href="cateview.php" class="cartproname">@item.User.user_nicename</a>
+                                </div>
+                                <div class="seller d-block">
+                                    <span>@item.User.user_vip_medal<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> </span>
+                                    <span>@item.User.user_gold_medal<i class="fas fa-medal" style="color:yellow"></i></span>
+
+                                </div>
+                                <div class="seller d-block">
+                                    <span>
+                                        @item.User.user_silver_medal<i class="fas fa-medal" style="color:silver"></i>
+                                    </span>
+                                    <span>
+                                        @item.User.user_bronze_medal<i class="fas fa-medal" style="color:#e88d15"></i>
+                                    </span>
+                                </div>
+                                <div class="cartviewprice d-block">
+                                    <span class="disamt"><i class="fas fa-fire-alt"></i> @item.User.user_popular</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<FiveP.Models.Post>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 1;
+}
+
+<div class="container-fluid content-top-gap">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Câu hỏi</li>
+        </ol>
+    </nav>
+    <div class="welcome-msg pt-3 pb-4">
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() Câu hỏi</h1>
+        <p>Very detailed & featured admin.</p>
+    </div>
+
+    <!-- statistics data -->
+    <div class="statistics">
+        <div class="row">
+            <div class="col-xl-12">
+                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.."/>
+            </div>
+
+            <div class="col-xl-12 table-responsive">
+
+                <table class="table">
+                    <tr class="bg-light">
+                        <th>
+                            Stt
+                        </th>
+                        <th>
+                            Tiêu đề
+                        </th>
+                        <th>
+                            Trạng thái
+                        </th>
+
+                        <th>
+                            Trả lời <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            Comment <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            View <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            Danh tiếng <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td class="w-25">
+                                @Html.DisplayFor(modelItem => item.post_title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.post_activate_admin)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.post_sum_reply)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.post_sum_comment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.post_view)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.post_popular)
+                            </td>
+                            <td>
+                                
+                                <a href="#"><i class="far fa-edit"></i></a>|
+                                <a href="#"><i class="far fa-eye"></i></a> |
+                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

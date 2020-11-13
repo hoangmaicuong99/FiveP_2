@@ -1,0 +1,58 @@
+﻿@model IEnumerable<FiveP.Models.Notification>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.notification_content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.notification_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.notification_datecreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Post.post_content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.notification_content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.notification_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.notification_datecreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Post.post_content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_pass)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.notification_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.notification_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.notification_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,6 +1,9 @@
 ﻿@using FiveP.Models;
 @using PagedList;
 @using PagedList.Mvc;
+@using System.Text.RegularExpressions;
+@using System.Text;
+
 @model PagedList.PagedList<Post>
 @{
     ViewBag.Title = "IndexCenter";
@@ -25,7 +28,7 @@
 <style>
     html {
         font-size: 16.5px;
-   }
+    }
 
     body {
         font-family: Arial !important;
@@ -269,7 +272,7 @@
                                             <img class="rounded-circle" width="45" src="~/Content/LayoutCenter/ImgUser/user1.jpg" alt="">
                                         </div>
                                         <div class="ml-2">
-                                            <a href="@Url.Action("IndexUserPage","UserPage", new { id = item.user_id})" class="h5 m-0">@item.User.user_nicename</a>
+                                            <a href="@Url.Action("IndexUserPage","UserPage", new { id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.user_id.ToString()))})" class="h5 m-0">@item.User.user_nicename</a>
                                             <div class="h7 text-muted">@item.User.user_vip_medal<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> @item.User.user_gold_medal<i class="fas fa-medal" style="color:yellow"></i>  @item.User.user_silver_medal<i class="fas fa-medal" style="color:silver"></i>  @item.User.user_bronze_medal<i class="fas fa-medal" style="color:#e88d15"></i> </div>
                                         </div>
                                     </div>
@@ -291,36 +294,22 @@
                             </div>
                             <div class="card-body">
                                 <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> @item.post_datecreated</div>
-                                <a class="card-link" href="#">
+                                <a class="card-link" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.post_id.ToString()))})">
                                     <h5 class="card-title RutNganTieuDe">
-                                        @if (item.post_title != null)
-                                        {
-                                            if (item.post_title.Length > 150)
-                                            {
-                                                <span>@item.post_title.Substring(0, 150) ...</span>
-                                            }
-                                            else
-                                            {
-                                                <span>@item.post_title ..</span>
-                                            }
-                                        }
-
+                                        @item.post_title
                                     </h5>
-                                </a>
 
-                                <p class="card-text RutNganNoiDung">
-                                    @if (item.post_content != null)
+                                </a>
+                                <p class="text-body">
+                                    @if (item.post_content.Length > 300)
                                     {
-                                        if (Html.Raw(item.post_content).ToString().Length > 500)
-                                        {
-                                            <span>@Html.Raw(item.post_content.Substring(0, 500)) ..</span>
-                                        }
-                                        else
-                                        {
-                                            <span>@Html.Raw(item.post_content) ..</span>
-                                        }
+                                        @WebUtility.HtmlDecode(Regex.Replace(item.post_content.Substring(0, 300), "<[^>]*(>|$)", string.Empty)) <span>...</span>
+
                                     }
-                                    
+                                    else
+                                    {
+                                        @Html.Raw(item.post_content)
+                                    }
                                 </p>
                                 <div>
                                     @{
@@ -337,9 +326,9 @@
                                 List<Reply_Post> ReplyPost = db.Reply_Post.Where(n => n.post_id == item.post_id).ToList();
                             }
                             <div class="card-footer">
-                                <a href="#" class="card-link"><i class="fa fa-gittip"></i>Nổi tiếng  @item.post_popular</a>
-                                <a href="#" class="card-link"><i class="fa fa-comment"></i> Trả lời @ReplyPost.Count()</a>
-                                <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Lượt xem @item.post_view</a>
+                                <a class="card-link"><i class="fas fa-fire-alt"></i> Nổi tiếng  @item.post_popular</a>
+                                <a class="card-link"><i class="fas fa-reply-all"></i> Trả lời @ReplyPost.Count()</a>
+                                <a class="card-link"><i class="fas fa-eye"></i> Lượt xem @item.post_view</a>
                             </div>
                         </div>
                         <!--post-->
@@ -364,7 +353,7 @@
                                         </li>
                                     }
                                     <li style="font-size:25px">...</li>
-                                    
+
                                 }
                                 else
                                 {
@@ -375,7 +364,7 @@
                                         </li>
                                     }
                                     <li style="font-size:25px">...</li>
-                                    
+
                                 }
 
                                 <li class="page-item">
@@ -388,25 +377,17 @@
 
             </div>
 
-
         </div>
         <div class="col-xl-4">
-            @Html.Action("TopQuestion","Center")
-            @Html.Action("TopTechnology","Center")
-            @Html.Action("TopUser","Center")
-            @Html.Action("MayBeInterested","Center")
-            <div class="card gedf-card">
-                <div class="card-body">
-                    <h5 class="card-title">Gợi ý kết bạn</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Đăng nhập vào</h6>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
+            @Html.Action("TopQuestion", "Center")
+            @Html.Action("TopTechnology", "Center")
+            @Html.Action("TopUser", "Center")
+            @Html.Action("MayBeInterested", "Center")
+            @if (user != null)
+            {
+                @Html.Action("SuggestionToMakeFriends", "Center")
+            }
+
         </div>
 
 

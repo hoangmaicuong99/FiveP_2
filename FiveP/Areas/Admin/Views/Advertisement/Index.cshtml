@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FiveP.Models.Advertisement>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid content-top-gap">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Quảng cáo</li>
+        </ol>
+    </nav>
+    <div class="welcome-msg pt-3 pb-4">
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() Quảng cáo</h1>
+        <p>Very detailed & featured admin.</p>
+    </div>
+
+    <!-- statistics data -->
+    <div class="statistics">
+        <div class="row">
+            <div class="col-xl-12">
+                <a href="#" class="btn btn-primary mb-1"><i class="fas fa-rocket"></i> Thêm quảng cáo</a>
+
+            </div>
+            <div class="col-xl-12">
+                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+            </div>
+
+            <div class="col-xl-12 table-responsive">
+
+                <table class="table">
+                    <tr class="bg-light">
+                        <th>
+                            @Html.DisplayNameFor(model => model.advertisement_nicename)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.advertisement_note)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.advertisement_nicename)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.advertisement_note)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.advertisement_id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.advertisement_id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.advertisement_id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+

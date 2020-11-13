@@ -94,22 +94,36 @@
             </li>
             @if (ViewBag.demTechnology % ViewBag.size == 0)
             {
-                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                if (ViewBag.page == 1)
                 {
-                    if (i < (ViewBag.demTechnology / ViewBag.size))
+                    for (i = 1; i <= ViewBag.page + 2; i++)
                     {
                         <li class="page-item @if (ViewBag.page == i) {@active }">
                             <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
                         </li>
-                    }
-                    else if (i == (ViewBag.demTechnology / ViewBag.size))
-                    {
-                        <li class="page-item @if (ViewBag.page == i) {@active }">
-                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
-                        </li>
-                    }
 
+                    }
                 }
+                else
+                {
+                    for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                    {
+                        if (i < (ViewBag.demTechnology / ViewBag.size))
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                            </li>
+                        }
+                        else if (i == (ViewBag.demTechnology / ViewBag.size))
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                            </li>
+                        }
+
+                    }
+                }
+
                 if (ViewBag.page < (ViewBag.demTechnology / ViewBag.size) - 1)
                 {
                     <li style="font-size:25px">...</li>
@@ -117,21 +131,34 @@
             }
             else
             {
-                for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
+                if (ViewBag.page == 1)
                 {
-                    if (i < (ViewBag.demTechnology / ViewBag.size) + 1)
+                    for (i = 1; i <= ViewBag.page + 2; i++)
                     {
                         <li class="page-item @if (ViewBag.page == i) {@active }">
                             <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
                         </li>
                     }
-                    else if (i == (ViewBag.demTechnology / ViewBag.size) + 1)
+                }
+                else
+                {
+                    for (i = ViewBag.page - 1; i <= ViewBag.page + 1; i++)
                     {
-                        <li class="page-item @if (ViewBag.page == i) {@active }">
-                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
-                        </li>
+                        if (i < (ViewBag.demTechnology / ViewBag.size) + 1)
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
+                            </li>
+                        }
+                        else if (i == (ViewBag.demTechnology / ViewBag.size) + 1)
+                        {
+                            <li class="page-item @if (ViewBag.page == i) {@active }">
+                                <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("TechnologyPage","Display",new { page = i})" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang cuối" data-container="body" data-animation="true">K</a>
+                            </li>
+                        }
                     }
                 }
+
                 if (ViewBag.page < (ViewBag.demTechnology / ViewBag.size))
                 {
                     <li style="font-size:25px">...</li>

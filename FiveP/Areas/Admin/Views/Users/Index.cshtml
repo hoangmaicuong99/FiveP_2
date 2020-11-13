@@ -1,0 +1,134 @@
+﻿@model IEnumerable<FiveP.Models.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 1;
+}
+
+<div class="container-fluid content-top-gap">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Người dùng</li>
+        </ol>
+    </nav>
+    <div class="welcome-msg pt-3 pb-4">
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() Người dùng</h1>
+        <p>Very detailed & featured admin.</p>
+    </div>
+
+    <!-- statistics data -->
+    <div class="statistics">
+        <div class="row">
+            <div class="col-xl-12">
+                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+            </div>
+
+            <div class="col-xl-12 table-responsive">
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Stt
+                        </th>
+
+                        <th>
+                            Tên
+                        </th>
+
+                        <th>
+                            Chức vụ
+                        </th>
+                        <th>
+                            Đăng nhập gần đây <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+
+                        <th>
+                            Mật khẩu
+                        </th>
+                        <th>
+                            Trạng thái
+                        </th>
+
+                        <th>
+                            Nổi tiếng <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            <i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            <i class="fas fa-medal" style="color:yellow"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            <i class="fas fa-medal" style="color:silver"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+                        <th>
+                            <i class="fas fa-medal" style="color:#e88d15"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                        </th>
+
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                                
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_nicename)
+                                Ảnh
+                            </td>
+                                
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_role)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_datelogin)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_pass)
+                            </td>
+                                
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_activate_admin)
+                            </td>
+                                
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_popular)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_vip_medal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_gold_medal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_silver_medal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_bronze_medal)
+                            </td>
+                                
+                                
+                            <td>
+                                <a href="#"><i class="far fa-edit"></i></a>|
+                                <a href="#"><i class="far fa-eye"></i></a> |
+                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

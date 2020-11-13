@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FiveP.Models.Tag>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tags_datetime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tags_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Post.post_content)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tags_datetime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tags_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Post.post_content)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.tags_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.tags_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.tags_id })
+        </td>
+    </tr>
+}
+
+</table>

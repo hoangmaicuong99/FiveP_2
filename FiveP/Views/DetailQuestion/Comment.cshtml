@@ -1,0 +1,49 @@
+﻿@using FiveP.Models;
+@model List<Comment>
+@{ 
+    User user = (User)Session["user"];
+}
+@foreach (var item in Model)
+{
+    <section>
+        <div class="p-2 mt-1">
+            <!-- comment header -->
+            <div class="d-flex">
+                <div class="">
+                    <a class="text-decoration-none" href="#">
+                        @if (item.User.user_img == null)
+                        {
+                            <img class="profile-pic" src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png" width="40" height="40" alt="...">
+                        }
+                        else
+                        {
+                            <img class="profile-pic" src="~/Content/LayoutCenter/ImgUser/@item.User.user_img" width="40" height="40" alt="...">
+                        }
+                    </a>
+                </div>
+                <div class="flex-grow-1 pl-2">
+                    <a class="text-decoration-none text-capitalize h6 m-0" href="@Url.Action("IndexUserPage","UserPage", new { id = item.user_id})">@item.User.user_nicename</a>
+                    <p class="small m-0 text-muted">@item.comment_datecreated</p>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item text-primary" href="#">Edit</a>
+                            <a class="dropdown-item text-primary" href="#">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- comment header -->
+            <!-- comment body -->
+            <div class="card-body p-0">
+                <p class="card-text h7 mb-1">@item.comment_content</p>
+
+            </div>
+        </div>
+    </section>
+}

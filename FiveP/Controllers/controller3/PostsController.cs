@@ -48,7 +48,7 @@ namespace FiveP.Controllers.controller3
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "post_id,post_content,post_datecreated,post_dateedit,user_id,post_activate,post_activate_admin,post_title,post_sum_reply,post_sum_comment,post_view,post_popular,post_calculate_medal")] Post post)
+        public ActionResult Create([Bind(Include = "post_id,post_content,post_datecreated,post_dateedit,user_id,post_activate,post_activate_admin,post_title,post_sum_reply,post_sum_comment,post_view,post_popular,post_calculate_medal,post_RecycleBin")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace FiveP.Controllers.controller3
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "post_id,post_content,post_datecreated,post_dateedit,user_id,post_activate,post_activate_admin,post_title,post_sum_reply,post_sum_comment,post_view,post_popular,post_calculate_medal")] Post post)
+        public ActionResult Edit([Bind(Include = "post_id,post_content,post_datecreated,post_dateedit,user_id,post_activate,post_activate_admin,post_title,post_sum_reply,post_sum_comment,post_view,post_popular,post_calculate_medal,post_RecycleBin")] Post post)
         {
             if (ModelState.IsValid)
             {

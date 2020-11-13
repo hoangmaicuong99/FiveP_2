@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FiveP.Models.Comment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.comment_content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comment_datecreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comment_dateedit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comment_option)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reply_Post.reply_post_content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment_content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment_datecreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment_dateedit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment_option)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reply_Post.reply_post_content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_pass)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.comment_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.comment_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.comment_id })
+        </td>
+    </tr>
+}
+
+</table>

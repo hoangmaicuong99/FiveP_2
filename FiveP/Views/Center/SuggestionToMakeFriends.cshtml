@@ -1,0 +1,25 @@
+﻿@using FiveP.Models;
+@model List<Technology_Care>
+    @{ 
+        User user = (User)Session["user"];
+    }
+<div class="card gedf-card">
+    <div class="card-body">
+        <h5 class="card-title">Gợi ý kết bạn</h5>
+        @foreach (var item in Model)
+        {
+            if (item.user_id != user.user_id)
+            {
+                <p class="card-text">
+                    @item.User.user_nicename
+                </p>
+
+            }
+
+        }
+        
+        <div>
+            ...
+        </div>
+    </div>
+</div>

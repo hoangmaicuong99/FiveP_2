@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Index</h2>
@@ -46,6 +46,9 @@
             @Html.DisplayNameFor(model => model.post_calculate_medal)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.post_RecycleBin)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.User.user_pass)
         </th>
         <th></th>
@@ -85,6 +88,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.post_calculate_medal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_RecycleBin)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User.user_pass)

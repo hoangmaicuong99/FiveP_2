@@ -4,34 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e6e87656210c4958abe8b91711614dff" Name="Diagram1">
+      <Diagram DiagramId="8e3f3ae6a0b54249805b7a22d738505c" Name="Diagram1">
         <EntityTypeShape EntityType="FivePModel.Admin_Notification" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePModel.Advertisement" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Comment" Width="1.5" PointX="12.75" PointY="20.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Commune" Width="1.5" PointX="5.25" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.District" Width="1.5" PointX="3" PointY="20.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Friend" Width="1.5" PointX="9.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Comment" Width="1.5" PointX="12.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Commune" Width="1.5" PointX="5.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.District" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Friend" Width="1.5" PointX="9.75" PointY="20" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePModel.History_User" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePModel.Image_Advertisement" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Like" Width="1.5" PointX="12" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Like_Reply_Post" Width="1.5" PointX="9.75" PointY="24.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Notification" Width="1.5" PointX="12" PointY="29.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Post" Width="1.5" PointX="9.75" PointY="30.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Provincial" Width="1.5" PointX="0.75" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Rate_Post" Width="1.5" PointX="15" PointY="30.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Rate_Reply_Post" Width="1.5" PointX="17.25" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Reply_Post" Width="1.5" PointX="15" PointY="24.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Reviews_User" Width="1.5" PointX="9.75" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Like" Width="1.5" PointX="12" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Like_Reply_Post" Width="1.5" PointX="9.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Notification" Width="1.5" PointX="15" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Post" Width="1.5" PointX="9.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Provincial" Width="1.5" PointX="0.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Rate_Post" Width="1.5" PointX="12" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Rate_Reply_Post" Width="1.5" PointX="17.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Reply_Post" Width="1.5" PointX="15" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Reviews_User" Width="1.5" PointX="9.75" PointY="38.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePModel.Search" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Show_Activate_Post" Width="1.5" PointX="15" PointY="20.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Show_Activate_Reply_Post" Width="1.5" PointX="20.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Show_Activate_Post" Width="1.5" PointX="15" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Show_Activate_Reply_Post" Width="1.5" PointX="20.25" PointY="22.375" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Tag" Width="1.5" PointX="12" PointY="38.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Technology" Width="1.5" PointX="10.5" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Technology_Care" Width="1.5" PointX="12.75" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Technology_Post" Width="1.5" PointX="12" PointY="33.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.Tick_Post" Width="1.5" PointX="18" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePModel.User" Width="1.5" PointX="7.5" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Tag" Width="1.5" PointX="12" PointY="44.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Technology" Width="1.5" PointX="10.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Technology_Care" Width="1.5" PointX="12.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Technology_Post" Width="1.5" PointX="12" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.Tick_Post" Width="1.5" PointX="18" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePModel.User" Width="1.5" PointX="7.5" PointY="18.625" IsExpanded="true" />
         <AssociationConnector Association="FivePModel.FK_Image_Advertisement_Advertisement" ManuallyRouted="false" />
         <AssociationConnector Association="FivePModel.FK_Comment_Reply_Post" ManuallyRouted="false" />
         <AssociationConnector Association="FivePModel.FK_Comment_User" ManuallyRouted="false" />
@@ -44,7 +44,6 @@
         <AssociationConnector Association="FivePModel.FK_Like_Post" ManuallyRouted="false" />
         <AssociationConnector Association="FivePModel.FK_Like_User" ManuallyRouted="false" />
         <AssociationConnector Association="FivePModel.FK_Like_Reply_Post_User" ManuallyRouted="false" />
-        <AssociationConnector Association="FivePModel.FK_Reply_Post_Like_Reply_Post" ManuallyRouted="false" />
         <AssociationConnector Association="FivePModel.FK_Notification_Post" ManuallyRouted="false" />
         <AssociationConnector Association="FivePModel.FK_Notification_User" ManuallyRouted="false" />
         <AssociationConnector Association="FivePModel.FK_Post_User" ManuallyRouted="false" />

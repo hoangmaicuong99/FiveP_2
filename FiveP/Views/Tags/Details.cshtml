@@ -1,0 +1,43 @@
+﻿@model FiveP.Models.Tag
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tags_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tags_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tags_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tags_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post.post_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.post_content)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.tags_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

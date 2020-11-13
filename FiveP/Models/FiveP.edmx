@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FivePModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FivePModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin_Notification">
           <Key>
             <PropertyRef Name="admin_notification_id" />
@@ -62,6 +62,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="user_friend_id" Type="int" />
           <Property Name="friend_status" Type="bit" />
+          <Property Name="friend_datecreate" Type="datetime" />
         </EntityType>
         <EntityType Name="History_User">
           <Key>
@@ -124,6 +125,7 @@
           <Property Name="post_view" Type="int" />
           <Property Name="post_popular" Type="int" />
           <Property Name="post_calculate_medal" Type="int" />
+          <Property Name="post_RecycleBin" Type="bit" />
         </EntityType>
         <EntityType Name="Provincial">
           <Key>
@@ -164,9 +166,7 @@
           <Property Name="reply_post_dateedit" Type="datetime" />
           <Property Name="user_id" Type="int" />
           <Property Name="reply_post_activate" Type="bit" />
-          <Property Name="like_reply_post_id" Type="int" />
           <Property Name="post_id" Type="int" />
-          <Property Name="reply_post_title" Type="nvarchar" MaxLength="200" />
           <Property Name="reply_post_popular" Type="int" />
           <Property Name="reply_post__calculate_medal" Type="int" />
         </EntityType>
@@ -258,6 +258,7 @@
           <Property Name="post_id" Type="int" />
           <Property Name="user_id" Type="int" />
           <Property Name="tick_post_datetime" Type="datetime" />
+          <Property Name="tick_recyclebin" Type="bit" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -492,18 +493,6 @@
             </Principal>
             <Dependent Role="Rate_Reply_Post">
               <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reply_Post_Like_Reply_Post">
-          <End Role="Like_Reply_Post" Type="Self.Like_Reply_Post" Multiplicity="0..1" />
-          <End Role="Reply_Post" Type="Self.Reply_Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Like_Reply_Post">
-              <PropertyRef Name="like_reply_post_id" />
-            </Principal>
-            <Dependent Role="Reply_Post">
-              <PropertyRef Name="like_reply_post_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -819,10 +808,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Rate_Reply_Post" EntitySet="Rate_Reply_Post" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reply_Post_Like_Reply_Post" Association="Self.FK_Reply_Post_Like_Reply_Post">
-            <End Role="Like_Reply_Post" EntitySet="Like_Reply_Post" />
-            <End Role="Reply_Post" EntitySet="Reply_Post" />
-          </AssociationSet>
           <AssociationSet Name="FK_Reply_Post_Post" Association="Self.FK_Reply_Post_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="Reply_Post" EntitySet="Reply_Post" />
@@ -896,8 +881,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FivePModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -968,6 +952,7 @@
           <Property Name="friend_status" Type="Boolean" />
           <NavigationProperty Name="User" Relationship="Self.FK_Friend_User" FromRole="Friend" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="Self.FK_Friend_User1" FromRole="Friend" ToRole="User" />
+          <Property Name="friend_datecreate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="History_User">
           <Key>
@@ -1005,7 +990,6 @@
           <Property Name="like_reply_post_datecreated" Type="DateTime" Precision="3" />
           <Property Name="like_reply_post_dateedit" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Self.FK_Like_Reply_Post_User" FromRole="Like_Reply_Post" ToRole="User" />
-          <NavigationProperty Name="Reply_Post" Relationship="Self.FK_Reply_Post_Like_Reply_Post" FromRole="Like_Reply_Post" ToRole="Reply_Post" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -1046,6 +1030,7 @@
           <NavigationProperty Name="Tags" Relationship="Self.FK_Tags_Post" FromRole="Post" ToRole="Tags" />
           <NavigationProperty Name="Technology_Post" Relationship="Self.FK_Technology_Post_Post" FromRole="Post" ToRole="Technology_Post" />
           <NavigationProperty Name="Tick_Post" Relationship="Self.FK_Tick_Post_Post" FromRole="Post" ToRole="Tick_Post" />
+          <Property Name="post_RecycleBin" Type="Boolean" />
         </EntityType>
         <EntityType Name="Provincial">
           <Key>
@@ -1092,13 +1077,10 @@
           <Property Name="reply_post_dateedit" Type="DateTime" Precision="3" />
           <Property Name="user_id" Type="Int32" />
           <Property Name="reply_post_activate" Type="Boolean" />
-          <Property Name="like_reply_post_id" Type="Int32" />
           <Property Name="post_id" Type="Int32" />
-          <Property Name="reply_post_title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="reply_post_popular" Type="Int32" />
           <Property Name="reply_post__calculate_medal" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Reply_Post" FromRole="Reply_Post" ToRole="Comment" />
-          <NavigationProperty Name="Like_Reply_Post" Relationship="Self.FK_Reply_Post_Like_Reply_Post" FromRole="Reply_Post" ToRole="Like_Reply_Post" />
           <NavigationProperty Name="Post" Relationship="Self.FK_Reply_Post_Post" FromRole="Reply_Post" ToRole="Post" />
           <NavigationProperty Name="Rate_Reply_Post" Relationship="Self.FK_Rate_Reply_Post_Reply_Post" FromRole="Reply_Post" ToRole="Rate_Reply_Post" />
           <NavigationProperty Name="User" Relationship="Self.FK_Reply_Post_User" FromRole="Reply_Post" ToRole="User" />
@@ -1207,6 +1189,7 @@
           <Property Name="tick_post_datetime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Post" Relationship="Self.FK_Tick_Post_Post" FromRole="Tick_Post" ToRole="Post" />
           <NavigationProperty Name="User" Relationship="Self.FK_Tick_Post_User" FromRole="Tick_Post" ToRole="User" />
+          <Property Name="tick_recyclebin" Type="Boolean" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1400,18 +1383,6 @@
             </Principal>
             <Dependent Role="Like_Reply_Post">
               <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reply_Post_Like_Reply_Post">
-          <End Role="Like_Reply_Post" Type="Self.Like_Reply_Post" Multiplicity="0..1" />
-          <End Role="Reply_Post" Type="Self.Reply_Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Like_Reply_Post">
-              <PropertyRef Name="like_reply_post_id" />
-            </Principal>
-            <Dependent Role="Reply_Post">
-              <PropertyRef Name="like_reply_post_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1767,10 +1738,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Like_Reply_Post" EntitySet="Like_Reply_Post" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reply_Post_Like_Reply_Post" Association="Self.FK_Reply_Post_Like_Reply_Post">
-            <End Role="Like_Reply_Post" EntitySet="Like_Reply_Post" />
-            <End Role="Reply_Post" EntitySet="Reply_Post" />
-          </AssociationSet>
           <AssociationSet Name="FK_Notification_Post" Association="Self.FK_Notification_Post">
             <End Role="Post" EntitySet="Posts" />
             <End Role="Notification" EntitySet="Notifications" />
@@ -1927,6 +1894,7 @@
           <EntitySetMapping Name="Friends">
             <EntityTypeMapping TypeName="FivePModel.Friend">
               <MappingFragment StoreEntitySet="Friend">
+                <ScalarProperty Name="friend_datecreate" ColumnName="friend_datecreate" />
                 <ScalarProperty Name="friend_id" ColumnName="friend_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_friend_id" ColumnName="user_friend_id" />
@@ -1986,6 +1954,7 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="FivePModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="post_RecycleBin" ColumnName="post_RecycleBin" />
                 <ScalarProperty Name="post_id" ColumnName="post_id" />
                 <ScalarProperty Name="post_content" ColumnName="post_content" />
                 <ScalarProperty Name="post_datecreated" ColumnName="post_datecreated" />
@@ -2043,9 +2012,7 @@
                 <ScalarProperty Name="reply_post_dateedit" ColumnName="reply_post_dateedit" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="reply_post_activate" ColumnName="reply_post_activate" />
-                <ScalarProperty Name="like_reply_post_id" ColumnName="like_reply_post_id" />
                 <ScalarProperty Name="post_id" ColumnName="post_id" />
-                <ScalarProperty Name="reply_post_title" ColumnName="reply_post_title" />
                 <ScalarProperty Name="reply_post_popular" ColumnName="reply_post_popular" />
                 <ScalarProperty Name="reply_post__calculate_medal" ColumnName="reply_post__calculate_medal" />
               </MappingFragment>
@@ -2143,6 +2110,7 @@
           <EntitySetMapping Name="Tick_Post">
             <EntityTypeMapping TypeName="FivePModel.Tick_Post">
               <MappingFragment StoreEntitySet="Tick_Post">
+                <ScalarProperty Name="tick_recyclebin" ColumnName="tick_recyclebin" />
                 <ScalarProperty Name="tick_post_id" ColumnName="tick_post_id" />
                 <ScalarProperty Name="post_id" ColumnName="post_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />

@@ -1,0 +1,59 @@
+﻿@model FiveP.Models.Notification
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Notification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.notification_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notification_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notification_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notification_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notification_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notification_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post.post_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.post_content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_pass)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.notification_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

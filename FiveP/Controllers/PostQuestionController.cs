@@ -29,7 +29,7 @@ namespace FiveP.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult IndexPostQuestion([Bind(Include = "post_id,post_content,post_datecreated,post_dateedit,user_id,post_activate,post_activate_admin,post_title,post_sum_reply,post_sum_comment,post_view,post_popular,post_calculate_medal")] Post post,string[] postTags, int[] postTechnology)
+        public ActionResult IndexPostQuestion([Bind(Include = "post_id,post_content,post_datecreated,post_dateedit,user_id,post_activate,post_activate_admin,post_title,post_sum_reply,post_sum_comment,post_view,post_popular,post_calculate_medal,post_RecycleBin")] Post post,string[] postTags, int[] postTechnology)
         {
             User user = (User)Session["user"];
             if (post.post_datecreated != null && user != null)
@@ -159,6 +159,7 @@ namespace FiveP.Controllers
                     }
                 }
 
+                post.post_RecycleBin = false;
                 post.post_datecreated = post.post_datecreated;
                 post.post_dateedit = DateTime.Now;
                 post.user_id = user.user_id;
@@ -194,6 +195,7 @@ namespace FiveP.Controllers
                     };
                     db.Tags.Add(tag);
                 }
+                post.post_RecycleBin = false;
                 post.post_datecreated = DateTime.Now;
                 post.post_dateedit = DateTime.Now;
                 post.user_id = user.user_id;
