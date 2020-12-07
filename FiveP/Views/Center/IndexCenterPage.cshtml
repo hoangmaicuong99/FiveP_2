@@ -1,6 +1,7 @@
 ﻿@using FiveP.Models;
 @using PagedList;
 @using PagedList.Mvc;
+@using System.Text;
 @using System.Text.RegularExpressions;
 @model PagedList.PagedList<Post>
 @{
@@ -12,63 +13,28 @@
 
 <div id="divLoading" style="display:none">
 
-    <div class="card gedf-card">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="ui placeholder w-100">
-                    <div class="image header">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="paragraph">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card gedf-card">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="ui placeholder w-100">
-                    <div class="image header">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="paragraph">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
+    @for (int j = 0; j < 15; j++)
+    {
+        <div class="card gedf-card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="ui placeholder w-100">
+                        <div class="image header">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="paragraph">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card gedf-card">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="ui placeholder w-100">
-                    <div class="image header">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="paragraph">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
 </div>
 @foreach (var item in Model)
 {
@@ -102,7 +68,7 @@
         </div>
         <div class="card-body">
             <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> @item.post_datecreated</div>
-            <a class="card-link" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = item.post_id})">
+            <a class="card-link" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.post_id.ToString()))})">
                 <h5 class="card-title RutNganTieuDe">
                     @item.post_title
                 </h5>

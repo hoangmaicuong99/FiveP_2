@@ -17,7 +17,7 @@ namespace FiveP.Controllers
         public ActionResult IndexCenter(int? page)
         {
             
-            int size = 2;
+            int size = 15;
             int number = (page ?? 1);
 
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_datecreated).ToList();
@@ -31,7 +31,7 @@ namespace FiveP.Controllers
         //phân trang center (tất cả câu hỏi)
         public PartialViewResult IndexCenterPage(int? page)
         {
-            int size = 2;
+            int size = 15;
             
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_datecreated).ToList();
             
@@ -76,7 +76,7 @@ namespace FiveP.Controllers
         }
         public ActionResult Hot(int? page)
         {
-            int size = 2;
+            int size = 15;
             int number = (page ?? 1);
 
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_popular).ToList();
@@ -89,7 +89,7 @@ namespace FiveP.Controllers
         }
         public PartialViewResult HotPage(int? page)
         {
-            int size = 2;
+            int size = 15;
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_popular).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
@@ -132,7 +132,7 @@ namespace FiveP.Controllers
         }
         public ActionResult View(int?page)
         {
-            int size = 2;
+            int size = 15;
             int number = (page ?? 1);
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_view).ToList();
             int countPost = post.Count();
@@ -145,7 +145,7 @@ namespace FiveP.Controllers
         }
         public PartialViewResult ViewPage(int? page)
         {
-            int size = 2;
+            int size = 15;
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_view).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
@@ -188,7 +188,7 @@ namespace FiveP.Controllers
         }
         public ActionResult Reply(int? page)
         {
-            int size = 2;
+            int size = 15;
             int number = (page ?? 1);
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
@@ -200,7 +200,7 @@ namespace FiveP.Controllers
         }
         public PartialViewResult ReplyPage(int? page)
         {
-            int size = 2;
+            int size = 15;
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
@@ -243,7 +243,7 @@ namespace FiveP.Controllers
         }
         public ActionResult Week(int? page)
         {
-            int size = 2;
+            int size = 15;
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_datecreated.Value.Year == DateTime.Now.Year && n.post_datecreated.Value.Month == DateTime.Now.Month && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
@@ -265,7 +265,7 @@ namespace FiveP.Controllers
         }
         public PartialViewResult WeekPage(int? page)
         {
-            int size = 2;
+            int size = 15;
             List<Post> post = db.Posts.Where(n => n.post_activate_admin == true && n.post_activate == true && n.post_datecreated.Value.Year == DateTime.Now.Year && n.post_datecreated.Value.Month == DateTime.Now.Month && n.post_RecycleBin == false).OrderByDescending(n => n.post_sum_reply).ToList();
             int countPost = post.Count();
             ViewBag.demCauHoi = countPost;
@@ -345,6 +345,24 @@ namespace FiveP.Controllers
                 return PartialView(technology_Cares);
             }
             
+        }
+        public ActionResult DeletePost(int? id)
+        {
+            db.Posts.Find(id).post_RecycleBin = true;
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public ActionResult EditPost(int? id)
+        {
+            db.Posts.Find(id).post_RecycleBin = true;
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public ActionResult HiddenPost(int? id)
+        {
+            db.Posts.Find(id).post_activate_admin = false;
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

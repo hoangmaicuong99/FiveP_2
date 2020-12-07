@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using FiveP.Models;
 
@@ -366,14 +368,70 @@ namespace FiveP.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register([Bind(Include = "user_id,user_pass,user_nicename,user_email,user_datecreated,user_token,user_role,user_datelogin,user_activate,user_address,user_img,user_sex,user_link_facebok,user_link_github,user_hobby_work,user_hobby,user_activate_admin,user_date_born,user_popular,user_gold_medal,user_silver_medal,user_bronze_medal,user_vip_medal,provincial_id,district_id,commune_id,user_phone")] User user)
+        public ActionResult Register([Bind(Include = "user_id,user_pass,user_nicename,user_email,user_datecreated,user_token,user_role,user_datelogin,user_activate,user_address,user_img,user_sex,user_link_facebok,user_link_github,user_hobby_work,user_hobby,user_activate_admin,user_date_born,user_popular,user_gold_medal,user_silver_medal,user_bronze_medal,user_vip_medal,provincial_id,district_id,commune_id,user_phone")] User user, ConfirmGmail confirmGmail)
         {
             User ruser = db.Users.SingleOrDefault(n => n.user_email == user.user_email);
 
             if(ruser == null)
             {
+
+                try
+                {
+                    WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                    WebMail.SmtpPort = 587; // Cổng
+                    WebMail.SmtpUseDefaultCredentials = true;
+                    //Gửi gmail với giao thức bảo mật.
+                    WebMail.EnableSsl = true;
+                    //Tài khoản dùng để đăng nhập vào gmail để gửi.
+                    WebMail.UserName = "cuongembaubang@gmail.com";
+                    WebMail.Password = "trung2010203";
+                    // Nội dung gửi.
+                    WebMail.From = "cuongembaubang@gmail.com";
+
+                    Random random = new Random();
+
+                    confirmGmail.pass = user.user_pass;
+                    confirmGmail.strEmailReceived = user.user_email;
+                    confirmGmail.strTitle = "Mã xác nhận : ";
+                    confirmGmail.strContent = random.Next(1000,9999).ToString();
+                    Session["confirmemail"] = confirmGmail;
+
+                    //Gửi gmail.
+                    WebMail.Send(to: confirmGmail.strEmailReceived, subject: confirmGmail.strTitle, body: confirmGmail.strContent, isBodyHtml: true);
+                    ViewBag.thongbao = "Gmail được gửi thành công";
+                    return Redirect("/Account/ConfirmEmail");
+                }
+                catch (Exception)
+                {
+                    ViewBag.notification = "Không gửi được email";
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
+            }
+            else
+            {
+                Session["NotRegistration"] = "<p class='remember' style='color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;'>Emai này đã được đăng ký !</p> ";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
+            
+        }
+
+
+
+        public ActionResult ConfirmEmail()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ConfirmEmail(User user, string code)
+        {
+            ConfirmGmail confirmGmail = (ConfirmGmail)Session["confirmemail"];
+
+
+            if( confirmGmail.strContent == code)
+            {
                 MD5 md5 = new MD5CryptoServiceProvider();
-                md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(user.user_pass));
+                md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(confirmGmail.pass));
 
                 byte[] result = md5.Hash;
 
@@ -385,6 +443,7 @@ namespace FiveP.Controllers
 
                 user.user_pass = strBuilder.ToString();
 
+                user.user_email = confirmGmail.strEmailReceived;
 
                 user.user_nicename = null;
                 user.user_datecreated = DateTime.Now;
@@ -418,11 +477,86 @@ namespace FiveP.Controllers
             }
             else
             {
-                Session["NotRegistration"] = "<p class='remember' style='color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;'>Emai này đã được đăng ký !</p> ";
+                Session["notification"] = "Sai mã xác nhận";
                 return Redirect(Request.UrlReferrer.ToString());
             }
-
-            
         }
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPassword forgotPassword)
+        {
+            User user = db.Users.SingleOrDefault(n => n.user_email == forgotPassword.EmailReceived);
+            if(user == null)
+            {
+                Session["Notification"] = "Email không tồn tại";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            try
+            {
+                WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                WebMail.SmtpPort = 587; // Cổng
+                WebMail.SmtpUseDefaultCredentials = true;
+                //Gửi gmail với giao thức bảo mật.
+                WebMail.EnableSsl = true;
+                //Tài khoản dùng để đăng nhập vào gmail để gửi.
+                WebMail.UserName = "cuongembaubang@gmail.com";
+                WebMail.Password = "trung2010203";
+                // Nội dung gửi.
+                WebMail.From = "cuongembaubang@gmail.com";
+                forgotPassword.Title = "Xác nhận mật khẩu Web ";
+                forgotPassword.Content = "Xác Nhận: https://localhost:44351/Account/ChangePassword?id=" + user.user_id + "&Token=" + user.user_token;
+                //Gửi gmail.
+                WebMail.Send(to: forgotPassword.EmailReceived, subject: forgotPassword.Title, body: forgotPassword.Content, isBodyHtml: true);
+                Session["Notification"] = "Gmail được gửi thành công";
+                return Redirect(Request.UrlReferrer.ToString());
+
+            }
+            catch (Exception)
+            {
+                Session["Notification"] = "mất mạng";
+                return Redirect(Request.UrlReferrer.ToString());
+
+            }
+        }
+        public ActionResult ChangePassword(int? id, string Token)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (Token != user.user_token)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Session["Notification"] = null;
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(String NewPassword, int? id)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(NewPassword));
+
+            byte[] result = md5.Hash;
+
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+            {
+                strBuilder.Append(result[i].ToString("x2"));
+            }
+
+            db.Users.Find(id).user_pass = strBuilder.ToString();
+
+
+            db.Users.Find(id).user_token = Guid.NewGuid().ToString();
+            db.SaveChanges();
+            return Redirect("/Center/IndexCenter");
+        }
+
+
     }
 }

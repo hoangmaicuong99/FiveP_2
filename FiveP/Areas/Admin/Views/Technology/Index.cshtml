@@ -23,12 +23,12 @@
     <div class="statistics">
         <div class="row">
             <div class="col-xl-12">
-                <a href="#" class="btn btn-primary mb-1"><i class="fas fa-rocket"></i> Thêm công nghệ</a>
-                
+                <a href="#" data-toggle="modal" data-target="#exampleModalLg" class="btn btn-primary mb-1"><i class="fas fa-rocket"></i> Thêm công nghệ</a>
+
             </div>
-            
+
             <div class="col-xl-12">
-                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+                <input type="text" id="txtsearch" class="form-control" placeholder="Nhập từ cần tìm.." />
             </div>
 
             <div class="col-xl-12 table-responsive">
@@ -63,7 +63,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.technology_name)
                             </td>
-                            
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.technology_popular)
                             </td>
@@ -83,6 +83,59 @@
                     }
 
                 </table>
+                <!--Thêm-->
+                <div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title h4" id="exampleModalLgLabel"><i class="fas fa-pen"></i> Công nghệ mới</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="@Url.Action("AddTechnology","Technology")" method="post">
+                                    <div class="row mt--4">
+                                        <div class="col-md-10">
+                                            <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Tên công nghệ</small>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                                                    </div>
+                                                    <input name="technology_name" class="flatpickr flatpickr-input form-control" type="text" placeholder="Công nghệ..">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Nổi tiếng</small>
+                                            <div class="form-group">
+                                                <input name="technology_popular" class="flatpickr flatpickr-input form-control" type="text" value="10">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <small class="d-block text-uppercase font-weight-bold mb-3 text-left"><i class="fas fa-briefcase"></i>Nội dung</small>
+                                            <div class="input-daterange">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <textarea name="technology_content" class="flatpickr range form-control" style="height:120px" placeholder="Nội dung.."></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary w-100"><i class="far fa-paper-plane"></i> Hoàn thành</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -90,4 +143,21 @@
     </div>
 
 </div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $("#txtsearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(2)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+</script>
 

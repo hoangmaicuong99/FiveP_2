@@ -33,6 +33,9 @@ namespace FiveP.Models
             this.Show_Activate_Reply_Post = new HashSet<Show_Activate_Reply_Post>();
             this.Technology_Care = new HashSet<Technology_Care>();
             this.Tick_Post = new HashSet<Tick_Post>();
+            this.Messages = new HashSet<Message>();
+            this.Messages1 = new HashSet<Message>();
+            this.MessageUserVSBoxes = new HashSet<MessageUserVSBox>();
         }
     
         public int user_id { get; set; }
@@ -98,5 +101,11 @@ namespace FiveP.Models
         public virtual ICollection<Technology_Care> Technology_Care { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tick_Post> Tick_Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MessageUserVSBox> MessageUserVSBoxes { get; set; }
     }
 }

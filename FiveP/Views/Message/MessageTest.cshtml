@@ -1,0 +1,361 @@
+﻿
+@using FiveP.Models;
+@model List<Message>
+@{
+    ViewBag.Title = "MessageTest";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    FivePEntities db = new FivePEntities();
+    User user = (User)Session["user"];
+}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Tin nhắn</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="/Home/Index"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/Home/Index">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tin nhắn</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <a href="@Url.Action("IndexPostQuestion","PostQuestion")" class="btn btn-sm btn-neutral">Đặt câu hỏi?</a>
+                </div>
+            </div>
+            <!-- Card stats -->
+            <div class="row">
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">trả lời</h5>
+                                    <span class="h2 font-weight-bold mb-0">88</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                        <i class="fas fa-reply"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                <span class="text-nowrap">Since last month</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Nổi tiếng</h5>
+                                    <span class="h2 font-weight-bold mb-0">99</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                <span class="text-nowrap">Since last month</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Bình luận</h5>
+                                    <span class="h2 font-weight-bold mb-0">33</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                                        <i class="fas fa-comment-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                <span class="text-nowrap">Since last month</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid">
+
+    <h3 class=" text-center">Messaging</h3>
+    <div class="messaging mt-2">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar" placeholder="Search">
+                            <span class="input-group-addon">
+                                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="inbox_chat">
+                    @{
+                        List<Friend> friends = db.Friends.Where(n => n.user_id == user.user_id || n.user_friend_id == user.user_id).ToList();
+
+                    }
+                    @foreach (var item in friends)
+                    {
+                        // hiển thị bạn theo hai id khác nhau biến  (active_chat)
+                        if (item.user_id != user.user_id)
+                        {
+
+
+                            <div class="chat_list ">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5><a href="@Url.Action("MessageTest","Message",new { id = item.user_id})">@item.User.user_nicename</a> <span class="chat_date">Dec 25</span></h5>
+                                        <p>
+                                            Test, which is a new approach to have all solutions
+                                            astrology under one roof.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5><a href="@Url.Action("MessageTest","Message",new { id = item.user_friend_id})">@item.User1.user_nicename</a> <span class="chat_date">Dec 25</span></h5>
+                                        <p>
+                                            Test, which is a new approach to have all solutions
+                                            astrology under one roof.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                <p>
+                                    Test, which is a new approach to have all solutions
+                                    astrology under one roof.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                <p>
+                                    Test, which is a new approach to have all solutions
+                                    astrology under one roof.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                <p>
+                                    Test, which is a new approach to have all solutions
+                                    astrology under one roof.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                <p>
+                                    Test, which is a new approach to have all solutions
+                                    astrology under one roof.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                <p>
+                                    Test, which is a new approach to have all solutions
+                                    astrology under one roof.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                <p>
+                                    Test, which is a new approach to have all solutions
+                                    astrology under one roof.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mesgs">
+                <div id="AllQuestionPage">
+                    <div class="msg_history">
+                        @foreach (var item in Model.OrderBy(n=>n.message_datetime))
+                        {
+                            if (item.user_id != user.user_id)
+                            {
+                                <div class="incoming_msg">
+                                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="received_msg">
+                                        <div class="received_withd_msg">
+                                            <p>
+                                                @item.message_content
+                                            </p>
+                                            <span class="time_date"> @item.message_datetime    |    June 9</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="outgoing_msg">
+                                    <div class="sent_msg">
+                                        <p>
+                                            @item.message_content
+                                        </p>
+                                        <span class="time_date"> @item.message_datetime   |    June 9</span>
+                                    </div>
+                                </div>
+
+                            }
+
+                        }
+                        <div id="contentMsg@(ViewBag.id)">
+
+                        </div>
+
+
+                    </div>
+                    <div class="type_msg">
+                        <div class="input_msg_write">
+                            <form id="formMessage@(ViewBag.id)">
+                                <input type="hidden" name="user_friend_id" value="@ViewBag.id" />
+                                <input type="text" id="txtMessage@(ViewBag.id)" name="message_content" class="write_msg" placeholder="Type a message" />
+                                <button type="button" class="msg_send_btn" id="btnSend@(ViewBag.id)"><i class="far fa-paper-plane"></i></button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
+
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs "></script>
+    <script>
+    $(document).ready(function () {
+        $("#btnSend@(ViewBag.id)").click(function () {
+            var data = $("#formMessage@(ViewBag.id)").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Message/SaveMessage",
+                data: data,
+                success: function (response) {
+                    window.alert("Sữa thành công");
+                    $(this).show();
+                }
+            })
+        })
+    })
+
+
+    $(function () {
+        var chat = $.connection.chat;
+        console.log(chat);
+        loadClient(chat)
+        $.connection.hub.start().done(function () {
+            $('#btnSend@(ViewBag.id)').click(function () {
+                var msg = $('#txtMessage@(ViewBag.id)').val();
+                var id = @user.user_id;
+                var user_friend_id = @ViewBag.id;
+                chat.server.message(msg, id, user_friend_id);
+                $('#txtMessage@(ViewBag.id)').val('').focus();
+            });
+        });
+
+    });
+    function loadClient(chat) {
+        chat.client.message = function (msg, id, user_friend_id) {
+            let date = new Date();
+            if (@user.user_id == id && user_friend_id == @ViewBag.id) {
+                $('#contentMsg@(ViewBag.id)').append(
+
+                    '<div class="outgoing_msg">' + '<div class= "sent_msg"><p>' + msg + '</p><span class="time_date">' + date.getHours() + date.getMinutes() + date.getSeconds() + '   |    June 9</span></div ></div >'
+
+                    );
+
+            }
+            else if (@ViewBag.id == id && @user.user_id == user_friend_id) {
+                $('#contentMsg@(ViewBag.id)').append(
+
+                    '<div class="incoming_msg"><div class= "incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div><div class="received_msg"><div class="received_withd_msg"><p>' + msg + '</p><span class="time_date"> ' + date.getHours() + date.getMinutes() + date.getSeconds() + '   |    June 9</span></div></div>'
+
+                    );
+
+            }
+
+        }
+
+    }
+    </script>
+    }
+    <link href="~/Content/LayoutCenter/Message.css" rel="stylesheet" />
+
+

@@ -14,7 +14,7 @@ namespace FiveP.Areas.Admin.Controllers
         public ActionResult Index()
         {
             
-            return View(db.Users.ToList());
+            return View(db.Users.OrderByDescending(n=>n.user_datecreated).ToList());
         }
         public ActionResult TechnologyCare()
         {

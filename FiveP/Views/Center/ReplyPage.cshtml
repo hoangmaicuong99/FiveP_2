@@ -1,6 +1,7 @@
 ﻿
 @using FiveP.Models;
 @using PagedList;
+@using System.Text;
 @using PagedList.Mvc;
 
 @using System.Text.RegularExpressions;
@@ -12,63 +13,28 @@
 }
 <div id="divLoading" style="display:none">
 
-    <div class="card gedf-card">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="ui placeholder w-100">
-                    <div class="image header">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="paragraph">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card gedf-card">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="ui placeholder w-100">
-                    <div class="image header">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="paragraph">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
+    @for (int j = 0; j < 15; j++)
+    {
+        <div class="card gedf-card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="ui placeholder w-100">
+                        <div class="image header">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="paragraph">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card gedf-card">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="ui placeholder w-100">
-                    <div class="image header">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="paragraph">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
 </div>
 @foreach (var item in Model)
 {
@@ -80,7 +46,7 @@
                         <img class="rounded-circle" width="45" src="~/Content/LayoutCenter/ImgUser/user1.jpg" alt="">
                     </div>
                     <div class="ml-2">
-                        <a href="#" class="h5 m-0">@item.User.user_nicename</a>
+                        <a href="@Url.Action("IndexUserPage","UserPage", new { id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.user_id.ToString()))})" class="h5 m-0">@item.User.user_nicename</a>
                         <div class="h7 text-muted">@item.User.user_vip_medal<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> @item.User.user_gold_medal<i class="fas fa-medal" style="color:yellow"></i>  @item.User.user_silver_medal<i class="fas fa-medal" style="color:silver"></i>  @item.User.user_bronze_medal<i class="fas fa-medal" style="color:#e88d15"></i> </div>
                     </div>
                 </div>
@@ -102,7 +68,7 @@
         </div>
         <div class="card-body">
             <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> @item.post_datecreated</div>
-            <a class="card-link" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = item.post_id})">
+            <a class="card-link" href="@Url.Action("IndexDetailQuestion","DetailQuestion", new { id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.post_id.ToString()))})">
                 <h5 class="card-title RutNganTieuDe">
                     @item.post_title
                 </h5>

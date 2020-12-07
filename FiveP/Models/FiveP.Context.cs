@@ -52,5 +52,8 @@ namespace FiveP.Models
         public virtual DbSet<Technology_Post> Technology_Post { get; set; }
         public virtual DbSet<Tick_Post> Tick_Post { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<MessageBosFiveP> MessageBosFivePs { get; set; }
+        public virtual DbSet<MessageUserVSBox> MessageUserVSBoxes { get; set; }
     }
 }

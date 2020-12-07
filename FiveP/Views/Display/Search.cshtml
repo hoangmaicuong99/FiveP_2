@@ -1,12 +1,10 @@
 ﻿@using FiveP.Models;
-@using PagedList;
-@using PagedList.Mvc;
 @using System.Text.RegularExpressions;
 @using System.Text;
 
-@model PagedList.PagedList<Post>
+@model List<Post>
 @{
-    ViewBag.Title = "IndexCenter";
+    ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
 
     User user = (User)Session["user"];
@@ -188,43 +186,69 @@
         <div class="col-xl-8">
 
 
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="btn-group float-right" role="group" aria-label="Basic example">
-                        <a href="@Url.Action("Hot", "Center")" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Kiếm điểm nổi tiếng nào?" data-container="body" data-animation="true">Thưởng<i class="far fa-snowflake text-danger"></i></a>
-                        <a href="@Url.Action("Week","Center")" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Câu hỏi được trả lời nhiều trong tháng" data-container="body" data-animation="true">Tháng</a>
-                        <a href="@Url.Action("View","Center")" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Xếp theo lượt xem cao đến thấp" data-container="body" data-animation="true">Lượt xem</a>
-                        <a href="@Url.Action("Reply","Center")" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Xếp theo trả lời cao đến thấp" data-container="body" data-animation="true">Trả lời</a>
-                    </div>
-                </div>
-
-            </div>
+            
             <div id="AllQuestion">
                 <!--- \\\\\\\Post-->
                 <div id="AllQuestionPage">
                     <div id="divLoading" style="display:none">
-                        @for (int j = 0; j < 15; j++)
-                        {
-                            <div class="card gedf-card">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="ui placeholder w-100">
-                                            <div class="image header">
-                                                <div class="line"></div>
-                                                <div class="line"></div>
-                                            </div>
-                                            <div class="paragraph">
-                                                <div class="line"></div>
-                                                <div class="line"></div>
-                                                <div class="line"></div>
-                                                <div class="line"></div>
-                                                <div class="line"></div>
-                                            </div>
+
+                        <div class="card gedf-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="ui placeholder w-100">
+                                        <div class="image header">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                        <div class="paragraph">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </div>
+                        <div class="card gedf-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="ui placeholder w-100">
+                                        <div class="image header">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                        <div class="paragraph">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card gedf-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="ui placeholder w-100">
+                                        <div class="image header">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                        <div class="paragraph">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     @foreach (var item in Model)
                     {
@@ -301,42 +325,6 @@
                     }
 
                     <div class="clearfix"></div>
-                    <div class="row float-right">
-                        <!--Phân trang-->
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("IndexCenterPage", "Center", new { page = ViewBag.page - 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Quay lại trang trước" data-container="body" data-animation="true"><i class="fa fa-angle-left"></i></a>
-                                </li>
-                                @if (ViewBag.demCauHoi % ViewBag.size == 0)
-                                {
-                                    for (i = ViewBag.page; i <= ViewBag.page + 2; i++)
-                                    {
-                                        <li class="page-item @if (ViewBag.page == i) {@active }">
-                                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("IndexCenterPage", "Center", new { page = i })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
-                                        </li>
-                                    }
-                                    <li style="font-size:25px">...</li>
-
-                                }
-                                else
-                                {
-                                    for (i = ViewBag.page; i <= ViewBag.page + 2; i++)
-                                    {
-                                        <li class="page-item @if (ViewBag.page == i) {@active }">
-                                            <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("IndexCenterPage", "Center", new { page = i })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang @i" data-container="body" data-animation="true">@i</a>
-                                        </li>
-                                    }
-                                    <li style="font-size:25px">...</li>
-
-                                }
-
-                                <li class="page-item">
-                                    <a onclick="topFunction()" id="btnLoad" class="page-link" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage" href="@Url.Action("IndexCenterPage", "Center", new { page = ViewBag.page + 1 })" data-ajax-loading="#divLoading" data-toggle="tooltip" data-placement="top" title="Trang tiếp theo" data-container="body" data-animation="true"><i class="fa fa-angle-right"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
 
             </div>
@@ -381,3 +369,4 @@
         document.documentElement.scrollTop = 0;
     }
 </script>
+

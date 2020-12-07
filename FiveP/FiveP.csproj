@@ -46,12 +46,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -165,12 +183,14 @@
     <Compile Include="Controllers\DetailQuestionController.cs" />
     <Compile Include="Controllers\DisplayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PostQuestionController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Controllers\UserPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\Chat.cs" />
     <Compile Include="Models\Admin_Notification.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
@@ -183,6 +203,7 @@
     <Compile Include="Models\Commune.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConfirmGmail.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
@@ -201,6 +222,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FiveP.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\Friend.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
@@ -216,12 +238,23 @@
     <Compile Include="Models\Like_Reply_Post.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MessageBosFiveP.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MessageUserVSBox.cs">
+      <DependentUpon>FiveP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Notification.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Post.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PostSearch.cs" />
+    <Compile Include="Models\PostSearchEncode.cs" />
     <Compile Include="Models\Provincial.cs">
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
@@ -268,6 +301,7 @@
       <DependentUpon>FiveP.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLayout\css\style-starter.css" />
@@ -608,6 +642,7 @@
     <Content Include="Content\LayoutCenter\js\components\vendor\nouislider.min.js" />
     <Content Include="Content\LayoutCenter\js\components\vendor\scrollbar.js" />
     <Content Include="Content\LayoutCenter\js\components\vendor\scrollbar.min.js" />
+    <Content Include="Content\LayoutCenter\Message.css" />
     <Content Include="Content\LayoutCenter\vendor\fortawesome\fontawesome-free\css\all.min.css" />
     <Content Include="Content\LayoutCenter\vendor\fortawesome\fontawesome-free\css\brands.min.css" />
     <Content Include="Content\LayoutCenter\vendor\fortawesome\fontawesome-free\css\fontawesome.min.css" />
@@ -3975,6 +4010,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -4129,6 +4166,14 @@
     <Content Include="Views\Provincials\Details.cshtml" />
     <Content Include="Views\Provincials\Edit.cshtml" />
     <Content Include="Views\Provincials\Index.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\Message.cshtml" />
+    <Content Include="Views\Message\MessageTest.cshtml" />
+    <Content Include="Views\Display\Search.cshtml" />
+    <Content Include="Views\Message\BoxFiveP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

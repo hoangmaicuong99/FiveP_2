@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
 using FiveP.Models;
+using System.Text;
 
 
 namespace FiveP.Controllers
@@ -18,6 +19,73 @@ namespace FiveP.Controllers
         {
             return PartialView();
         }
+        public JsonResult GetValueSearch(string search)
+        {
+            List<PostSearch> postSearches = db.Posts.Where(n => n.post_title.Contains(search)).OrderByDescending(n => n.post_popular).Select(x => new PostSearch
+            {
+                post_id = x.post_id,
+                post_title = x.post_title,
+                post_popular = x.post_popular
+            }).ToList();
+            List<PostSearchEncode> postSearchEncodes = new List<PostSearchEncode>();
+            foreach(var item in postSearches)
+            {
+                PostSearchEncode postSearchEncode = new PostSearchEncode()
+                {
+                    post_id = Convert.ToBase64String(Encoding.ASCII.GetBytes(item.post_id.ToString())),
+                    post_title = item.post_title,
+                    post_popular = item.post_popular
+                };
+                postSearchEncodes.Add(postSearchEncode);
+            }
+            return new JsonResult { Data = postSearchEncodes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        [HttpPost]
+        public ActionResult Search(FormCollection f)
+        {
+            String Search = f["Search"].ToString();
+            //tìm kiếm theo từ chính xác nhất của title post
+            List<Post> posts3 = db.Technology_Post.Where(n => n.Post.post_title == Search).OrderByDescending(n => n.Post.post_popular).Select(n => n.Post).ToList();
+            ViewBag.posts3 = posts3;
+
+            // theo từ chính xác nhất của thẻ tag
+            List<Post> posts4 = db.Tags.Where(n => n.tags_name == Search).GroupBy(x => x.post_id).Select(y => y.FirstOrDefault()).OrderByDescending(n => n.Post.post_popular).Select(n => n.Post).ToList();
+            ViewBag.posts8 = posts4.Except(posts3).ToList();
+            List<Post> posts9 = posts4.Union(posts3).ToList();
+
+
+            // theo title mà độ dài nội dung ngắn gần bằng từ tìm kiếm
+            List<Post> posts5 = db.Technology_Post.Where(n => n.Post.post_title.Length + 15 >= Search.Length && n.Post.post_title.Length - 15 <= Search.Length && n.Post.post_title.Contains(Search)).OrderByDescending(n => n.Post.post_popular).Select(n => n.Post).ToList();
+            ViewBag.posts10 = posts5.Except(posts9).ToList();
+            List<Post> posts11 = posts5.Union(posts9).ToList();
+
+            // theo title mà độ dài nội dung ngắn gần bằng từ tìm kiếm (xa hơn miếng nữa ...)
+            List<Post> posts = db.Posts.Where(n => n.post_title.Length + 25 >= Search.Length && n.post_title.Length - 25 <= Search.Length && n.post_title.Contains(Search)).OrderByDescending(n => n.post_popular).ToList();
+            ViewBag.posts12 = posts.Except(posts11).ToList();
+            List<Post> posts13 = posts.Union(posts11).ToList();
+
+
+            // theo từ gần chính xác thẻ tag
+            List<Post> posts6 = db.Tags.Where(n => n.tags_name.Contains(Search)).GroupBy(n => n.post_id).Select(n => n.FirstOrDefault()).OrderByDescending(n => n.Post.post_popular).Select(n => n.Post).ToList();
+            ViewBag.posts14 = posts6.Except(posts13).ToList();
+            List<Post> posts15 = posts6.Union(posts13).ToList();
+
+            // theo nội dung, từ ngắn nhất tới dài nhất
+            List<Post> posts1 = db.Posts.Where(n => n.post_content.Contains(Search)).OrderBy(n => n.post_content.Length).ToList();
+            ViewBag.posts16 = posts1.Except(posts15).ToList();
+            List<Post> posts17 = posts1.Union(posts15).ToList();
+
+            // theo comment
+            List<Post> posts7 = db.Comments.Where(n => n.comment_content.Contains(Search)).OrderByDescending(n => n.Reply_Post.Post.post_popular).Select(n => n.Reply_Post.Post).ToList();
+            ViewBag.posts18 = posts7.Except(posts17).ToList();
+            List<Post> posts19 = posts7.Union(posts17).ToList();
+
+            // theo gần chính xác của title
+            List<Post> posts2 = db.Posts.Where(n => n.post_title.Contains(Search)).OrderByDescending(n => n.post_popular).ToList();
+            List<Post> posts20 = posts2.Except(posts19).ToList();
+            return View(posts20);
+        }
+
         public ActionResult Member(int? page)
         {
             int size = 2;
@@ -76,7 +144,7 @@ namespace FiveP.Controllers
         }
         public ActionResult Technology(int? page)
         {
-            int size = 2;
+            int size = 24;
             List<Technology> technologies = db.Technologies.ToList();
 
             int countTechnology = technologies.Count();
@@ -89,7 +157,7 @@ namespace FiveP.Controllers
         }
         public PartialViewResult TechnologyPage(int? page)
         {
-            int size = 2;
+            int size = 24;
             List<Technology> technologies = db.Technologies.ToList();
             int countTechnology = technologies.Count();
             ViewBag.demTechnology = countTechnology;

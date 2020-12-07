@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmEmail";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<form onsubmit="return CheckForm()" action="@Url.Action("ConfirmEmail","Account")" method="post">
+    <span class="title">Xác nhận mã gữi qua email</span>
+    <input type="number" id="code" name="code" class="form-control" placeholder="Mã.." required="" />
+    <p id="notification">@Session["notification"]</p>
+    <button type="submit" class="btn btn-success">Xác nhận</button>
+</form>
+
+
