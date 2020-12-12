@@ -1,21 +1,21 @@
-﻿@model IEnumerable<FiveP.Models.District>
+﻿@model IEnumerable<FiveP.Models.Image_Advertisement>
 
 @{
-    ViewBag.Title = "District";
+    ViewBag.Title = "Img";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    int count = 1;
-
+    int intCount = 1;
 }
+
 <div class="container-fluid content-top-gap">
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb my-breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page"> Câu hỏi</li>
+            <li class="breadcrumb-item active" aria-current="page"> Ảnh quảng cáo</li>
         </ol>
     </nav>
     <div class="welcome-msg pt-3 pb-4">
-        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() Câu hỏi</h1>
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() ảnh quảng cáo</h1>
         <p>Very detailed & featured admin.</p>
     </div>
 
@@ -23,57 +23,51 @@
     <div class="statistics">
         <div class="row">
             <div class="col-xl-12">
+                <a href="#" class="btn btn-primary mb-1"><i class="fas fa-rocket"></i> Thêm ảnh quảng cáo</a>
+
+            </div>
+            <div class="col-xl-12">
                 <input type="text" id="txtsearch" class="form-control" placeholder="Nhập từ cần tìm.." />
             </div>
 
             <div class="col-xl-12 table-responsive">
-
                 <table class="table">
-                    <tr class="bg-light">
+                    <tr>
                         <th>
                             Stt
                         </th>
                         <th>
-                            Tĩnh
+                            Công ty
                         </th>
                         <th>
-                            Huyện
+                            Hình ảnh
                         </th>
                         <th>
-                            Ngày <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                            
                         </th>
-                        <th>
-                            Trạng thái
-                        </th>
-                        <th></th>
                     </tr>
 
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                @count
+                                @intCount
+                            </td>
+                            <td class="w-25 h-25">
+                                @Html.DisplayFor(modelItem => item.Advertisement.advertisement_nicename)
 
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Provincial.provincial_name)
+                                <img src="~/Content/ImgAdvertisement/@item.image_advertisement1" class="w-50 h-50" />
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.district_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.district_date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.district_activate)
-                            </td>
-                            <td>
+
                                 <a href="#"><i class="far fa-edit"></i></a>|
                                 <a href="#"><i class="far fa-eye"></i></a> |
                                 <a href="#"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
-                        count++;
+                        intCount++;
                     }
                 </table>
             </div>
@@ -96,4 +90,3 @@
         });
     });
 </script>
-

@@ -22,7 +22,11 @@
     <div class="statistics">
         <div class="row">
             <div class="col-xl-12">
-                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.."/>
+                <a href="@Url.Action("Create","Post")"class="btn btn-primary mb-1"><i class="fas fa-rocket"></i> Thêm câu hỏi</a>
+
+            </div>
+            <div class="col-xl-12">
+                <input type="text" id="txtsearch" class="form-control" placeholder="Nhập từ cần tìm.." />
             </div>
 
             <div class="col-xl-12 table-responsive">
@@ -66,7 +70,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.post_activate_admin)
                             </td>
-                            
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.post_sum_reply)
                             </td>
@@ -80,10 +84,10 @@
                                 @Html.DisplayFor(modelItem => item.post_popular)
                             </td>
                             <td>
-                                
-                                <a href="#"><i class="far fa-edit"></i></a>|
+
+                                <a href="@Url.Action("Edit","Post",new { id = item.post_id})"><i class="far fa-edit"></i></a>|
                                 <a href="#"><i class="far fa-eye"></i></a> |
-                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                                <a href="@Url.Action("Delete","Post",new { id = item.post_id})"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         count++;
@@ -97,3 +101,19 @@
     </div>
 
 </div>
+<script>
+    $("#txtsearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(2)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+</script>

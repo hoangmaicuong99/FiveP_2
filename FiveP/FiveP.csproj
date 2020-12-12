@@ -580,6 +580,10 @@
     <Content Include="Content\DisplayMember\dispalymember.css" />
     <Content Include="Content\DisplayMember\displaymember.js" />
     <Content Include="Content\DisplayMember\StyleSheet1.css" />
+    <Content Include="Content\ImgAdvertisement\13721792641798383590.jfif" />
+    <Content Include="Content\ImgAdvertisement\14_11_43_download source code, do an, ma nguon mien phi.jpg" />
+    <Content Include="Content\ImgAdvertisement\share-code-1.jpg" />
+    <Content Include="Content\ImgAdvertisement\Sharecode-vs-topcode.jpg" />
     <Content Include="Content\LayoutCenter\AllQuestion.css" />
     <Content Include="Content\LayoutCenter\css\argon.css" />
     <Content Include="Content\LayoutCenter\css\argon.min.css" />
@@ -4004,6 +4008,22 @@
     <Content Include="Areas\Admin\Views\Address\Commune.cshtml" />
     <Content Include="Areas\Admin\Views\Address\District.cshtml" />
     <Content Include="Areas\Admin\Views\Address\Provincial.cshtml" />
+    <Content Include="Areas\Admin\Views\Advertisement\Img.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Friend.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\MostFamous.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\LessFamous.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ManyVipMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\LeastVipMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ManyGoldMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\LeastGoldMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ManySilverMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\LeastSilverMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ManyBronzeMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\LeastBronzeMedals.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Delete.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -4177,6 +4197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\Controllers3\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Commune\" />
     <Folder Include="Areas\Admin\Views\RatePost\" />

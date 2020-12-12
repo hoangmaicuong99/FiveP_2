@@ -16,6 +16,10 @@ Author URL: http://w3layouts.com
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+
 </head>
 
 <body class="sidebar-menu-collapsed">
@@ -51,6 +55,12 @@ Author URL: http://w3layouts.com
                         <a href="@Url.Action("Index","Users")"><i class="fas fa-users"></i><span> Người dùng</span></a>
                     </li>
                     <li class="active">
+                        <a href="@Url.Action("Index","Post")"><i class="fas fa-edit"></i><span> Câu hỏi?</span></a>
+                    </li>
+                    <li class="active">
+                        <a href="@Url.Action("Friend","Users")"><i class="fas fa-users"></i><span>Bạn người dùng</span></a>
+                    </li>
+                    <li class="active">
                         <a href="@Url.Action("Index","Technology")"><i class="fas fa-rocket"></i><span> Công nghệ</span></a>
                     </li>
                     <li class="active">
@@ -71,9 +81,7 @@ Author URL: http://w3layouts.com
                     <li class="active">
                         <a href="@Url.Action("ShowActivateReplyPost","Rate")"><i class="fas fa-globe-europe"></i><span> Hiển thị hoạt động trả lời câu hỏi</span></a>
                     </li>
-                    <li class="active">
-                        <a href="@Url.Action("Index","Post")"><i class="fas fa-edit"></i><span> Câu hỏi?</span></a>
-                    </li>
+
                     <li class="active">
                         <a href="@Url.Action("Tags","Post")"><i class="fas fa-tags"></i><span> Tags câu hỏi</span></a>
                     </li>
@@ -90,13 +98,16 @@ Author URL: http://w3layouts.com
                         <a href="@Url.Action("Index","Advertisement")"><i class="fas fa-ad"></i><span> Quảng cáo</span></a>
                     </li>
                     <li class="active">
-                        <a href="index.html"><i class="fas fa-map-marker-alt"></i><span> Tỉnh</span></a>
+                        <a href="@Url.Action("Img","Advertisement")"><i class="fas fa-ad"></i><span> Ảnh quảng cáo</span></a>
                     </li>
                     <li class="active">
-                        <a href="index.html"><i class="fas fa-map-marker-alt"></i><span> Huyện</span></a>
+                        <a href="@Url.Action("Provincial","Address")"><i class="fas fa-map-marker-alt"></i><span> Tỉnh</span></a>
                     </li>
                     <li class="active">
-                        <a href="index.html"><i class="fas fa-map-marker-alt"></i><span> Xã</span></a>
+                        <a href="@Url.Action("District","Address")"><i class="fas fa-map-marker-alt"></i><span> Huyện</span></a>
+                    </li>
+                    <li class="active">
+                        <a href="@Url.Action("Commune","Address")"><i class="fas fa-map-marker-alt"></i><span> Xã</span></a>
                     </li>
 
                 </ul>

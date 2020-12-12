@@ -15,5 +15,9 @@ namespace FiveP.Areas.Admin.Controllers
         {
             return View(db.Advertisements.ToList());
         }
+        public ActionResult Img()
+        {
+            return View(db.Image_Advertisement.ToList());
+        }
     }
 }

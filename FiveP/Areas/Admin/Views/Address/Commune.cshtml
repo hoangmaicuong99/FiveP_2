@@ -28,7 +28,7 @@
 
             </div>
             <div class="col-xl-12">
-                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+                <input type="text" id="txtsearch" class="form-control" placeholder="Nhập từ cần tìm.." />
             </div>
 
             <div class="col-xl-12 table-responsive">
@@ -79,14 +79,25 @@
                         </tr>
                         count++;
                     }
-
                 </table>
-
             </div>
-
         </div>
     </div>
-
 </div>
-
+<script>
+    $("#txtsearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(2)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+</script>
 

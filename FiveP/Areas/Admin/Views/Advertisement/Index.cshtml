@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int intCount = 1;
 }
 <div class="container-fluid content-top-gap">
 
@@ -25,7 +26,7 @@
 
             </div>
             <div class="col-xl-12">
-                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+                <input type="text" id="txtsearch" class="form-control" placeholder="Nhập từ cần tìm.." />
             </div>
 
             <div class="col-xl-12 table-responsive">
@@ -33,10 +34,13 @@
                 <table class="table">
                     <tr class="bg-light">
                         <th>
-                            @Html.DisplayNameFor(model => model.advertisement_nicename)
+                            Stt
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.advertisement_note)
+                            Tên công ty
+                        </th>
+                        <th>
+                            Ghi chú
                         </th>
                         <th></th>
                     </tr>
@@ -45,26 +49,41 @@
                     {
                         <tr>
                             <td>
+                                @intCount
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.advertisement_nicename)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.advertisement_note)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.advertisement_id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.advertisement_id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.advertisement_id })
+                                <a href="#"><i class="far fa-edit"></i></a>|
+                                <a href="#"><i class="far fa-eye"></i></a> |
+                                <a href="#"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
+                        intCount++;
                     }
-
                 </table>
-
             </div>
-
         </div>
     </div>
-
 </div>
-
+<script>
+    $("#txtsearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(2)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+</script>
 

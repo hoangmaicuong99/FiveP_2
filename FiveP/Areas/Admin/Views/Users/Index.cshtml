@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<FiveP.Models.User>
+@using System.Text;
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     int count = 1;
 }
-
 <div class="container-fluid content-top-gap">
 
     <nav aria-label="breadcrumb">
@@ -26,12 +27,12 @@
 
             </div>
             <div class="col-xl-12">
-                <input type="text" class="form-control" placeholder="Nhập từ cần tìm.." />
+                <input type="text" id="txtsearch" class="form-control" placeholder="Nhập từ cần tìm.." />
             </div>
 
             <div class="col-xl-12 table-responsive">
 
-                <table class="table">
+                <table class="table" id="AllQuestionPage">
                     <tr>
                         <th>
                             Stt
@@ -45,7 +46,7 @@
                             Chức vụ
                         </th>
                         <th>
-                            Đăng nhập gần đây <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                            Đăng nhập gần đây
                         </th>
 
                         <th>
@@ -56,25 +57,22 @@
                         </th>
 
                         <th>
-                            Nổi tiếng <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                            Nổi tiếng <a href="@Url.Action("MostFamous","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LessFamous","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
                         </th>
                         <th>
-                            <i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                            <i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> <a href="@Url.Action("ManyVipMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastVipMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
                         </th>
                         <th>
-                            <i class="fas fa-medal" style="color:yellow"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                            <i class="fas fa-medal" style="color:yellow"></i> <a href="@Url.Action("ManyGoldMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastGoldMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
                         </th>
                         <th>
-                            <i class="fas fa-medal" style="color:silver"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                            <i class="fas fa-medal" style="color:silver"></i> <a href="@Url.Action("ManySilverMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastSilverMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
                         </th>
                         <th>
-                            <i class="fas fa-medal" style="color:#e88d15"></i> <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
+                            <i class="fas fa-medal" style="color:#e88d15"></i> <a href="@Url.Action("ManyBronzeMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastBronzeMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
                         </th>
-
-
                         <th></th>
                     </tr>
-
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -84,21 +82,27 @@
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.user_nicename)
-                                Ảnh
                             </td>
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.user_role)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.user_datelogin)
+                                @item.user_datelogin.Value.ToShortDateString()
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.user_pass)
+                                ... <a href="#"><i class="fas fa-eye"></i></a>
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.user_activate_admin)
+                                @if (item.user_activate_admin == true)
+                                {
+                                    <span style="color:green">Hoạt động</span>
+                                }
+                                else
+                                {
+                                    <span style="color:red">Không hoạt động</span>
+                                }
                             </td>
 
                             <td>
@@ -117,11 +121,10 @@
                                 @Html.DisplayFor(modelItem => item.user_bronze_medal)
                             </td>
 
-
                             <td>
-                                <a href="#"><i class="far fa-edit"></i></a>|
-                                <a href="#"><i class="far fa-eye"></i></a> |
-                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                                <a href="@Url.Action("Edit", "Users", new { id = item.user_id })"><i class="far fa-edit"></i></a>|
+                                <a href="/UserPage/IndexUserPage?id=@Convert.ToBase64String(Encoding.ASCII.GetBytes(item.user_id.ToString()))"><i class="far fa-eye"></i></a> |
+                                <a href="@Url.Action("Delete","Users", new { id = item.user_id})"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         count++;
@@ -134,39 +137,14 @@
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h5 class="modal-title h4" id="exampleModalLgLabel"><i class="fas fa-pen"></i> Công nghệ mới</h5>
+                                <h5 class="modal-title h4" id="exampleModalLgLabel"><i class="fas fa-pen"></i>Thêm user mới </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="@Url.Action("AddTechnology","Technology")" method="post">
+                                <form action="@Url.Action("AddUser","Users")" method="post">
                                     <div class="row mt--4">
-                                        <div class="col-md-12">
-                                            <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Tên user</small>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-signature"></i></span>
-                                                    </div>
-                                                    <input name="technology_name" class="flatpickr flatpickr-input form-control" type="text" placeholder="Công nghệ..">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Vai trò</small>
-                                            <div class="form-group">
-                                                <input name="technology_popular" class="flatpickr flatpickr-input form-control" type="text" value="10">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Nổi tiếng</small>
-                                            <div class="form-group">
-                                                <input name="technology_popular" class="flatpickr flatpickr-input form-control" type="text" value="10">
-
-                                            </div>
-                                        </div>
                                         <div class="col-md-12">
                                             <small class="d-block text-uppercase font-weight-bold mb-3 text-left">Email</small>
                                             <div class="form-group">
@@ -174,7 +152,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-signature"></i></span>
                                                     </div>
-                                                    <input name="technology_name" class="flatpickr flatpickr-input form-control" type="text" placeholder="Công nghệ..">
+                                                    <input name="user_email" class="flatpickr flatpickr-input form-control" type="text" placeholder="Email đăng nhập..">
                                                 </div>
                                             </div>
                                         </div>
@@ -185,22 +163,10 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-signature"></i></span>
                                                     </div>
-                                                    <input name="technology_name" class="flatpickr flatpickr-input form-control" type="text" placeholder="Công nghệ..">
+                                                    <input name="user_pass" class="flatpickr flatpickr-input form-control" type="text" placeholder="Password..">
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-12">
-                                            <small class="d-block text-uppercase font-weight-bold mb-3 text-left"><i class="fas fa-briefcase"></i>Nội dung</small>
-                                            <div class="input-daterange">
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <textarea name="technology_content" class="flatpickr range form-control" style="height:120px" placeholder="Nội dung.."></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="col-md-12">
                                             <button type="submit" class="btn btn-primary w-100"><i class="far fa-paper-plane"></i> Hoàn thành</button>
                                         </div>
@@ -216,4 +182,20 @@
     </div>
 
 </div>
+<script>
+    $("#txtsearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(2)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+</script>
 

@@ -1,0 +1,107 @@
+﻿
+@model IEnumerable<FiveP.Models.User>
+@{
+    int count = 1;
+}
+<tr>
+    <th>
+        Stt
+    </th>
+
+    <th>
+        Tên
+    </th>
+
+    <th>
+        Chức vụ
+    </th>
+    <th>
+        Đăng nhập gần đây
+    </th>
+
+    <th>
+        Mật khẩu
+    </th>
+    <th>
+        Trạng thái
+    </th>
+
+    <th>
+        Nổi tiếng <a href="@Url.Action("MostFamous","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LessFamous","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
+    </th>
+    <th>
+        <i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> <a href="@Url.Action("ManyVipMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastVipMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
+    </th>
+    <th>
+        <i class="fas fa-medal" style="color:yellow"></i> <a href="@Url.Action("ManyGoldMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastGoldMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
+    </th>
+    <th>
+        <i class="fas fa-medal" style="color:silver"></i> <a href="@Url.Action("ManySilverMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastSilverMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
+    </th>
+    <th>
+        <i class="fas fa-medal" style="color:#e88d15"></i> <a href="@Url.Action("ManyBronzeMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-up"></i></a><a href="@Url.Action("LeastBronzeMedals","Users")" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#AllQuestionPage"><i class="fas fa-long-arrow-alt-down"></i></a>
+    </th>
+
+    <th></th>
+</tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @count
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.user_nicename)
+            Ảnh
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.user_role)
+        </td>
+        <td>
+            @item.user_datelogin.Value.ToShortDateString()
+        </td>
+        <td>
+            ... <a href="#"><i class="fas fa-eye"></i></a>
+        </td>
+
+        <td>
+            @if (item.user_activate_admin == true)
+            {
+                <span style="color:green">Hoạt động</span>
+            }
+            else
+            {
+                <span style="color:red">Không hoạt động</span>
+            }
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.user_popular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_vip_medal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_gold_medal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_silver_medal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_bronze_medal)
+        </td>
+
+
+        <td>
+            <a href="#"><i class="far fa-edit"></i></a>|
+            <a href="#"><i class="far fa-eye"></i></a> |
+            <a href="#"><i class="far fa-trash-alt"></i></a>
+        </td>
+    </tr>
+    count++;
+}
+
+

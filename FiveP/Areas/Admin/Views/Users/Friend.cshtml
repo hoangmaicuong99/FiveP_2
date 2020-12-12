@@ -1,21 +1,21 @@
-﻿@model IEnumerable<FiveP.Models.District>
+﻿@model IEnumerable<FiveP.Models.Friend>
 
 @{
-    ViewBag.Title = "District";
+    ViewBag.Title = "Friend";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    int count = 1;
-
+    int intCount = 1;
 }
+
 <div class="container-fluid content-top-gap">
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb my-breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page"> Câu hỏi</li>
+            <li class="breadcrumb-item active" aria-current="page"> Kết bạn</li>
         </ol>
     </nav>
     <div class="welcome-msg pt-3 pb-4">
-        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() Câu hỏi</h1>
+        <h1>Hi <span class="text-primary">John</span>, Có @Model.Count() bạn</h1>
         <p>Very detailed & featured admin.</p>
     </div>
 
@@ -23,21 +23,26 @@
     <div class="statistics">
         <div class="row">
             <div class="col-xl-12">
-                <input type="text" id="txtsearch" class="form-control" placeholder="Nhập từ cần tìm.." />
+                <a href="#" class="btn btn-primary mb-1"><i class="fas fa-rocket"></i> Thêm bạn</a>
+
+            </div>
+            <div class="col-xl-12">
+                <input type="text" class="form-control" id="txtsearch" placeholder="Nhập từ cần tìm.." />
             </div>
 
             <div class="col-xl-12 table-responsive">
 
                 <table class="table">
-                    <tr class="bg-light">
+                    <tr>
                         <th>
                             Stt
                         </th>
+
                         <th>
-                            Tĩnh
+                            Tên người gửi
                         </th>
                         <th>
-                            Huyện
+                            Tên người nhận
                         </th>
                         <th>
                             Ngày <a href="#"><i class="fas fa-long-arrow-alt-up"></i></a><a href="#"><i class="fas fa-long-arrow-alt-down"></i></a>
@@ -52,20 +57,30 @@
                     {
                         <tr>
                             <td>
-                                @count
-
+                                @intCount
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Provincial.provincial_name)
+                                @Html.DisplayFor(modelItem => item.User.user_nicename)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.district_name)
+                                @Html.DisplayFor(modelItem => item.User1.user_nicename)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.district_date)
+                                @Html.DisplayFor(modelItem => item.friend_datecreate)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.district_activate)
+                                @if(item.friend_status == true)
+                                {
+                                    <span>Bạn bè</span>
+                                }
+                                else if(item.friend_status == false)
+                                {
+                                    <span>Chờ </span>
+                                }
+                                else
+                                {
+                                    <span>...</span>
+                                }
                             </td>
                             <td>
                                 <a href="#"><i class="far fa-edit"></i></a>|
@@ -73,12 +88,16 @@
                                 <a href="#"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
-                        count++;
+                        intCount++;
                     }
+
                 </table>
+
             </div>
+
         </div>
     </div>
+
 </div>
 <script>
     $("#txtsearch").on("keyup", function () {
