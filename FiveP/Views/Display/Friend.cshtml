@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Friend";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    User user = (User)Session["user"];
 }
 
 <link href="~/Content/DisplayMember/StyleSheet1.css" rel="stylesheet" />
@@ -85,7 +86,16 @@
                             </div>
                             <div class="col-7">
                                 <div class="d-block text-truncate mb-1">
-                                    <a href="cateview.php" class="cartproname">@item.User.user_nicename</a>
+                                    <a href="cateview.php" class="cartproname">
+                                        @if(item.user_id == user.user_id)
+                                        {
+                                            <span>@item.User1.user_nicename</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.User.user_nicename</span>
+                                        }
+                                    </a>
                                 </div>
                                 <div class="seller d-block">
                                     <span>@item.User.user_vip_medal<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> </span>

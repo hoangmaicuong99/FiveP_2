@@ -52,6 +52,17 @@ namespace FiveP.Controllers
             }
             else
             {
+                User user1 = db.Users.Where(n => n.user_activate == true && n.user_role == 1).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == pass_encode);
+                if(user1 != null)
+                {
+                    Session["admin"] = user1;
+                    db.Users.Find(user1.user_id).user_datelogin = DateTime.Now;
+                    db.Users.Find(user1.user_id).user_token = Guid.NewGuid().ToString();
+                    db.SaveChanges();
+                    Session["notLogin"] = null;
+                    return Redirect("/Admin/HomeAdmin/Index");
+                }
+
                 Session["notLogin"] = "<p class='remember' style='color:#721c24; background-color:#f8d7da; border-color:#f5c6cb; padding: .75rem 1.25rem; border: 1px solid transparent; border-radius: .25rem; line-height: 1.5;'>Sai tài khoản hoặc mật khẩu</p>";
                 return Redirect(Request.UrlReferrer.ToString());
             }
