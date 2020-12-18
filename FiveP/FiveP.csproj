@@ -3976,13 +3976,6 @@
     <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.ttf" />
     <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.woff" />
     <Content Include="Content\Semantic\themes\default\assets\fonts\outline-icons.woff2" />
-    <EntityDeploy Include="Models\FiveP.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FiveP.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\FiveP.edmx.diagram">
-      <DependentUpon>FiveP.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Content\AdminLayout\fonts\fontawesome-webfont.eot" />
@@ -4024,6 +4017,13 @@
     <Content Include="Areas\Admin\Views\Post\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Post\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Post\Delete.cshtml" />
+    <EntityDeploy Include="Models\FiveP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FiveP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\FiveP.edmx.diagram">
+      <DependentUpon>FiveP.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

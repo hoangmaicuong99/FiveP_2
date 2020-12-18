@@ -14,6 +14,6 @@ namespace FiveP.Models
     
     public partial class History_User
     {
-        public int history_user_id { get; set; }
+        public int history_id { get; set; }
     }
 }
